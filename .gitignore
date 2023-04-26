@@ -1,6 +1,4 @@
 .vs/
 .metadata/
-Debug/
-Doxygen/
-.settings/
-.DS_Store
+/CubeIDE/Swont_ide_uart_6.5/swont_ide/Debug/
+/CubeIDE/Swont_ide_uart_6.5/swont_ide/Doxygen/
