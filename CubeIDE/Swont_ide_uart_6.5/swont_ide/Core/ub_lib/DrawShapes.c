@@ -6,6 +6,7 @@
  *      Author: Sjoerd
  */
 #include <main.h>
+#include <math.h>
 
 /**
  * @fn int DrawRectangle(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
@@ -20,7 +21,8 @@
  * @return
  */
 int DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
-		uint8_t color, uint8_t filled) {
+		uint8_t color, uint8_t filled)
+{
 	if (filled == 0)
 	{
 		for (uint8_t y = yp; y < yp + Heigth; y++)
@@ -31,7 +33,7 @@ int DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
 			}
 		}
 	}
-	//rectangle not filled only lines
+	//rectangle not filled, only lines
 	if(filled == 1)
 	{
 		//top line
@@ -58,3 +60,53 @@ int DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
 		}
 	}
 }
+
+/**
+ * @fn int DrawLine(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
+ * @brief Draws a line in between the specified points with color and thickness
+ *
+ * @param xp
+ * @param yp
+ * @param xp2
+ * @param yp2
+ * @param color
+ * @param thickness
+ * @return
+ */
+int DrawLine(uint8_t xp1, uint8_t yp1, uint8_t xp2, uint8_t yp2, uint8_t color, uint8_t thickness)
+{
+	int dx = xp2 - xp1;
+    int dy = yp2 - yp1;
+
+    // calculate steps required for generating pixels
+    int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+
+    // calculate increment in x & y for each steps
+    float Xinc = dx / (float)steps;
+    float Yinc = dy / (float)steps;
+
+    // Put pixel for each step
+    for(int j=0-abs(thickness/2); j <= abs(thickness/2); j++)
+    {
+    	float X = xp1 + 0.5;
+    	float Y = yp1 + j + 0.5;
+    	for (int i = 0; i <= steps; i++)
+    	{
+    		 UB_VGA_SetPixel(X,Y,color);
+    		 X += Xinc; // increment in x at each step
+    		 Y += Yinc;
+    	}
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
