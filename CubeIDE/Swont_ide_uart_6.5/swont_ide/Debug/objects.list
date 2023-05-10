@@ -1,3 +1,4 @@
+"./Core/Front_Layer/Parser.o"
 "./Core/Src/Draw_Line.o"
 "./Core/Src/dma.o"
 "./Core/Src/gpio.o"
