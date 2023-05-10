@@ -7,7 +7,9 @@
  */
 #include <main.h>
 #include <math.h>
+#include <Bitmaps.h>
 
+#define BITMAPSIZE 10
 /**
  * @fn int DrawRectangle(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
  * @brief Draws a rectangle with the specified color within the x & y coordinates
@@ -111,6 +113,20 @@ int ClearScreen(uint8_t color)
 	UB_VGA_FillScreen(color);
 }
 
+int DrawBitmap(uint8_t selector, uint8_t xp, uint8_t yp, uint8_t color)
+{
+	for (uint8_t y = 0; y < BITMAPSIZE; y++)
+			{
+				for (uint8_t x = 0; x < BITMAPSIZE; x++)
+				{
+					if (smileyFace[y][x] == 1)
+					{
+						UB_VGA_SetPixel(xp+x, yp+y, color);
+					}
+
+				}
+			}
+}
 
 
 
