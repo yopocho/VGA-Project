@@ -1,5 +1,5 @@
-\hypertarget{main_8c}{}\doxysection{C\+:/\+Users/niels/\+Documents/\+Homework/\+Jaar\+\_\+3/\+Software Ontwikkeling/\+V\+G\+A\+\_\+\+Project/\+Cube\+I\+D\+E/\+Swont\+\_\+ide\+\_\+uart\+\_\+6.5/swont\+\_\+ide/\+Core/\+Src/main.c File Reference}
-\label{main_8c}\index{C:/Users/niels/Documents/Homework/Jaar\_3/Software Ontwikkeling/VGA\_Project/CubeIDE/Swont\_ide\_uart\_6.5/swont\_ide/Core/Src/main.c@{C:/Users/niels/Documents/Homework/Jaar\_3/Software Ontwikkeling/VGA\_Project/CubeIDE/Swont\_ide\_uart\_6.5/swont\_ide/Core/Src/main.c}}
+\hypertarget{main_8c}{}\doxysection{/\+Users/r\+\_\+middelman/\+Software\+\_\+\+Ontwikkeling/\+VGA-\/\+Project/\+Cube\+IDE/\+Swont\+\_\+ide\+\_\+uart\+\_\+6.5/swont\+\_\+ide/\+Core/\+Src/main.c File Reference}
+\label{main_8c}\index{/Users/r\_middelman/Software\_Ontwikkeling/VGA-\/Project/CubeIDE/Swont\_ide\_uart\_6.5/swont\_ide/Core/Src/main.c@{/Users/r\_middelman/Software\_Ontwikkeling/VGA-\/Project/CubeIDE/Swont\_ide\_uart\_6.5/swont\_ide/Core/Src/main.c}}
 
 
 \+: Main program body  
@@ -10,11 +10,11 @@
 {\ttfamily \#include \char`\"{}tim.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}usart.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}gpio.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Parser.\+h\char`\"{}}\newline
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{main_8c_a6bac225908d39cd36055eb038aa79c0b}\label{main_8c_a6bac225908d39cd36055eb038aa79c0b}} 
-\#define {\bfseries U\+S\+A\+R\+T\+\_\+\+P\+R\+I\+N\+TF}~int fputc(int ch, F\+I\+LE $\ast$f)
+\#define \mbox{\hyperlink{main_8c_a6bac225908d39cd36055eb038aa79c0b}{USART\+\_\+\+PRINTF}}~int fputc(int \mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}}, FILE $\ast$f)
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -28,22 +28,17 @@ void \mbox{\hyperlink{main_8c_a1730ffe1e560465665eb47d9264826f9}{Error\+\_\+\+Ha
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{main_8c_a0d0c46791672d829075326a134858672}\label{main_8c_a0d0c46791672d829075326a134858672}} 
-\mbox{\hyperlink{structinput__vars}{input\+\_\+vars}} {\bfseries input}
+\mbox{\hyperlink{structinput__vars}{input\+\_\+vars}} \mbox{\hyperlink{main_8c_a0d0c46791672d829075326a134858672}{input}}
 \item 
-\mbox{\Hypertarget{main_8c_a945cd2261a2991d2fd051aa21bbd46a0}\label{main_8c_a945cd2261a2991d2fd051aa21bbd46a0}} 
-volatile char {\bfseries container} \mbox{[}1024\mbox{]}
+volatile char \mbox{\hyperlink{main_8c_a945cd2261a2991d2fd051aa21bbd46a0}{container}} \mbox{[}1024\mbox{]}
 \item 
-\mbox{\Hypertarget{main_8c_aed71a558a0fc065e11b9c3c8fc2e2ad6}\label{main_8c_aed71a558a0fc065e11b9c3c8fc2e2ad6}} 
-volatile int {\bfseries temp}
+volatile int \mbox{\hyperlink{main_8c_aed71a558a0fc065e11b9c3c8fc2e2ad6}{temp}}
 \item 
-\mbox{\Hypertarget{main_8c_aebcfb1663ad4c68bf6386e05f4d990d3}\label{main_8c_aebcfb1663ad4c68bf6386e05f4d990d3}} 
-volatile int {\bfseries key}
+volatile int \mbox{\hyperlink{main_8c_aebcfb1663ad4c68bf6386e05f4d990d3}{key}}
 \item 
-{\bfseries U\+S\+A\+R\+T\+\_\+\+P\+R\+I\+N\+TF}
+\mbox{\hyperlink{main_8c_a1a7dab423912a84e2df34e6b03af3553}{USART\+\_\+\+PRINTF}}
 \item 
-\mbox{\Hypertarget{main_8c_a0523c05685d59544dca911cb6a3db77d}\label{main_8c_a0523c05685d59544dca911cb6a3db77d}} 
-return {\bfseries ch}
+return \mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}}
 \end{DoxyCompactItemize}
 
 
@@ -53,9 +48,18 @@ return {\bfseries ch}
 \begin{DoxyAttention}{Attention}
 
 \end{DoxyAttention}
-\doxysubsubsection*{\begin{center}\copyright{} Copyright (c) 2020 S\+T\+Microelectronics. All rights reserved.\end{center} }
+\doxysubsubsection*{\begin{center}\copyright{} Copyright (c) 2020 STMicroelectronics. All rights reserved.\end{center} }
 
-This software component is licensed by ST under B\+SD 3-\/Clause license, the \char`\"{}\+License\char`\"{}; You may not use this file except in compliance with the License. You may obtain a copy of the License at\+: opensource.\+org/licenses/\+B\+S\+D-\/3-\/\+Clause 
+This software component is licensed by ST under BSD 3-\/Clause license, the \char`\"{}\+License\char`\"{}; You may not use this file except in compliance with the License. You may obtain a copy of the License at\+: opensource.\+org/licenses/\+BSD-\/3-\/\+Clause 
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{main_8c_a6bac225908d39cd36055eb038aa79c0b}\label{main_8c_a6bac225908d39cd36055eb038aa79c0b}} 
+\index{main.c@{main.c}!USART\_PRINTF@{USART\_PRINTF}}
+\index{USART\_PRINTF@{USART\_PRINTF}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{USART\_PRINTF}{USART\_PRINTF}}
+{\footnotesize\ttfamily \#define USART\+\_\+\+PRINTF~int fputc(int \mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}}, FILE $\ast$f)}
+
+
 
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{main_8c_a1730ffe1e560465665eb47d9264826f9}\label{main_8c_a1730ffe1e560465665eb47d9264826f9}} 
@@ -105,20 +109,50 @@ System Clock Configuration.
 \end{DoxyRetVals}
 Configure the main internal regulator output voltage
 
-Initializes the R\+CC Oscillators according to the specified parameters in the \mbox{\hyperlink{struct_r_c_c___osc_init_type_def}{R\+C\+C\+\_\+\+Osc\+Init\+Type\+Def}} structure.
+Initializes the RCC Oscillators according to the specified parameters in the \mbox{\hyperlink{struct_r_c_c___osc_init_type_def}{RCC\+\_\+\+Osc\+Init\+Type\+Def}} structure.
 
-Initializes the C\+PU, A\+HB and A\+PB buses clocks
+Initializes the CPU, AHB and APB buses clocks
 
 \doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{main_8c_a0523c05685d59544dca911cb6a3db77d}\label{main_8c_a0523c05685d59544dca911cb6a3db77d}} 
+\index{main.c@{main.c}!ch@{ch}}
+\index{ch@{ch}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{ch}{ch}}
+{\footnotesize\ttfamily return ch}
+
+\mbox{\Hypertarget{main_8c_a945cd2261a2991d2fd051aa21bbd46a0}\label{main_8c_a945cd2261a2991d2fd051aa21bbd46a0}} 
+\index{main.c@{main.c}!container@{container}}
+\index{container@{container}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{container}{container}}
+{\footnotesize\ttfamily volatile char container\mbox{[}1024\mbox{]}}
+
+\mbox{\Hypertarget{main_8c_a0d0c46791672d829075326a134858672}\label{main_8c_a0d0c46791672d829075326a134858672}} 
+\index{main.c@{main.c}!input@{input}}
+\index{input@{input}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{input}{input}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structinput__vars}{input\+\_\+vars}} input}
+
+\mbox{\Hypertarget{main_8c_aebcfb1663ad4c68bf6386e05f4d990d3}\label{main_8c_aebcfb1663ad4c68bf6386e05f4d990d3}} 
+\index{main.c@{main.c}!key@{key}}
+\index{key@{key}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily volatile int key}
+
+\mbox{\Hypertarget{main_8c_aed71a558a0fc065e11b9c3c8fc2e2ad6}\label{main_8c_aed71a558a0fc065e11b9c3c8fc2e2ad6}} 
+\index{main.c@{main.c}!temp@{temp}}
+\index{temp@{temp}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{temp}{temp}}
+{\footnotesize\ttfamily volatile int temp}
+
 \mbox{\Hypertarget{main_8c_a1a7dab423912a84e2df34e6b03af3553}\label{main_8c_a1a7dab423912a84e2df34e6b03af3553}} 
 \index{main.c@{main.c}!USART\_PRINTF@{USART\_PRINTF}}
 \index{USART\_PRINTF@{USART\_PRINTF}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{USART\_PRINTF}{USART\_PRINTF}}
-{\footnotesize\ttfamily U\+S\+A\+R\+T\+\_\+\+P\+R\+I\+N\+TF}
+{\footnotesize\ttfamily USART\+\_\+\+PRINTF}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    HAL\_UART\_Transmit(\&\mbox{\hyperlink{stm32f4xx__it_8c_aa9479c261d65eecedd3d9582f7f0f89c}{huart2}}, (uint8\_t *)\&ch, 1, 0xFFFF)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga210329848c1873957034e129ccf8944e}{HAL\_UART\_Transmit}}(\&\mbox{\hyperlink{usart_8h_aa9479c261d65eecedd3d9582f7f0f89c}{huart2}},\ (uint8\_t\ *)\&\mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}},\ 1,\ 0xFFFF)}
 
 \end{DoxyCode}

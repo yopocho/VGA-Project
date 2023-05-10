@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['flash_5fproceduretypedef_11253',['FLASH_ProcedureTypeDef',['../group___f_l_a_s_h___exported___types.html#ga2b0268387bc11bcab76be9ce7c43eaaf',1,'stm32f4xx_hal_flash.h']]]
+  ['errorstatus_0',['ErrorStatus',['../group___exported__types.html#ga8333b96c67f83cba354b3407fcbb6ee8',1,'stm32f4xx.h']]],
+  ['exti_5fcallbackidtypedef_1',['EXTI_CallbackIDTypeDef',['../group___e_x_t_i___exported___types.html#ga0ff36e8796a6ad3f2fc211e534c54c0e',1,'stm32f4xx_hal_exti.h']]]
 ];
