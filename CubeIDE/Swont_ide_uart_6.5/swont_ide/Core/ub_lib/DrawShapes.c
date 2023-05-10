@@ -99,6 +99,17 @@ int DrawLine(uint8_t xp1, uint8_t yp1, uint8_t xp2, uint8_t yp2, uint8_t color, 
     }
 }
 
+/**
+ * @fn int ClearScreen(uint8_t)
+ * @brief Clears the screen in the specified color
+ *
+ * @param color
+ * @return
+ */
+int ClearScreen(uint8_t color)
+{
+	UB_VGA_FillScreen(color);
+}
 
 
 
