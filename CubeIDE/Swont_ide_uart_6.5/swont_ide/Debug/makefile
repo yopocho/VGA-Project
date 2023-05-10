@@ -13,6 +13,7 @@ RM := rm -rf
 -include Core/ub_lib/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
+-include Core/Front_Layer/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -61,8 +62,8 @@ all: main-build
 main-build: swont_ide.elf secondary-outputs
 
 # Tool invocations
-swont_ide.elf swont_ide.map: $(OBJS) $(USER_OBJS) C:\Users\Sjoerd\Documents\HU_EE\Jaar_3\Periode_D\Software_Ontwerpen\VGA_groep4\CubeIDE\Swont_ide_uart_6.5\swont_ide\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "swont_ide.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Sjoerd\Documents\HU_EE\Jaar_3\Periode_D\Software_Ontwerpen\VGA_groep4\CubeIDE\Swont_ide_uart_6.5\swont_ide\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="swont_ide.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+swont_ide.elf swont_ide.map: $(OBJS) $(USER_OBJS) /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "swont_ide.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="swont_ide.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
