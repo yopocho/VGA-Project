@@ -7,7 +7,5 @@
 
 #include "Parser.h"
 
-void Function_Test(int hallo) {
-	return 0;
 
-}
+void Function_Test(int hallo) { return 0; }
