@@ -27,7 +27,7 @@ Core/Src/usart.o: ../Core/Src/usart.c ../Core/Inc/usart.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- C:/Users/Sjoerd/Documents/HU_EE/Jaar_3/Periode_D/Software_Ontwerpen/VGA_groep4/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/ub_lib/stm32_ub_vga_screen.h \
+ /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/ub_lib/stm32_ub_vga_screen.h \
  ../Core/Inc/main.h
 ../Core/Inc/usart.h:
 ../Core/Inc/main.h:
@@ -59,5 +59,5 @@ Core/Src/usart.o: ../Core/Src/usart.c ../Core/Inc/usart.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-C:/Users/Sjoerd/Documents/HU_EE/Jaar_3/Periode_D/Software_Ontwerpen/VGA_groep4/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/ub_lib/stm32_ub_vga_screen.h:
+/Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/ub_lib/stm32_ub_vga_screen.h:
 ../Core/Inc/main.h:
