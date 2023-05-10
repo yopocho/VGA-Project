@@ -5,12 +5,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/ub_lib/DrawShapes.c \
 ../Core/ub_lib/stm32_ub_vga_screen.c 
 
 OBJS += \
+./Core/ub_lib/DrawShapes.o \
 ./Core/ub_lib/stm32_ub_vga_screen.o 
 
 C_DEPS += \
+./Core/ub_lib/DrawShapes.d \
 ./Core/ub_lib/stm32_ub_vga_screen.d 
 
 
@@ -21,7 +24,7 @@ Core/ub_lib/%.o Core/ub_lib/%.su Core/ub_lib/%.cyclo: ../Core/ub_lib/%.c Core/ub
 clean: clean-Core-2f-ub_lib
 
 clean-Core-2f-ub_lib:
-	-$(RM) ./Core/ub_lib/stm32_ub_vga_screen.cyclo ./Core/ub_lib/stm32_ub_vga_screen.d ./Core/ub_lib/stm32_ub_vga_screen.o ./Core/ub_lib/stm32_ub_vga_screen.su
+	-$(RM) ./Core/ub_lib/DrawShapes.cyclo ./Core/ub_lib/DrawShapes.d ./Core/ub_lib/DrawShapes.o ./Core/ub_lib/DrawShapes.su ./Core/ub_lib/stm32_ub_vga_screen.cyclo ./Core/ub_lib/stm32_ub_vga_screen.d ./Core/ub_lib/stm32_ub_vga_screen.o ./Core/ub_lib/stm32_ub_vga_screen.su
 
 .PHONY: clean-Core-2f-ub_lib
 

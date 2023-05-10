@@ -63,6 +63,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t UART1_rxBuffer[12] = {0};
 
 /* USER CODE END 0 */
 
@@ -112,15 +113,15 @@ int main(void)
 //  UB_VGA_SetPixel(10,16,VGA_COL_BLUE);
 //  //UB_VGA_SetPixel(0,0,0x00);
 //  //UB_VGA_SetPixel(319,,0x00);
-  Draw_Line(10,10,180,40, VGA_COL_RED);
-  Draw_Line(10,40,180,70, VGA_COL_WHITE);
-  Draw_Line(10,70,180,100, VGA_COL_BLUE);
+//  Draw_Line(10,10,180,40, VGA_COL_RED);
+//  Draw_Line(10,40,180,70, VGA_COL_WHITE);
+//  Draw_Line(10,70,180,100, VGA_COL_BLUE);
   int i;
 
   for(i = 0; i < LINE_BUFLEN; i++)
 	  input.line_rx_buffer[i] = 0;
 
-  // Reset some stuff
+//  // Reset some stuff
   input.byte_buffer_rx[0] = 0;
   input.char_counter = 0;
   input.command_execute_flag = FALSE;
@@ -143,8 +144,8 @@ int main(void)
 	  {
 		  // Do some stuff
 		  printf("yes\n");
-		  colorTest = ~colorTest; // Toggle screen color
-		  UB_VGA_FillScreen(colorTest);
+//		  colorTest = ~colorTest; // Toggle screen color
+//		  UB_VGA_FillScreen(colorTest);
 
 		  // When finished reset the flag
 		  input.command_execute_flag = FALSE;
@@ -244,5 +245,6 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

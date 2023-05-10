@@ -8,4 +8,10 @@
 #ifndef FRONT_LAYER_PARSER_H_
 #define FRONT_LAYER_PARSER_H_
 
+#include "usart.h"
+
+//#define FRONT_LAYER_DEBUG
+
+void ReadUserData(UART_HandleTypeDef *uartHandle);
+
 #endif /* FRONT_LAYER_PARSER_H_ */

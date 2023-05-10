@@ -7,5 +7,15 @@
 
 #include "Parser.h"
 
+char debugMessage[] = "Debug is working";
 
-void Function_Test(int hallo) { return 0; }
+
+void Parse_On_Komma(input_vars inputStruct){
+
+}
+
+void OutputDebug(char debugMessage, UART_HandleTypeDef *uartHandle){
+	HAL_UART_Transmit(uartHandle, debugMessage, sizeof(debugMessage), 10);
+}
+
+

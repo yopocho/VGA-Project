@@ -13,6 +13,7 @@ RM := rm -rf
 -include Core/ub_lib/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
+-include Core/Logic_Layer/subdir.mk
 -include Core/Front_Layer/subdir.mk
 -include objects.mk
 
