@@ -7,15 +7,31 @@
 
 #include "Parser.h"
 
-char debugMessage[] = "Debug is working";
+char debugMessageParse[] = "Found comma in message\n";
 
-
-void Parse_On_Komma(input_vars inputStruct){
-
+/// @fn void ParseOnKomma(input_vars)
+/// @brief
+///
+/// @param inputStruct
+void ParseOnKomma(input_vars inputStruct) {
+  // walk through all letters of the messsage
+  for (int i = 0; i < inputStruct.msglen; i++) {
+    // check if there is a comma
+    if (inputStruct.line_rx_buffer[i] == 44) {
+      #ifdef FRONT_LAYER_DEBUG
+        OutputDebug(debugMessage, sizeof(debugMessage), &huart2);
+      #endif
+    }
+  }
 }
 
-void OutputDebug(char debugMessage, UART_HandleTypeDef *uartHandle){
-	HAL_UART_Transmit(uartHandle, debugMessage, sizeof(debugMessage), 10);
+/// @fn void OutputDebug(char[], size_t, UART_HandleTypeDef*)
+/// @brief
+///
+/// @param message
+/// @param messageLength
+/// @param uartHandle
+void OutputDebug(char message[], size_t messageLength,
+                 UART_HandleTypeDef *uartHandle) {
+  HAL_UART_Transmit(uartHandle, message, messageLength, 10);
 }
-
-

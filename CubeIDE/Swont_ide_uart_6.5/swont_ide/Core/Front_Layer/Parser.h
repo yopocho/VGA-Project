@@ -10,8 +10,9 @@
 
 #include "usart.h"
 
-//#define FRONT_LAYER_DEBUG
+#define FRONT_LAYER_DEBUG
 
-void ReadUserData(UART_HandleTypeDef *uartHandle);
+void ParseOnKomma(input_vars inputStruct);
+void OutputDebug(char message[], size_t messageLength, UART_HandleTypeDef *uartHandle);
 
 #endif /* FRONT_LAYER_PARSER_H_ */

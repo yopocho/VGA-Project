@@ -143,11 +143,7 @@ int main(void)
 	  if(input.command_execute_flag == TRUE)
 	  {
 		  // Do some stuff
-		  printf("yes\n");
-//		  colorTest = ~colorTest; // Toggle screen color
-//		  UB_VGA_FillScreen(colorTest);
-
-		  // When finished reset the flag
+		  ParseOnKomma(input);
 		  input.command_execute_flag = FALSE;
 	  }
     /* USER CODE END WHILE */
