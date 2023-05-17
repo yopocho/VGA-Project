@@ -24,6 +24,7 @@
 #include "usart.h"
 #include "gpio.h"
 #include "Parser.h"
+#include "errorhandling.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -110,11 +111,8 @@ int main(void)
 //  UB_VGA_SetPixel(10,14,VGA_COL_BLUE);
 //  UB_VGA_SetPixel(10,15,VGA_COL_BLUE);
 //  UB_VGA_SetPixel(10,16,VGA_COL_BLUE);
-//  //UB_VGA_SetPixel(0,0,0x00);
-//  //UB_VGA_SetPixel(319,,0x00);
-  Draw_Line(10,10,180,40, VGA_COL_RED);
-  Draw_Line(10,40,180,70, VGA_COL_WHITE);
-  Draw_Line(10,70,180,100, VGA_COL_BLUE);
+//  UB_VGA_SetPixel(0,0,0x00);
+//  UB_VGA_SetPixel(319,,0x00);
   int i;
 
   for(i = 0; i < LINE_BUFLEN; i++)

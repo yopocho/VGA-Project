@@ -5,27 +5,26 @@
  *      Author: niels
  */
 
-#include "errorHandling.h"
+#include "errorhandling.h"
 
-
-/**
- * @fn errorHandle transmitError(errorHandle, UART_HandleTypeDef*)
- * @brief
- *
- * @param errorMessage
- * @param huart
- * @return
- */
-errorHandle TransmitError(errorHandle* errorMessage, UART_HandleTypeDef *huart)
+Error TransmitError(Error ErrorCode)
 {
-	char* sevChar;
-	itoa(errorMessage->severity, sevChar, 10);
-	char* sevMSG = "Severity[";
-	char* tempTotalMSG = strcat(sevMSG, errorMessage->msg);
-	char* totalMSG = strcat(tempTotalMSG, "]");
-	if(HAL_UART_Transmit(&huart, &totalMSG, strlen(totalMSG), 0xFFFF) != HAL_OK)
-		{
-			TransmitError(ERR_TX_FAIL, &huart);
-		}
-	return ERR_TX_;
+	ErrorHandle* Error = GetError(ErrorCode);
+	printf("[%d]%s", Error->Severity, Error->Msg);
+	return ERR_NONE;
 }
+
+ErrorHandle* GetError(Error ErrorCode)
+{
+	uint8_t SizeOfErrorList = sizeof(ErrorList)/sizeof(ErrorList[0]);
+	for(uint8_t i = 0; i < SizeOfErrorList; i++)
+	{
+		if(ErrorList[i].ErrorCode == ErrorCode)
+		{
+			return &ErrorList[i];
+		}
+	}
+	return ERR_UNKNOWN_ERR;
+}
+
+
