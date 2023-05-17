@@ -141,8 +141,9 @@ int main(void)
 	  {
 		  // Do some stuff
 		  printf("yes\n");
-		  colorTest = ~colorTest; // Toggle screen color
-		  UB_VGA_FillScreen(colorTest);
+//		  colorTest = ~colorTest; // Toggle screen color
+		  UB_VGA_FillScreen(VGA_COL_BROWN);
+		  DrawRectangle(100, 100, 100, 100, VGA_COL_GRAY, 0);
 
 		  // When finished reset the flag
 		  input.command_execute_flag = FALSE;
