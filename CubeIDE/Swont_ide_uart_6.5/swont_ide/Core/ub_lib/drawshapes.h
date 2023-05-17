@@ -8,6 +8,8 @@
 #ifndef UB_LIB_DRAWSHAPES_H_
 #define UB_LIB_DRAWSHAPES_H_
 
+#include <main.h>
+
 #define BITMAPSIZE 50
 #define LEFT 1
 #define RIGHT 2
