@@ -2,27 +2,22 @@
  * Commands.h
  *
  *  Created on: 17 May 2023
- *      Author: r_middelman
+ *      Author: r_middelman, yopocho
  */
 
 #ifndef FRONT_LAYER_COMMANDS_H_
 #define FRONT_LAYER_COMMANDS_H_
 
+#include "main.h"
 
 //size of the circulair buffer (which is also the max amount for the herhaal command)
-#define SIZE_OF_CIRC_BUFFER 1024
+#define CMD_BUFF_SIZE 128
+#define MAX_CMD_ARGS 12
 
-/// @struct
-/// @brief
-/// struct that contains all the info of the given commands
-typedef struct {
-	//these are the same for almost all of the commands (maybe not wait and clear screen)
-	uint8_t commandCode;
+typedef uint16_t command[12];
 
-	//this is where it gets a little more complicated
+command commandBuffer[CMD_BUFF_SIZE], *pCommandBuffer;
 
-
-}command;
 
 
 #endif /* FRONT_LAYER_COMMANDS_H_ */
