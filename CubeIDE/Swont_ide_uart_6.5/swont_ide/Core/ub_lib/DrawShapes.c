@@ -115,7 +115,7 @@ int ClearScreen(uint8_t color)
 
 /**
  * @fn int DrawBitmap(uint8_t, uint8_t, uint8_t)
- * @brief
+ * @brief Draws a bitmap on given location
  *
  * @param xp
  * @param yp

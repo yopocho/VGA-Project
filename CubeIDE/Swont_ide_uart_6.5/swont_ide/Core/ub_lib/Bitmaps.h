@@ -169,11 +169,4 @@
     };
 
 
-
-
-
-
-
-
-
 #endif /* UB_LIB_BITMAPS_H_ */
