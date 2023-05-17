@@ -23,6 +23,7 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Core/Front_Layer \
+Core/Logic_Layer \
 Core/Src \
 Core/Startup \
 Core/ub_lib \

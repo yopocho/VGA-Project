@@ -6,3 +6,4 @@ Doxygen/
 .DS_Store
 /CubeIDE/Swont_ide_uart_6.5/swont_ide/Doxygen/swont_ide.doxyfile
 /CubeIDE/Swont_ide_uart_6.5/swont_ide/.settings/language.settings.xml
+*.o
