@@ -1,3 +1,4 @@
+"./Core/Front_Layer/Commands.o"
 "./Core/Front_Layer/Parser.o"
 "./Core/Logic_Layer/Logic_Debug.o"
 "./Core/Src/dma.o"
