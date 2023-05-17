@@ -8,8 +8,9 @@
 #include <main.h>
 #include <math.h>
 #include <Bitmaps.h>
+#include <DrawShapes.h>
 
-#define BITMAPSIZE 10
+
 /**
  * @fn int DrawRectangle(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
  * @brief Draws a rectangle with the specified color within the x & y coordinates
@@ -22,8 +23,7 @@
  * @param filled
  * @return
  */
-int DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
-		uint8_t color, uint8_t filled)
+int DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth, uint8_t color, uint8_t filled)
 {
 	if (filled == 0)
 	{
@@ -113,23 +113,110 @@ int ClearScreen(uint8_t color)
 	UB_VGA_FillScreen(color);
 }
 
-int DrawBitmap(uint8_t selector, uint8_t xp, uint8_t yp, uint8_t color)
+/**
+ * @fn int DrawBitmap(uint8_t, uint8_t, uint8_t)
+ * @brief
+ *
+ * @param xp
+ * @param yp
+ * @param selection
+ * @return
+ */
+int DrawBitmap(uint8_t selector,uint8_t xp, uint8_t yp)
 {
-	for (uint8_t y = 0; y < BITMAPSIZE; y++)
+	uint8_t color;
+
+	if(selector == LEFT)//Left
+	{
+		for (uint8_t y = 0; y < BITMAPSIZE; y++)
+		{
+			for (uint8_t x = 0; x < BITMAPSIZE; x++)
 			{
-				for (uint8_t x = 0; x < BITMAPSIZE; x++)
+				if (arrowLeft[y][x] != 0b10010000)
 				{
-					if (smileyFace[y][x] == 1)
-					{
-						UB_VGA_SetPixel(xp+x, yp+y, color);
-					}
+					color = arrowLeft[y][x];
+					UB_VGA_SetPixel(xp+x, yp+y, color);
+				}
+			}
+		}
+	}
+
+	if(selector == RIGHT)//Right
+	{
+		for (uint8_t y = 0; y < BITMAPSIZE; y++)
+		{
+			for (uint8_t x = 0; x < BITMAPSIZE; x++)
+			{
+				if (arrowLeft[y][x] != 0b10010000)
+				{
+					color = arrowLeft[y][x];
+					UB_VGA_SetPixel(xp+BITMAPSIZE-x, yp+BITMAPSIZE-y, color);
+				}
+			}
+		}
+	}
+
+	if(selector == UP) //Up
+	{
+		for (uint8_t y = 0; y < BITMAPSIZE; y++)
+		{
+			for (uint8_t x = 0; x < BITMAPSIZE; x++)
+			{
+				if (arrowLeft[x][y] != 0b10010000)
+				{
+					color = arrowLeft[x][y];
+					UB_VGA_SetPixel(xp+x, yp+y, color);
+				}
+			}
+		}
+	}
+
+	if(selector == DOWN)//Down
+	{
+		for (uint8_t y = 0; y < BITMAPSIZE; y++)
+		{
+			for (uint8_t x = 0; x < BITMAPSIZE; x++)
+			{
+				if (arrowLeft[x][y] != 0b10010000)
+				{
+					color = arrowLeft[x][y];
+					UB_VGA_SetPixel(xp+BITMAPSIZE-x, yp+BITMAPSIZE-y, color);
+				}
+			}
+		}
+	}
+
+	if(selector == SMILEY)//smileyFace
+	{
+		for (uint8_t y = 0; y < BITMAPSIZE; y++)
+		{
+			for (uint8_t x = 0; x < BITMAPSIZE; x++)
+			{
+				if (smiley[y][x] != 0b10010000)
+				{
+					color = smiley[y][x];
+					UB_VGA_SetPixel(xp+x, yp+y, color);
 
 				}
 			}
+		}
+	}
+	if(selector == ANGRY)//Anrgy Face
+		{
+			for (uint8_t y = 0; y < BITMAPSIZE; y++)
+			{
+				for (uint8_t x = 0; x < BITMAPSIZE; x++)
+				{
+					if (angry[y][x] != 0b10010000)
+					{
+						color = angry[y][x];
+						UB_VGA_SetPixel(xp+x, yp+y, color);
+
+					}
+				}
+			}
+		}
 }
-
-
-
 
 
 
