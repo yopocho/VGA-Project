@@ -19,12 +19,12 @@
  * @param Width
  * @param Heigth
  * @param color
- * @param filled
+ * @param lined
  * @return
  */
 int DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
-		uint8_t color, uint8_t filled) {
-	if (filled == 0) {
+		uint8_t color, uint8_t lined) {
+	if (lined == 0) {
 		for (uint8_t y = yp; y < yp + Heigth; y++) {
 			for (uint8_t x = xp; x < xp + Width; x++) {
 				UB_VGA_SetPixel(x, y, color);
@@ -32,7 +32,7 @@ int DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
 		}
 	}
 	//rectangle not filled, only lines
-	if (filled == 1) {
+	if (lined == 1) {
 		//top line
 		for (uint8_t x = xp; x < xp + Width; x++) {
 			UB_VGA_SetPixel(x, yp, color);
