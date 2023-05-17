@@ -7,6 +7,13 @@
 
 #include "errorhandling.h"
 
+/**
+ * @fn Error TransmitError(Error)
+ * @brief Transmits relevant errors and their severity via UART
+ *
+ * @param ErrorCode
+ * @return Error
+ */
 Error TransmitError(Error ErrorCode)
 {
 	ErrorHandle* Error = GetError(ErrorCode);
@@ -14,6 +21,13 @@ Error TransmitError(Error ErrorCode)
 	return ERR_NONE;
 }
 
+/**
+ * @fn ErrorHandle GetError*(Error)
+ * @brief Loops through ErrorList to find the ErrorHandle struct with the requested error name
+ *
+ * @param ErrorCode
+ * @return ErrorHandle
+ */
 ErrorHandle* GetError(Error ErrorCode)
 {
 	uint8_t SizeOfErrorList = sizeof(ErrorList)/sizeof(ErrorList[0]);

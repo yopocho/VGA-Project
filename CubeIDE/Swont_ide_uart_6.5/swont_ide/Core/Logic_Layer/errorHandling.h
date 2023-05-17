@@ -10,24 +10,34 @@
 
 #include "main.h"
 
+/**
+ * @enum Error
+ * @brief Enum which contains all error codes
+ *
+ */
 typedef enum
 {
-	ERR_INVALID_ARG,
-	ERR_INVALID_CMD,
-	ERR_ARG_OOB,
-	ERR_MSG_LEN,
-	ERR_NONE,
-	ERR_GENERIC,
-	ERR_UART_FAIL,
-	ERR_UNKNOWN_ERR
+	ERR_INVALID_ARG,/**< ERR_INVALID_ARG */
+	ERR_INVALID_CMD,/**< ERR_INVALID_CMD */
+	ERR_ARG_OOB,    /**< ERR_ARG_OOB */
+	ERR_MSG_LEN,    /**< ERR_MSG_LEN */
+	ERR_NONE,       /**< ERR_NONE */
+	ERR_GENERIC,    /**< ERR_GENERIC */
+	ERR_UART_FAIL,  /**< ERR_UART_FAIL */
+	ERR_UNKNOWN_ERR /**< ERR_UNKNOWN_ERR */
 } Error;
 
+/**
+ * @enum ErrorSeverity
+ * @brief Enum which contains the different error severity levels
+ *
+ */
 typedef enum
 {
-	NONE = 0x00U,
-	LOW = 0x01U,
-	MEDIUM = 0x02U,
-	HIGH = 0x03U
+	NONE = 0x00U,  /**< NONE */
+	LOW = 0x01U,   /**< LOW */
+	MEDIUM = 0x02U,/**< MEDIUM */
+	HIGH = 0x03U   /**< HIGH */
 } ErrorSeverity;
 
 /**
