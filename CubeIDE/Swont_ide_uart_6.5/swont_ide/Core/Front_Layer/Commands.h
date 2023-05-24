@@ -15,6 +15,8 @@
 #define CMD_BUFF_SIZE 128
 #define MAX_CMD_ARGS 12
 
+
+
 typedef uint16_t command[12];
 
 #endif /* FRONT_LAYER_COMMANDS_H_ */
