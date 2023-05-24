@@ -10,7 +10,8 @@
 /**
  * @fn void ParseOnKomma(input_vars, uint8_t, uint8_t, int, command)
  * @brief parser on comma function. works by looping
- * through the input and then executing calling the command that is futher needed
+ * through the input and then executing calling the command that is futher
+ * needed
  *
  * @param inputStruct
  * @param neededArgument
@@ -42,19 +43,21 @@ void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 					commandArray[neededArgument] = atoi(incommingMessage);
 				break;
 			}
-			if(j == inputStruct.msglen)
-			{
-				incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
-				placeInBuf++;
-				if (convertColor)
-									CheckWhatColor(incommingMessage, commandArray,
-												   neededArgument);
-								if (convertToNumber)
-									commandArray[neededArgument] = atoi(incommingMessage);
-			}
 			commaCounter++;
 			// set the array to 0 again to fill with the argument
 			memset(incommingMessage, 0, sizeof(incommingMessage));
+		}
+		if (j == inputStruct.msglen) {
+			incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
+			placeInBuf++;
+			if (commaCounter == neededArgument) {
+				if (convertColor)
+					CheckWhatColor(incommingMessage, commandArray,
+								   neededArgument);
+				if (convertToNumber)
+					commandArray[neededArgument] = atoi(incommingMessage);
+			}
+			break;
 		}
 		if (inputStruct.line_rx_buffer[j] != 0 &&
 			inputStruct.line_rx_buffer[j] != ',') {
@@ -88,7 +91,8 @@ void CheckWhatCommand(char incommingCommand[], command commandArray,
 }
 /**
  * @fn void CheckWhatColor(char[], command, uint8_t)
- * @brief checks what color is being called and asignes a numerical value in an array
+ * @brief checks what color is being called and asignes a numerical value in an
+ * array
  *
  * @param incommingColor
  * @param commandArray
@@ -108,7 +112,8 @@ void CheckWhatColor(char incommingColor[], command commandArray,
 }
 /**
  * @fn void DoOnCommand(command, input_vars)
- * @brief checks which command is given and takes futher actions to add the rest of the args
+ * @brief checks which command is given and takes futher actions to add the rest
+ * of the args
  *
  * @param commandArray
  * @param inputStruct
@@ -120,10 +125,36 @@ void DoOnCommand(command commandArray, input_vars inputStruct) {
 			RecieveCommandLijn(commandArray, inputStruct);
 			break;
 		case 1:
-			//clearscherm
+			// clearscherm
 			RecieveCommandClear(commandArray, inputStruct);
 			break;
 		case 2:
+			//rechthoek
+			RecieveCommandRechthoek(commandArray, inputStruct);
+			break;
+		case 3:
+			//wacht
+			RecieveCommandWacht(commandArray, inputStruct);
+			break;
+		case 4:
+			//tekst
+			RecieveCommandTekst(commandArray, inputStruct);
+			break;
+		case 5:
+			//bitmap
+			RecieveCommandBitmap(commandArray, inputStruct);
+			break;
+		case 6:
+			//cirkel
+			RecieveCommandCirkel(commandArray, inputStruct);
+			break;
+		case 7:
+			//figuur
+			RecieveCommandFiguur(commandArray, inputStruct);
+			break;
+		case 8:
+			//herhaal
+			RecieveCommandHerhaal(commandArray, inputStruct);
 			break;
 	}
 }
