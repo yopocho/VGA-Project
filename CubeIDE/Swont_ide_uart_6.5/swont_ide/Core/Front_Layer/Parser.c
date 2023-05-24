@@ -7,12 +7,17 @@
 
 #include "Parser.h"
 
-/// @fn void ParseOnKomma(input_vars)
-/// @brief loops through the incomming message and checks for ascii number 44
-/// (,) at the same time fill an array to check later what type of message it
-/// is.
-///
-/// @param inputStruct
+/**
+ * @fn void ParseOnKomma(input_vars, uint8_t, uint8_t, int, command)
+ * @brief parser on comma function. works by looping
+ * through the input and then executing calling the command that is futher needed
+ *
+ * @param inputStruct
+ * @param neededArgument
+ * @param convertToNumber
+ * @param convertColor
+ * @param commandArray
+ */
 void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				  uint8_t convertToNumber, int convertColor,
 				  command commandArray) {
@@ -20,7 +25,7 @@ void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 	uint8_t placeInBuf = 0;
 	char incommingMessage[inputStruct.msglen];
 	for (int j = 0; j < inputStruct.msglen; j++) {
-		if (inputStruct.line_rx_buffer[j] == ',') {
+		if (inputStruct.line_rx_buffer[j] == ',' || inputStruct.line_rx_buffer[j] == '\0') {
 			incommingMessage[j] = 0;
 			placeInBuf = 0;
 #ifdef FRONT_LAYER_DEBUG
@@ -50,11 +55,13 @@ void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 }
 
 /**
- * @fn void CheckWhatCommand(char[], command)
- * @brief
+ * @fn void CheckWhatCommand(char[], command, input_vars)
+ * @brief checks what command is being called,
+ * compares the incomming string with a list of strings
  *
- * @param commandNames
+ * @param incommingCommand
  * @param commandArray
+ * @param inputStruct
  */
 void CheckWhatCommand(char incommingCommand[], command commandArray,
 					  input_vars inputStruct) {
@@ -71,9 +78,9 @@ void CheckWhatCommand(char incommingCommand[], command commandArray,
 }
 /**
  * @fn void CheckWhatColor(char[], command, uint8_t)
- * @brief
+ * @brief checks what color is being called and asignes a numerical value in an array
  *
- * @param colorNames
+ * @param incommingColor
  * @param commandArray
  * @param argPlace
  */
@@ -89,7 +96,13 @@ void CheckWhatColor(char incommingColor[], command commandArray,
 		}
 	}
 }
-
+/**
+ * @fn void DoOnCommand(command, input_vars)
+ * @brief checks which command is given and takes futher actions to add the rest of the args
+ *
+ * @param commandArray
+ * @param inputStruct
+ */
 void DoOnCommand(command commandArray, input_vars inputStruct) {
 	switch (commandArray[0]) {
 		case 0:
@@ -101,12 +114,14 @@ void DoOnCommand(command commandArray, input_vars inputStruct) {
 	}
 }
 
-/// @fn void OutputDebug(char[], size_t, UART_HandleTypeDef*)
-/// @brief most simple debug function
-///
-/// @param message
-/// @param messageLength
-/// @param uartHandle
+/**
+ * @fn void OutputDebug(char[], size_t, UART_HandleTypeDef*)
+ * @brief simple debugging func
+ *
+ * @param message
+ * @param messageLength
+ * @param uartHandle
+ */
 void OutputDebug(char message[], size_t messageLength,
 				 UART_HandleTypeDef *uartHandle) {
 	HAL_UART_Transmit(uartHandle, message, messageLength, 10);

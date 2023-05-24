@@ -7,6 +7,13 @@
 
 #include "Commands.h"
 
+/**
+ * @fn void RecieveCommandLijn(command, input_vars)
+ * @brief when line command is recieved adds the nesisary args and adds them to the buffer
+ *
+ * @param commandArray
+ * @param inputStruct
+ */
 void RecieveCommandLijn(command commandArray, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 7; i++) {

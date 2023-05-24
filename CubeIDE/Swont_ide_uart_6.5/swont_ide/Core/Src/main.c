@@ -63,7 +63,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t UART1_rxBuffer[12] = {0};
 
 /* USER CODE END 0 */
 
