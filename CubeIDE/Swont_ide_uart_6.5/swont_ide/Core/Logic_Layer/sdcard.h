@@ -5,11 +5,11 @@
  *      Author: niels
  */
 
-#include "main.h"
-#include "fatfs.h"
-
 #ifndef LOGIC_LAYER_SDCARD_H_
 #define LOGIC_LAYER_SDCARD_H_
+
+#include "main.h"
+#include "fatfs.h"
 
 
 FATFS FatFs; //FatFS Handle
@@ -40,6 +40,8 @@ extern Error SDCardDeinit();
  *
  * @return Error
  */
-extern Error SDCardReadFile();
+extern Error SDCardReadFile(uint8_t* pFramebuffer, uint8_t bitmapIndex);
+
+extern Error DrawBitmapFromSDCard(uint8_t selector,uint8_t xp, uint8_t yp);
 
 #endif /* LOGIC_LAYER_SDCARD_H_ */

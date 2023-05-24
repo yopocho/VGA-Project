@@ -63,22 +63,12 @@ volatile int key;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-void myprintf(const char *fmt, ...);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void myprintf(const char *fmt, ...) {
-  static char buffer[256];
-  va_list args;
-  va_start(args, fmt);
-  vsnprintf(buffer, sizeof(buffer), fmt, args);
-  va_end(args);
 
-  int len = strlen(buffer);
-  HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, -1);
-
-}
 /* USER CODE END 0 */
 
 /**
@@ -117,7 +107,11 @@ int main(void)
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
-  SDCardInit(); //Init SD Card
+  Error tempError = SDCardInit(); //Init SD Card
+  if(tempError != ERR_NONE)
+  {
+	  TransmitError(tempError);
+  }
 
   UB_VGA_Screen_Init(); // Init VGA-Screen
 
@@ -161,6 +155,7 @@ int main(void)
 		  printf("yes\n");
 		  colorTest = ~colorTest; // Toggle screen color
 		  UB_VGA_FillScreen(colorTest);
+		  DrawBitmapFromSDCard(0, 0, 0);
 
 		  // When finished reset the flag
 		  input.command_execute_flag = FALSE;
