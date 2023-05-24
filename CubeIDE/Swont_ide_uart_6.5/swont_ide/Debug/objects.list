@@ -1,6 +1,7 @@
 "./Core/Front_Layer/Parser.o"
 "./Core/Logic_Layer/Logic_Debug.o"
 "./Core/Logic_Layer/errorHandling.o"
+"./Core/Logic_Layer/sdcard.o"
 "./Core/Src/dma.o"
 "./Core/Src/gpio.o"
 "./Core/Src/main.o"

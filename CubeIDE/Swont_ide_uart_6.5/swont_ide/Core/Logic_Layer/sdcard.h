@@ -5,15 +5,14 @@
  *      Author: niels
  */
 
+#include "main.h"
+#include "fatfs.h"
+
 #ifndef LOGIC_LAYER_SDCARD_H_
 #define LOGIC_LAYER_SDCARD_H_
 
-FATFS FatFs; 	//Fatfs handle
-FIL fil; 		//File handle
-FRESULT fres; //Result after operations
+extern Error SDCardInit();
 
-extern void SDCardInit();
-
-extern void SDCardDeinit();
+extern Error SDCardDeinit();
 
 #endif /* LOGIC_LAYER_SDCARD_H_ */

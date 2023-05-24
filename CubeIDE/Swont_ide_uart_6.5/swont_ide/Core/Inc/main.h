@@ -38,10 +38,9 @@ extern "C" {
 #include "string.h"
 #include <stdlib.h>
 #include <stdarg.h>
-
 #include "stm32_ub_vga_screen.h"
+#include "errorHandling.h"
 
-#include "sdcard.h"
 
 /* USER CODE END Includes */
 
