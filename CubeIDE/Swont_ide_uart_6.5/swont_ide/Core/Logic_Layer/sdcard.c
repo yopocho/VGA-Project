@@ -7,10 +7,13 @@
 
 #include "sdcard.h"
 
-FATFS FatFs; 	//Fatfs handle
-FIL fil; 		//File handle
-FRESULT fres; //Result after operations
 
+/**
+ * @fn Error SDCardInit()
+ * @brief Initializes the SD card
+ *
+ * @return Error
+ */
 Error SDCardInit()
 {
 	//Open the file system
@@ -36,12 +39,25 @@ Error SDCardInit()
 	myprintf("SD card stats:\r\n%10lu KiB total drive space.\r\n%10lu KiB available.\r\n", total_sectors / 2, free_sectors / 2);
 }
 
+
+/**
+ * @fn Error SDCardInit()
+ * @brief Deinitializes the SD card
+ *
+ * @return Error
+ */
 Error SDCardDeinit()
 {
 	//We're done, so de-mount the drive
 	f_mount(NULL, "", 0);
 }
 
+/**
+ * @fn Error SDCardReadFile()
+ * @brief
+ *
+ * @return
+ */
 Error SDCardReadFile()
 {
 	//	//Now let's try to open file "test.txt"
