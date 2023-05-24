@@ -23,7 +23,7 @@
 #include "main.h"
 
 #include "Commands.h"
-#include "Parser.h"
+//#include "Parser.h"
 #include "dma.h"
 #include "errorhandling.h"
 #include "gpio.h"
@@ -115,10 +115,8 @@ int main(void) {
   //  UB_VGA_SetPixel(10,16,VGA_COL_BLUE);
   //  //UB_VGA_SetPixel(0,0,0x00);
   //  //UB_VGA_SetPixel(319,,0x00);
-  Draw_Line(10, 10, 180, 40, VGA_COL_RED);
-  Draw_Line(10, 40, 180, 70, VGA_COL_WHITE);
-  Draw_Line(10, 70, 180, 100, VGA_COL_BLUE);
-  int i;
+  UB_VGA_FillScreen(VGA_COL_WHITE);
+ int i;
 
   for (i = 0; i < LINE_BUFLEN; i++) input.line_rx_buffer[i] = 0;
 
@@ -141,9 +139,9 @@ int main(void) {
   while (1) {
     if (input.command_execute_flag == TRUE) {
       // Do some stuff
-      printf("yes\n");
-      colorTest = ~colorTest;  // Toggle screen color
-      UB_VGA_FillScreen(colorTest);
+      ParseOnKomma(input, 0, 0, 0, commandBuf);
+      ClearScreen(commandBuf[1]);
+
 
       // When finished reset the flag
       input.command_execute_flag = FALSE;

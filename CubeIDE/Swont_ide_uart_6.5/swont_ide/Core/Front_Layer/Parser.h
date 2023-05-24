@@ -12,7 +12,7 @@
 #include "main.h"
 #include "usart.h"
 
-#define FRONT_LAYER_DEBUG
+//#define FRONT_LAYER_DEBUG
 #define AMOUNT_OF_COMMANDS 9
 #define AMOUNT_OF_COLORS 16
 
@@ -42,6 +42,7 @@ void CheckWhatCommand(char incommingCommand[], command commandArray,
 					  input_vars inputStruct);
 void CheckWhatColor(char incommingColor[], command commandArray,
 					uint8_t argPlace);
+void DoOnCommand(command commandArray, input_vars inputStruct);
 void OutputDebug(char message[], size_t messageLength,
 				 UART_HandleTypeDef *uartHandle);
 

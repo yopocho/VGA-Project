@@ -19,4 +19,6 @@
 
 typedef uint16_t command[12];
 
+void RecieveCommandLijn(command commandArray, input_vars inputStruct);
+void RecieveCommandClear(command commandArray, input_vars inputStruct);
 #endif /* FRONT_LAYER_COMMANDS_H_ */

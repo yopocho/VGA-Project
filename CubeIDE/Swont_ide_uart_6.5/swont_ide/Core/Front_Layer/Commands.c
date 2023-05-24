@@ -25,3 +25,8 @@ void RecieveCommandLijn(command commandArray, input_vars inputStruct) {
 		}
 	}
 }
+
+void RecieveCommandClear(command commandArray, input_vars inputStruct)
+{
+	ParseOnKomma(inputStruct, 1, 0, 1, commandArray);
+}

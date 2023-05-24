@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-../Core/Src/main.c:73:5:main	1096	static
-../Core/Src/main.c:146:6:SystemClock_Config	88	static
-../Core/Src/main.c:194:1:__io_putchar	16	static
-../Core/Src/main.c:206:6:Error_Handler	4	static
-=======
-../Core/Src/main.c:74:5:main	16	static
-../Core/Src/main.c:162:6:SystemClock_Config	88	static
-../Core/Src/main.c:210:1:__io_putchar	16	static
-../Core/Src/main.c:222:6:Error_Handler	4	static
->>>>>>> master
+../Core/Src/main.c:75:5:main	1096	static
+../Core/Src/main.c:160:6:SystemClock_Config	88	static
+../Core/Src/main.c:207:1:__io_putchar	16	static
+../Core/Src/main.c:219:6:Error_Handler	4	static

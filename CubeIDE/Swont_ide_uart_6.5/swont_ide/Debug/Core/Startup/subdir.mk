@@ -16,7 +16,7 @@ S_DEPS += \
 
 # Each subdirectory must supply rules for building sources it contributes
 Core/Startup/%.o: ../Core/Startup/%.s Core/Startup/subdir.mk
-	arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -c -I"C:/Users/niels/Documents/Homework/Jaar_3/Software Ontwikkeling/VGA_Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer" -I"C:/Users/niels/Documents/Homework/Jaar_3/Software Ontwikkeling/VGA_Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Logic_Layer" -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -c -I"/Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer" -I"/Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Logic_Layer" -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@" "$<"
 
 clean: clean-Core-2f-Startup
 

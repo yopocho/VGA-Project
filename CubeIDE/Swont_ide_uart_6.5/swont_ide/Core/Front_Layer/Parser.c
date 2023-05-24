@@ -24,8 +24,8 @@ void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 	uint8_t commaCounter = 0;
 	uint8_t placeInBuf = 0;
 	char incommingMessage[inputStruct.msglen];
-	for (int j = 0; j < inputStruct.msglen; j++) {
-		if (inputStruct.line_rx_buffer[j] == ',' || inputStruct.line_rx_buffer[j] == '\0') {
+	for (int j = 0; j <= inputStruct.msglen; j++) {
+		if (inputStruct.line_rx_buffer[j] == ',') {
 			incommingMessage[j] = 0;
 			placeInBuf = 0;
 #ifdef FRONT_LAYER_DEBUG
@@ -41,6 +41,16 @@ void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				if (convertToNumber)
 					commandArray[neededArgument] = atoi(incommingMessage);
 				break;
+			}
+			if(j == inputStruct.msglen)
+			{
+				incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
+				placeInBuf++;
+				if (convertColor)
+									CheckWhatColor(incommingMessage, commandArray,
+												   neededArgument);
+								if (convertToNumber)
+									commandArray[neededArgument] = atoi(incommingMessage);
 			}
 			commaCounter++;
 			// set the array to 0 again to fill with the argument
@@ -110,6 +120,10 @@ void DoOnCommand(command commandArray, input_vars inputStruct) {
 			RecieveCommandLijn(commandArray, inputStruct);
 			break;
 		case 1:
+			//clearscherm
+			RecieveCommandClear(commandArray, inputStruct);
+			break;
+		case 2:
 			break;
 	}
 }

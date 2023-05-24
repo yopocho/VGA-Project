@@ -27,15 +27,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- C:/Users/niels/Documents/Homework/Jaar_3/Software\ Ontwikkeling/VGA_Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/ub_lib/stm32_ub_vga_screen.h \
- ../Core/Inc/dma.h ../Core/Inc/main.h ../Core/Inc/tim.h \
- ../Core/Inc/usart.h ../Core/Inc/gpio.h \
-<<<<<<< HEAD
- /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer/Commands.h
-=======
- C:/Users/niels/Documents/Homework/Jaar_3/Software\ Ontwikkeling/VGA_Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer/Parser.h \
- C:/Users/niels/Documents/Homework/Jaar_3/Software\ Ontwikkeling/VGA_Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Logic_Layer/errorhandling.h
->>>>>>> master
+ /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/ub_lib/stm32_ub_vga_screen.h \
+ /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer/Commands.h \
+ ../Core/Inc/dma.h ../Core/Inc/main.h \
+ /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Logic_Layer/errorhandling.h \
+ ../Core/Inc/gpio.h ../Core/Inc/tim.h ../Core/Inc/usart.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -65,15 +61,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-C:/Users/niels/Documents/Homework/Jaar_3/Software\ Ontwikkeling/VGA_Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/ub_lib/stm32_ub_vga_screen.h:
+/Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/ub_lib/stm32_ub_vga_screen.h:
+/Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer/Commands.h:
 ../Core/Inc/dma.h:
 ../Core/Inc/main.h:
+/Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Logic_Layer/errorhandling.h:
+../Core/Inc/gpio.h:
 ../Core/Inc/tim.h:
 ../Core/Inc/usart.h:
-../Core/Inc/gpio.h:
-<<<<<<< HEAD
-/Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer/Commands.h:
-=======
-C:/Users/niels/Documents/Homework/Jaar_3/Software\ Ontwikkeling/VGA_Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer/Parser.h:
-C:/Users/niels/Documents/Homework/Jaar_3/Software\ Ontwikkeling/VGA_Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Logic_Layer/errorhandling.h:
->>>>>>> master
