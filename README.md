@@ -43,9 +43,14 @@ Mauris maximus, diam eget commodo pretium, metus est sollicitudin urna, eget con
 
 This project is licensed under the MIT License
 
-## Acknowledgments
-
-<!-- * **Dr. Sara Mirbagheri Golroodbari** - Commisioner
-* **Joost Kouijzer** - Group supervisor during this project
-* **Marcel** - For letting our group use his lab during the project -->
+## List of commands
+clearscherm,
+lijn,
+rechthoek,
+wacht,
+tekst,
+bitmap,
+cirkel,
+figuur,
+herhaal,
 
