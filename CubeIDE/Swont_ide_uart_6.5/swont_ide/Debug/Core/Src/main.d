@@ -30,7 +30,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/ub_lib/stm32_ub_vga_screen.h \
  ../Core/Inc/dma.h ../Core/Inc/main.h ../Core/Inc/tim.h \
  ../Core/Inc/usart.h ../Core/Inc/gpio.h \
- /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer/Parser.h \
  /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer/Commands.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -67,5 +66,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/tim.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/gpio.h:
-/Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer/Parser.h:
 /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Front_Layer/Commands.h:
