@@ -74,8 +74,11 @@ Error SDCardDeinit()
  * @param yp
  * @return Error
  */
-Error DrawBitmapFromSDCard(uint8_t selector, uint8_t xp, uint8_t yp) {
-	uint8_t color;
+Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, uint8_t selector) {
+
+	if(xp > VGA_DISPLAY_X || yp > VGA_DISPLAY_Y) {
+		return ERR_ARG_OOB;
+	}
 
 	if(fres != FR_OK){
 		return ERR_SDCARD_UNAVAILABLE;
@@ -86,61 +89,44 @@ Error DrawBitmapFromSDCard(uint8_t selector, uint8_t xp, uint8_t yp) {
 	itoa(selector, filename, 10);
 	strcat(filename, ".txt");
 	fres = f_open(&fil, filename, FA_READ);
-	printf(filename);
 	if (fres != FR_OK) {
 		return ERR_SDCARD_OPEN;
 	}
 
-	unsigned char preambleBuf[32];
+	unsigned char preambleBuf[9];
 	uint8_t bufLen = 0;
 
-	f_read(&fil, (void*)preambleBuf, 32, &bufLen);
+	f_read(&fil, (void*)preambleBuf, 9, &bufLen);
 	if(bufLen != 0) {
-		printf("Read string from '%s' contents: %s\r\n", filename, preambleBuf);
+		printf("Read string from '%s' contents: %s\n\r", filename, preambleBuf);
 	}
 	else return ERR_SDCARD_GETS;
 
+	uint16_t width = atoi(preambleBuf);
+	uint16_t height = atoi(preambleBuf+4);
+	printf("%d, %d\n\r", width, height);
 	uint8_t packetSize = 5; //0x.. pixeldata + comma
 	uint8_t readBuf[packetSize];
-	uint32_t pixelIndex = 0;
-	uint8_t pixelColor = 0;
-	bufLen = 0;
+	bufLen = packetSize;
 
-	while(1)
+	while(bufLen == packetSize)
+	{
+		for(uint16_t y = yp; y < yp+height; y++)
 		{
-			f_read(&fil, (void*)readBuf, packetSize, &bufLen);
-			if(bufLen < packetSize) break;
-			readBuf[strlen(readBuf)-1] = '\0';
-//			printf(readBuf);
-//			printf("\n\r");
-			uint8_t pixelColor = (uint8_t)strtol(readBuf, NULL, 0);
-			memset(readBuf ,0, sizeof(readBuf));
-//			if(!(pixelIndex % VGA_DISPLAY_X)) ++pixelIndex; //TODO: 1 pixel per regel te weinig -_-, mss ArrayGenerator's schuld?
-			VGA_RAM1[pixelIndex] = pixelColor;
-			pixelColor = 0;
-			++pixelIndex;
+			for(uint16_t x = xp; x < xp+width; x++)
+			{
+				f_read(&fil, (void*)readBuf, packetSize, &bufLen);
+				readBuf[strlen(readBuf)-1] = '\0';
+				uint8_t pixelColor = (uint8_t)strtol(readBuf, NULL, 0);
+				memset(readBuf ,0, sizeof(readBuf));
+				UB_VGA_SetPixel(x, y, pixelColor);
+
+			}
 		}
-//	printf(readBuf);
-	printf("Array read!");
-
-	//Be a tidy kiwi - don't forget to close your file!
-
-	//		myprintf("I was able to open 'test.txt' for reading!\r\n");
-	//
-	//		//Read 30 bytes from "test.txt" on the SD card
-	//		BYTE readBuf[30];
-	//
-	//		//We can either use f_read OR f_gets to get data out of files
-	//		//f_gets is a wrapper on f_read that does some string formatting for us
-	//		TCHAR* rres = f_gets((TCHAR*)readBuf, 30, &fil);
-	//		if(rres != 0) {
-	//		myprintf("Read string from 'test.txt' contents: %s\r\n", readBuf);
-	//		} else {
-	//		myprintf("f_gets error (%i)\r\n", fres);
-	//		}
-	//
-	//		//Be a tidy kiwi - don't forget to close your file!
-	//		f_close(&fil);
+	}
+	f_close(&fil);
+	return ERR_NONE;
+}
 
 //	switch(selector)
 //	{
@@ -211,8 +197,5 @@ Error DrawBitmapFromSDCard(uint8_t selector, uint8_t xp, uint8_t yp) {
 //			return ERR_INVALID_ARG;
 //			break;
 //	}
-	f_close(&fil);
-	return ERR_NONE;
-}
 
 

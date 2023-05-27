@@ -151,11 +151,11 @@ int main(void)
   {
 	  if(input.command_execute_flag == TRUE)
 	  {
-		  // Do some stuff
-		  printf("yes\n");
-		  colorTest = ~colorTest; // Toggle screen color
-		  UB_VGA_FillScreen(colorTest);
-		  DrawBitmapFromSDCard(0, 0, 0);
+//		  // Do some stuff
+//		  printf("yes\n");
+//		  colorTest = ~colorTest; // Toggle screen color
+//		  UB_VGA_FillScreen(colorTest);
+		  DrawBitmapFromSDCard(120,67,0);
 
 		  // When finished reset the flag
 		  input.command_execute_flag = FALSE;

@@ -42,6 +42,6 @@ extern Error SDCardDeinit();
  */
 extern Error SDCardReadFile(uint8_t* pFramebuffer, uint8_t bitmapIndex);
 
-extern Error DrawBitmapFromSDCard(uint8_t selector,uint8_t xp, uint8_t yp);
+extern Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, uint8_t selector);
 
 #endif /* LOGIC_LAYER_SDCARD_H_ */
