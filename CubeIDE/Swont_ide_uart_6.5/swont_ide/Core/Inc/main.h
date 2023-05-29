@@ -40,6 +40,7 @@ extern "C" {
 #include <stdarg.h>
 #include "stm32_ub_vga_screen.h"
 #include "errorHandling.h"
+#include "drawshapes.h"
 
 
 /* USER CODE END Includes */

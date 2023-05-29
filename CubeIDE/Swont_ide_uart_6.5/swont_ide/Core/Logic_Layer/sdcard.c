@@ -36,7 +36,7 @@ Error SDCardInit()
 	total_sectors = (getFreeFs->n_fatent - 2) * getFreeFs->csize;
 	free_sectors = free_clusters * getFreeFs->csize;
 	used_sectors = total_sectors - free_sectors;
-	printf("SD card stats:\r\n%10lu KiB total drive space.\r\n%10lu KiB available.\r\n%10ul KiB used.\r\n", total_sectors / 2, free_sectors / 2, used_sectors / 2);
+	printf("SD card stats:\r\n%10lu KiB total drive space.\r\n%10lu KiB available.\r\n%10lu KiB used.\r\n", total_sectors / 2, free_sectors / 2, used_sectors / 2);
 	return ERR_NONE;
 }
 
@@ -54,27 +54,16 @@ Error SDCardDeinit()
 	return ERR_NONE;
 }
 
-///**
-// * @fn Error SDCardReadFile()
-// * @brief
-// *
-// * @return
-// */
-//Error SDCardReadFile(uint8_t* pFramebuffer, uint8_t bitmapIndex)
-//{
-//	return ERR_NONE;
-//}
-
 /**
- * @fn Error DrawBitmapFromSDCard(uint8_t, uint8_t, uint8_t)
+ * @fn Error DrawBitmapFromSDCard(uint16_t, uint16_t, bitmapKey)
  * @brief Draws a bitmap at given location, starting from top-left.
  *
- * @param selector
  * @param xp
  * @param yp
+ * @param selector
  * @return Error
  */
-Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, uint8_t selector) {
+Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector) {
 
 	if(xp > VGA_DISPLAY_X || yp > VGA_DISPLAY_Y) {
 		return ERR_ARG_OOB;
@@ -95,11 +84,11 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, uint8_t selector) {
 
 
 	// Setup preambleBuf to read preamble of bitmap into
-	unsigned char preambleBuf[9];
+	char preambleBuf[9];
 	uint8_t bufLen = 0;
 
 	// Read preamble of bitmap file
-	fres = f_read(&fil, (void*)preambleBuf, 9, &bufLen);
+	fres = f_read(&fil, (void*)preambleBuf, 9, (UINT*)&bufLen);
 	if(bufLen != 0 && fres == FR_OK) {
 		printf("Read string from '%s' contents: %s\n\r", filename, preambleBuf);
 	}
@@ -118,32 +107,33 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, uint8_t selector) {
 	uint16_t limitY = (yp+height)<VGA_DISPLAY_Y?(yp+height):VGA_DISPLAY_Y;
 	uint16_t limitX = (xp+width)<VGA_DISPLAY_X?(xp+width):VGA_DISPLAY_X;
 
-	uint16_t axisOverflow = 0;
+	uint16_t pixelOverflow = 0;
 
 	pFil = &fil;
 
+	// Loop over every coordinte of where the bitmap has to be drawn, read the pixel's colour and write to framebuffer
 	for(uint16_t y = yp; y < limitY; y++)
 	{
 		for(uint16_t x = xp; x < limitX; x++)
 		{
-			fres = f_read(&fil, (void*)readBuf, packetSize, &bufLen);
+			fres = f_read(&fil, (void*)readBuf, packetSize, (UINT*)&bufLen);
 			if(fres != FR_OK) {
 				return ERR_SDCARD_READ;
 			}
-			readBuf[strlen(readBuf)-1] = '\0';
-			uint8_t pixelColor = (uint8_t)strtol(readBuf, NULL, 0);
+			readBuf[strlen((const char*)readBuf)-1] = '\0';
+			uint8_t pixelColor = (uint8_t)strtol((const char*)readBuf, NULL, 0);
 			memset(readBuf ,0, sizeof(readBuf));
 			VGA_RAM1[(y * (VGA_DISPLAY_X + 1)) + x] = pixelColor;
-			++axisOverflow;
+			++pixelOverflow;
 		}
 		// If x is off-screen, offset read/write pointer with remaining pixels on line
-		if(((xp + width) > (VGA_DISPLAY_X)) && ((axisOverflow + width) > (VGA_DISPLAY_X))) {
+		if(((xp + width) > (VGA_DISPLAY_X)) && ((pixelOverflow + width) > (VGA_DISPLAY_X))) {
 			fres = f_lseek(pFil, f_tell(pFil) + (packetSize * (xp + width - VGA_DISPLAY_X)));
 			if(fres != FR_OK) {
 				return ERR_SDCARD_LSEEK;
 			}
 		}
-		axisOverflow = 0;
+		pixelOverflow = 0;
 	}
 
 	fres = f_close(&fil);
@@ -152,75 +142,4 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, uint8_t selector) {
 	}
 	return ERR_NONE;
 }
-
-//	switch(selector)
-//	{
-//		case LEFT:
-//			for (uint8_t y = 0; y < BITMAPSIZE; y++) {
-//						for (uint8_t x = 0; x < BITMAPSIZE; x++) {
-//							if (arrowLeft[y][x] != 0b10010000) {
-//								color = arrowLeft[y][x];
-//								UB_VGA_SetPixel(xp + x, yp + y, color);
-//							}
-//						}
-//					}
-//			break;
-//		case RIGHT:
-//			for (uint8_t y = 0; y < BITMAPSIZE; y++) {
-//				for (uint8_t x = 0; x < BITMAPSIZE; x++) {
-//					if (arrowLeft[y][x] != 0b10010000) {
-//						color = arrowLeft[y][x];
-//						UB_VGA_SetPixel(xp + BITMAPSIZE - x, yp + BITMAPSIZE - y,
-//								color);
-//					}
-//				}
-//			}
-//			break;
-//		case UP:
-//			for (uint8_t y = 0; y < BITMAPSIZE; y++) {
-//				for (uint8_t x = 0; x < BITMAPSIZE; x++) {
-//					if (arrowLeft[x][y] != 0b10010000) {
-//						color = arrowLeft[x][y];
-//						UB_VGA_SetPixel(xp + x, yp + y, color);
-//					}
-//				}
-//			}
-//			break;
-//		case DOWN:
-//			for (uint8_t y = 0; y < BITMAPSIZE; y++) {
-//				for (uint8_t x = 0; x < BITMAPSIZE; x++) {
-//					if (arrowLeft[x][y] != 0b10010000) {
-//						color = arrowLeft[x][y];
-//						UB_VGA_SetPixel(xp + BITMAPSIZE - x, yp + BITMAPSIZE - y,
-//								color);
-//					}
-//				}
-//			}
-//			break;
-//		case SMILEY:
-//			for (uint8_t y = 0; y < BITMAPSIZE; y++) {
-//				for (uint8_t x = 0; x < BITMAPSIZE; x++) {
-//					if (smiley[y][x] != 0b10010000) {
-//						color = smiley[y][x];
-//						UB_VGA_SetPixel(xp + x, yp + y, color);
-//
-//					}
-//				}
-//			}
-//			break;
-//		case ANGRY:
-//			for (uint8_t y = 0; y < BITMAPSIZE; y++) {
-//				for (uint8_t x = 0; x < BITMAPSIZE; x++) {
-//					if (angry[y][x] != 0b10010000) {
-//						color = angry[y][x];
-//						UB_VGA_SetPixel(xp + x, yp + y, color);
-//					}
-//				}
-//			}
-//			break;
-//		default:
-//			return ERR_INVALID_ARG;
-//			break;
-//	}
-
 

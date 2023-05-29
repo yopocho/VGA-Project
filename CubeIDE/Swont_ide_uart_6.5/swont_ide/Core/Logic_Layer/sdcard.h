@@ -10,6 +10,7 @@
 
 #include "main.h"
 #include "fatfs.h"
+#include "drawshapes.h"
 
 
 FATFS FatFs; //FatFS Handle
@@ -35,13 +36,14 @@ extern Error SDCardDeinit();
 
 
 /**
- * @fn Error SDCardReadFile()
- * @brief Reads file from the SD card
+ * @fn Error DrawBitmapFromSDCard(uint16_t, uint16_t, bitmapKey)
+ * @brief Draws bitmap selector at given location, starting from top-left.
  *
+ * @param xp
+ * @param yp
+ * @param selector
  * @return Error
  */
-extern Error SDCardReadFile(uint8_t* pFramebuffer, uint8_t bitmapIndex);
-
-extern Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, uint8_t selector);
+extern Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector);
 
 #endif /* LOGIC_LAYER_SDCARD_H_ */
