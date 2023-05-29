@@ -155,7 +155,7 @@ int main(void)
 //		  printf("yes\n");
 //		  colorTest = ~colorTest; // Toggle screen color
 //		  UB_VGA_FillScreen(colorTest);
-		  DrawBitmapFromSDCard(120,67,0);
+		  DrawBitmapFromSDCard(100,100,1);
 
 		  // When finished reset the flag
 		  input.command_execute_flag = FALSE;

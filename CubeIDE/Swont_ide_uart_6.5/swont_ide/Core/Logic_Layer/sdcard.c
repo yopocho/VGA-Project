@@ -100,30 +100,46 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, uint8_t selector) {
 	if(bufLen != 0) {
 		printf("Read string from '%s' contents: %s\n\r", filename, preambleBuf);
 	}
+	else if(preambleBuf[3] != 'x') return ERR_BITMAP_FORMAT;
 	else return ERR_SDCARD_GETS;
 
 	uint16_t width = atoi(preambleBuf);
 	uint16_t height = atoi(preambleBuf+4);
 	printf("%d, %d\n\r", width, height);
-	uint8_t packetSize = 5; //0x.. pixeldata + comma
+	uint8_t packetSize = 5; //chars (0x..,) pixeldata + comma
 	uint8_t readBuf[packetSize];
-	bufLen = packetSize;
 
-	while(bufLen == packetSize)
+	// Check if bitmap will be written off-screen
+	uint16_t limitY = (yp+height)<VGA_DISPLAY_Y?(yp+height):VGA_DISPLAY_Y;
+	uint16_t limitX = (xp+width)<VGA_DISPLAY_X?(xp+width):VGA_DISPLAY_X;
+
+	uint8_t pixelColor = 0;
+
+	uint16_t counter = 0;
+
+	for(uint16_t y = yp; y < limitY; y++)
 	{
-		for(uint16_t y = yp; y < yp+height; y++)
+		for(uint16_t x = xp; x < limitX; x++)
 		{
-			for(uint16_t x = xp; x < xp+width; x++)
-			{
-				f_read(&fil, (void*)readBuf, packetSize, &bufLen);
-				readBuf[strlen(readBuf)-1] = '\0';
-				uint8_t pixelColor = (uint8_t)strtol(readBuf, NULL, 0);
-				memset(readBuf ,0, sizeof(readBuf));
-				UB_VGA_SetPixel(x, y, pixelColor);
-
-			}
+			f_read(&fil, (void*)readBuf, packetSize, &bufLen);
+//			printf(readBuf);
+			readBuf[strlen(readBuf)-1] = '\0';
+			uint8_t pixelColor = (uint8_t)strtol(readBuf, NULL, 0);
+			memset(readBuf ,0, sizeof(readBuf));
+//			UB_VGA_SetPixel(x, y, pixelColor);
+			VGA_RAM1[(y * (VGA_DISPLAY_X + 1)) + x] = pixelColor;
+			++counter;
 		}
+		if(((xp + width) > (VGA_DISPLAY_X + 1)) && ((counter + width) > (VGA_DISPLAY_X + 1))) {
+			uint32_t xOffset = (packetSize * (xp + width - VGA_DISPLAY_X));
+			uint32_t error = f_lseek(fil.fptr, f_tell(fil.fptr) + xOffset);
+			printf(error);
+		}
+		counter = 0;
+		if(fil.fptr > 327689) printf("ohkut");
+//		fil.fptr = 9;
 	}
+
 	f_close(&fil);
 	return ERR_NONE;
 }
