@@ -5,15 +5,16 @@
  *      Author: niels
  */
 
-#include "main.h"
-#include "fatfs.h"
-
 #ifndef LOGIC_LAYER_SDCARD_H_
 #define LOGIC_LAYER_SDCARD_H_
 
+#include "main.h"
+#include "fatfs.h"
+#include "drawshapes.h"
+
 
 FATFS FatFs; //FatFS Handle
-FIL fil; //File Handle
+FIL fil, *pFil; //File Handle
 FRESULT fres; //Error Handle
 
 /**
@@ -35,11 +36,14 @@ extern Error SDCardDeinit();
 
 
 /**
- * @fn Error SDCardReadFile()
- * @brief Reads file from the SD card
+ * @fn Error DrawBitmapFromSDCard(uint16_t, uint16_t, bitmapKey)
+ * @brief Draws bitmap selector at given location, starting from top-left.
  *
+ * @param xp
+ * @param yp
+ * @param selector
  * @return Error
  */
-extern Error SDCardReadFile();
+extern Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector);
 
 #endif /* LOGIC_LAYER_SDCARD_H_ */
