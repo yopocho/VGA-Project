@@ -13,7 +13,7 @@
 
 
 FATFS FatFs; //FatFS Handle
-FIL fil; //File Handle
+FIL fil, *pFil; //File Handle
 FRESULT fres; //Error Handle
 
 /**

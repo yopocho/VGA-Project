@@ -27,11 +27,13 @@ typedef const enum
 	ERR_UNKNOWN_ERR,
 	ERR_SDCARD_MOUNT,
 	ERR_SDCARD_GETFREE,
-	ERR_SDCARD_GETS,
+	ERR_SDCARD_READ,
 	ERR_SDCARD_WRITE,
 	ERR_SDCARD_OPEN,
 	ERR_SDCARD_UNAVAILABLE,
-	ERR_BITMAP_FORMAT
+	ERR_BITMAP_FORMAT,
+	ERR_SDCARD_CLOSE,
+	ERR_SDCARD_LSEEK
 } Error;
 
 /**
@@ -69,11 +71,13 @@ static const ErrorHandle ErrorList[] =
 	{ERR_UART_FAIL,				HIGH,	"UART Transmit failed\r\n"						},
 	{ERR_SDCARD_MOUNT,			LOW,	"Could not mount SD-card\r\n"					},
 	{ERR_SDCARD_GETFREE,		LOW,	"Could not retrieve free space on SD-card\r\n"	},
-	{ERR_SDCARD_GETS,			LOW,	"Could not read data from SD-card\r\n"			},
+	{ERR_SDCARD_READ,			LOW,	"Could not read data from SD-card\r\n"			},
 	{ERR_SDCARD_WRITE,			LOW,	"Could not write to SD-card\r\n"				},
 	{ERR_SDCARD_OPEN,			LOW,	"Could not open SD-card\r\n"					},
 	{ERR_SDCARD_UNAVAILABLE, 	LOW,	"SDCard unavailable\r\n"						},
-	{ERR_BITMAP_FORMAT,			LOW,	"Supplied bitmap has an incorrect format\r\n"	}
+	{ERR_BITMAP_FORMAT,			LOW,	"Supplied bitmap has an incorrect format\r\n"	},
+	{ERR_SDCARD_CLOSE,			LOW,	"Unable to close SD-card\r\n"					},
+	{ERR_SDCARD_LSEEK,			LOW,	"FatFS f_lseek misbehaved\r\n"					}
 };
 
 Error TransmitError(Error ErrorCode);

@@ -93,19 +93,24 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, uint8_t selector) {
 		return ERR_SDCARD_OPEN;
 	}
 
+
+	// Setup preambleBuf to read preamble of bitmap into
 	unsigned char preambleBuf[9];
 	uint8_t bufLen = 0;
 
-	f_read(&fil, (void*)preambleBuf, 9, &bufLen);
-	if(bufLen != 0) {
+	// Read preamble of bitmap file
+	fres = f_read(&fil, (void*)preambleBuf, 9, &bufLen);
+	if(bufLen != 0 && fres == FR_OK) {
 		printf("Read string from '%s' contents: %s\n\r", filename, preambleBuf);
 	}
 	else if(preambleBuf[3] != 'x') return ERR_BITMAP_FORMAT;
-	else return ERR_SDCARD_GETS;
+	else return ERR_SDCARD_READ;
 
+	// Parse preambleBuf
 	uint16_t width = atoi(preambleBuf);
 	uint16_t height = atoi(preambleBuf+4);
-	printf("%d, %d\n\r", width, height);
+
+	// Setup readBuf to read data for each pixel
 	uint8_t packetSize = 5; //chars (0x..,) pixeldata + comma
 	uint8_t readBuf[packetSize];
 
@@ -113,34 +118,38 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, uint8_t selector) {
 	uint16_t limitY = (yp+height)<VGA_DISPLAY_Y?(yp+height):VGA_DISPLAY_Y;
 	uint16_t limitX = (xp+width)<VGA_DISPLAY_X?(xp+width):VGA_DISPLAY_X;
 
-	uint8_t pixelColor = 0;
+	uint16_t axisOverflow = 0;
 
-	uint16_t counter = 0;
+	pFil = &fil;
 
 	for(uint16_t y = yp; y < limitY; y++)
 	{
 		for(uint16_t x = xp; x < limitX; x++)
 		{
-			f_read(&fil, (void*)readBuf, packetSize, &bufLen);
-//			printf(readBuf);
+			fres = f_read(&fil, (void*)readBuf, packetSize, &bufLen);
+			if(fres != FR_OK) {
+				return ERR_SDCARD_READ;
+			}
 			readBuf[strlen(readBuf)-1] = '\0';
 			uint8_t pixelColor = (uint8_t)strtol(readBuf, NULL, 0);
 			memset(readBuf ,0, sizeof(readBuf));
-//			UB_VGA_SetPixel(x, y, pixelColor);
 			VGA_RAM1[(y * (VGA_DISPLAY_X + 1)) + x] = pixelColor;
-			++counter;
+			++axisOverflow;
 		}
-		if(((xp + width) > (VGA_DISPLAY_X + 1)) && ((counter + width) > (VGA_DISPLAY_X + 1))) {
-			uint32_t xOffset = (packetSize * (xp + width - VGA_DISPLAY_X));
-			uint32_t error = f_lseek(fil.fptr, f_tell(fil.fptr) + xOffset);
-			printf(error);
+		// If x is off-screen, offset read/write pointer with remaining pixels on line
+		if(((xp + width) > (VGA_DISPLAY_X)) && ((axisOverflow + width) > (VGA_DISPLAY_X))) {
+			fres = f_lseek(pFil, f_tell(pFil) + (packetSize * (xp + width - VGA_DISPLAY_X)));
+			if(fres != FR_OK) {
+				return ERR_SDCARD_LSEEK;
+			}
 		}
-		counter = 0;
-		if(fil.fptr > 327689) printf("ohkut");
-//		fil.fptr = 9;
+		axisOverflow = 0;
 	}
 
-	f_close(&fil);
+	fres = f_close(&fil);
+	if(fres != FR_OK) {
+		return ERR_SDCARD_CLOSE;
+	}
 	return ERR_NONE;
 }
 
