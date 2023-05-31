@@ -76,11 +76,11 @@ void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
  * @param commandArray
  * @param inputStruct
  */
-void CheckWhatCommand(char incommingCommand[], command commandArray,
+void CheckWhatCommand(char incommingCommand[], CmdStruct CmdBuf,
 					  input_vars inputStruct) {
 	for (uint8_t i = 0; i < AMOUNT_OF_COMMANDS; i++) {
 		if (strcmp(incommingCommand, possibleCommands[i]) == 0) {
-			commandArray[0] = i;
+			CmdBuf.commandNummer = i;
 #ifdef FRONT_LAYER_DEBUG
 			OutputDebug(debugMessageCommand, sizeof(debugMessageCommand),
 						&huart2);
@@ -98,8 +98,7 @@ void CheckWhatCommand(char incommingCommand[], command commandArray,
  * @param commandArray
  * @param argPlace
  */
-void CheckWhatColor(char incommingColor[], command commandArray,
-					uint8_t argPlace) {
+void CheckWhatColor(char incommingColor[], CmdStruct CmdBuf, uint8_t argPlace) {
 	for (uint8_t i = 0; i < AMOUNT_OF_COLORS; i++) {
 		if (strcmp(incommingColor, possibleColors[i]) == 0) {
 			commandArray[argPlace] = colorCodes[i];
@@ -118,7 +117,7 @@ void CheckWhatColor(char incommingColor[], command commandArray,
  * @param commandArray
  * @param inputStruct
  */
-void DoOnCommand(command commandArray, input_vars inputStruct) {
+void DoOnCommand(CmdStruct CmdBuf, input_vars inputStruct) {
 	switch (commandArray[0]) {
 		case 0:
 			// lijn
@@ -129,31 +128,31 @@ void DoOnCommand(command commandArray, input_vars inputStruct) {
 			RecieveCommandClear(commandArray, inputStruct);
 			break;
 		case 2:
-			//rechthoek
+			// rechthoek
 			RecieveCommandRechthoek(commandArray, inputStruct);
 			break;
 		case 3:
-			//wacht
+			// wacht
 			RecieveCommandWacht(commandArray, inputStruct);
 			break;
 		case 4:
-			//tekst
+			// tekst
 			RecieveCommandTekst(commandArray, inputStruct);
 			break;
 		case 5:
-			//bitmap
+			// bitmap
 			RecieveCommandBitmap(commandArray, inputStruct);
 			break;
 		case 6:
-			//cirkel
+			// cirkel
 			RecieveCommandCirkel(commandArray, inputStruct);
 			break;
 		case 7:
-			//figuur
+			// figuur
 			RecieveCommandFiguur(commandArray, inputStruct);
 			break;
 		case 8:
-			//herhaal
+			// herhaal
 			RecieveCommandHerhaal(commandArray, inputStruct);
 			break;
 	}

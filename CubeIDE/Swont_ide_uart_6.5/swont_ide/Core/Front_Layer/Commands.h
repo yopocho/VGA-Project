@@ -15,23 +15,11 @@
 #define CMD_BUFF_SIZE 128
 #define MAX_CMD_ARGS 12
 
-struct CmdStruct {
+typedef struct CmdStruct {
 	int commandNummer;
-	uint16_t arg1;
-	uint16_t arg2;
-	uint16_t arg3;
-	uint16_t arg4;
-	uint16_t arg5;
-	uint16_t arg6;
-	uint16_t arg7;
-	uint16_t arg8;
-	uint16_t arg9;
-	uint16_t arg10;
-	uint16_t arg11;
+	uint16_t argBuf[12];
 	char textSentence[1024];
-};
-
-
+} CmdStruct;
 
 typedef uint16_t command[12];
 
@@ -44,6 +32,5 @@ void RecieveCommandWacht(command commandArray, input_vars inputStruct);
 void RecieveCommandHerhaal(command commandArray, input_vars inputStruct);
 void RecieveCommandFiguur(command commandArray, input_vars inputStruct);
 void RecieveCommandCirkel(command commandArray, input_vars inputStruct);
-
 
 #endif /* FRONT_LAYER_COMMANDS_H_ */

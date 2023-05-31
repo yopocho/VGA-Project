@@ -12,7 +12,7 @@
 #include "main.h"
 #include "usart.h"
 
-//#define FRONT_LAYER_DEBUG
+// #define FRONT_LAYER_DEBUG
 #define AMOUNT_OF_COMMANDS 9
 #define AMOUNT_OF_COLORS 16
 
