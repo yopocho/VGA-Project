@@ -40,6 +40,7 @@ extern "C" {
 
 #include "stm32_ub_vga_screen.h"
 
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

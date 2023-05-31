@@ -7,6 +7,25 @@
 
 #include "Commands.h"
 
+
+CmdStruct circCmdBuf[CMDBUF_MAX_SIZE];
+CmdStruct *pCircCmdBuf = &circCmdBuf[0];
+uint32_t circCmdBufLen;
+
+/**
+ * @fn Error addToBuffer(CmdStruct*)
+ * @brief Adds given command struct cmdStruct* to CircCmdBuf, which can be read out later.
+ *
+ * @param command
+ * @return
+ */
+Error AddToBuffer(CmdStruct *command) {
+	*pCircCmdBuf = *command;
+	++pCircCmdBuf;
+	++circCmdBufLen;
+	return ERR_NONE;
+}
+
 /**
  * @fn void RecieveCommandLijn(command, input_vars)
  * @brief when line command is recieved adds the nesisary args and adds them to
@@ -25,6 +44,7 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, *CmdBuf);
 		}
 	}
+//	AddToBuffer(&CmdBuf);
 }
 
 /**
