@@ -5,9 +5,14 @@
  *      Author: Sjoerd
  */
 
-#include <fonts/drawtext.h>
+#include <drawtext.h>
 #include <main.h>
-
+#include <fonts/fonts.h>
+/// @fn int8_t FindGlyph(char)
+/// @brief Finds the glyph in a predifined glyph list
+///
+/// @param c
+/// @return
 int8_t FindGlyph(char c)
 {
 	uint8_t index = 0;
@@ -28,7 +33,20 @@ int8_t FindGlyph(char c)
 	return -1;	// error: character glyph not found in ASCII array of glyphs
 }
 
-void DrawGlyph(int8_t index_glyph, int16_t x1, int16_t y1, uint8_t color, uint8_t fontSize, const uint8_t *fontBitmap, const font_glyph_desc *fontDesc)
+/**
+ * @fn Error DrawGlyph(int8_t, int16_t, int16_t, uint8_t, uint8_t, const uint8_t*, const font_glyph_desc*)
+ * @brief Draws a single glyph or char on the vga screen
+ *
+ * @param index_glyph
+ * @param x1
+ * @param y1
+ * @param color
+ * @param fontSize
+ * @param fontBitmap
+ * @param fontDesc
+ * @return
+ */
+Error DrawGlyph(int8_t index_glyph, int16_t x1, int16_t y1, uint8_t color, uint8_t fontSize, const uint8_t *fontBitmap, const font_glyph_desc *fontDesc)
 {
 	uint8_t byte_pixels = 0;			   // byte with 8 monochrome pixel bits of font glyph
 
@@ -63,11 +81,28 @@ void DrawGlyph(int8_t index_glyph, int16_t x1, int16_t y1, uint8_t color, uint8_
 		if (ypos % 2 == 0 && fontSize == 2)
 			byte_index -= (7 + width_px) / 8;
 	}
-
+	return ERR_NONE;
 }
 
-uint16_t DrawText(uint16_t x1, uint16_t y1, uint8_t color, char *textString, char *fontName, uint8_t fontSize, char *fontStyle)
+/**
+ * @fn Error DrawText(uint16_t, uint16_t, uint8_t, char*, char*, uint8_t, char*)
+ * @brief Draws the text on the vga screen based on the drawglyph function
+ *
+ * @param x1
+ * @param y1
+ * @param color
+ * @param textString
+ * @param fontName
+ * @param fontSize
+ * @param fontStyle
+ * @return
+ */
+Error DrawText(uint16_t x1, uint16_t y1, uint8_t color, char *textString, char *fontName, uint8_t fontSize, char *fontStyle)
 {
+	if(x1 > VGA_DISPLAY_X) return ERR_ARG_OOB;
+	if(y1 > VGA_DISPLAY_Y) return ERR_ARG_OOB;
+	if (fontSize < 1 || fontSize > 2) return ERR_ARG_OOB;
+
 	uint8_t i = 0;
 	int8_t index_glyph = 0;
 	int16_t x_offset = 0;
@@ -103,6 +138,7 @@ uint16_t DrawText(uint16_t x1, uint16_t y1, uint8_t color, char *textString, cha
 		index_glyph = FindGlyph(*(textString + i));
 
 		// invalid character received
+		if (index_glyph == -1) return ERR_INVALID_CHAR;
 
 		// space character received
 		if (index_glyph == 127)
@@ -114,12 +150,14 @@ uint16_t DrawText(uint16_t x1, uint16_t y1, uint8_t color, char *textString, cha
 
 		DrawGlyph(index_glyph, x1 + x_offset, y1, color, fontSize, fontBitmap, fontDesc);	// test with different font types
 
-		width_px = arial_regular_glyph_dsc[index_glyph].width_px;
+		width_px = arial_normal_glyph_dsc[index_glyph].width_px;
 		x_offset += (width_px * fontSize) + 1; 	// 1px room between subsequent glyphs
 
 		// warning check: text glyphs out of bounds
-		if ((x_offset + x1) < 0 || (x_offset + x1) > VGA_DISPLAY_X || (y1 + fontSize*16) < 0 || (y1 + fontSize*16) > VGA_DISPLAY_Y )
+		if ((x_offset + x1) < 0 || (x_offset + x1) > VGA_DISPLAY_X || (y1 + fontSize*16) < 0 || (y1 + fontSize*16) > VGA_DISPLAY_Y ){
+			return ERR_TEXT_OOB;
+		}
 		i++;
 	}
-	return 0;
+	return ERR_NONE;
 }

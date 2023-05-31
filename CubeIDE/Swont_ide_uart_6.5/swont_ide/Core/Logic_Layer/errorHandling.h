@@ -33,7 +33,10 @@ typedef const enum
 	ERR_SDCARD_UNAVAILABLE,/**< ERR_SDCARD_UNAVAILABLE */
 	ERR_BITMAP_FORMAT,     /**< ERR_BITMAP_FORMAT */
 	ERR_SDCARD_CLOSE,      /**< ERR_SDCARD_CLOSE */
-	ERR_SDCARD_LSEEK       /**< ERR_SDCARD_LSEEK */
+	ERR_SDCARD_LSEEK,       /**< ERR_SDCARD_LSEEK */
+	ERR_INVALID_COL,
+	ERR_TEXT_OOB,
+	ERR_INVALID_CHAR
 } Error;
 
 /**
@@ -77,7 +80,10 @@ static const ErrorHandle ErrorList[] =
 	{ERR_SDCARD_UNAVAILABLE, 	LOW,	"SDCard unavailable\r\n"						},
 	{ERR_BITMAP_FORMAT,			LOW,	"Supplied bitmap has an incorrect format\r\n"	},
 	{ERR_SDCARD_CLOSE,			LOW,	"Unable to close SD-card\r\n"					},
-	{ERR_SDCARD_LSEEK,			LOW,	"FatFS f_lseek misbehaved\r\n"					}
+	{ERR_SDCARD_LSEEK,			LOW,	"FatFS f_lseek misbehaved\r\n"					},
+	{ERR_INVALID_COL,			LOW,	"Given color in wrong or unkown\r\n"			},
+	{ERR_TEXT_OOB,				LOW,	"Text will not fit inside screen\r\n"			},
+	{ERR_INVALID_CHAR,			MEDIUM,	"Character is invalid or unkown in text\r\n"	}
 };
 
 Error TransmitError(Error ErrorCode);
