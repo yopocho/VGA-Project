@@ -22,6 +22,7 @@
 /* USER CODE BEGIN Includes */
 #include "main.h"
 
+#include "Commands.h"
 #include "dma.h"
 #include "errorhandling.h"
 #include "gpio.h"
