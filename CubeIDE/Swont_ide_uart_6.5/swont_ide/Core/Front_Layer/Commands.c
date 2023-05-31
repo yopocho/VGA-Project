@@ -44,7 +44,7 @@ Error RecieveCommandLijn(CmdStruct CmdBuf, input_vars inputStruct) {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, CmdBuf);
 		}
 	}
-	AddToBuffer(&CmdBuf);
+//	AddToBuffer(&CmdBuf);
 }
 
 /**
