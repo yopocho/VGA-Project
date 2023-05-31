@@ -20,8 +20,7 @@
  * @param commandArray
  */
 Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
-				  uint8_t convertToNumber, int convertColor,
-				  command commandArray) {
+				  uint8_t convertToNumber, int convertColor, CmdStruct CmdBuf) {
 	uint8_t commaCounter = 0;
 	uint8_t placeInBuf = 0;
 	char incommingMessage[inputStruct.msglen];
@@ -34,13 +33,11 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 #endif
 			if (commaCounter == neededArgument) {
 				if (!commaCounter)
-					CheckWhatCommand(incommingMessage, commandArray,
-									 inputStruct);
+					CheckWhatCommand(incommingMessage, CmdBuf, inputStruct);
 				if (convertColor)
-					CheckWhatColor(incommingMessage, commandArray,
-								   neededArgument);
+					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
 				if (convertToNumber)
-					commandArray[neededArgument] = atoi(incommingMessage);
+					CmdBuf.argBuf[neededArgument] = atoi(incommingMessage);
 				break;
 			}
 			commaCounter++;
@@ -52,10 +49,9 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 			placeInBuf++;
 			if (commaCounter == neededArgument) {
 				if (convertColor)
-					CheckWhatColor(incommingMessage, commandArray,
-								   neededArgument);
+					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
 				if (convertToNumber)
-					commandArray[neededArgument] = atoi(incommingMessage);
+					CmdBuf.argBuf[neededArgument] = atoi(incommingMessage);
 			}
 			break;
 		}
@@ -85,7 +81,7 @@ Error CheckWhatCommand(char incommingCommand[], CmdStruct CmdBuf,
 			OutputDebug(debugMessageCommand, sizeof(debugMessageCommand),
 						&huart2);
 #endif
-			DoOnCommand(commandArray, inputStruct);
+			DoOnCommand(CmdBuf, inputStruct);
 		}
 	}
 }
@@ -101,7 +97,7 @@ Error CheckWhatCommand(char incommingCommand[], CmdStruct CmdBuf,
 Error CheckWhatColor(char incommingColor[], CmdStruct CmdBuf, uint8_t argPlace) {
 	for (uint8_t i = 0; i < AMOUNT_OF_COLORS; i++) {
 		if (strcmp(incommingColor, possibleColors[i]) == 0) {
-			commandArray[argPlace] = colorCodes[i];
+			CmdBuf.argBuf[argPlace] = colorCodes[i];
 #ifdef FRONT_LAYER_DEBUG
 			OutputDebug(debugMessageColor, sizeof(debugMessageColor), &huart2);
 #endif
@@ -118,42 +114,42 @@ Error CheckWhatColor(char incommingColor[], CmdStruct CmdBuf, uint8_t argPlace) 
  * @param inputStruct
  */
 Error DoOnCommand(CmdStruct CmdBuf, input_vars inputStruct) {
-	switch (commandArray[0]) {
+	switch (CmdBuf.commandNummer) {
 		case 0:
 			// lijn
-			RecieveCommandLijn(commandArray, inputStruct);
+			RecieveCommandLijn(CmdBuf, inputStruct);
 			break;
 		case 1:
 			// clearscherm
-			RecieveCommandClear(commandArray, inputStruct);
+			RecieveCommandClear(CmdBuf, inputStruct);
 			break;
 		case 2:
 			// rechthoek
-			RecieveCommandRechthoek(commandArray, inputStruct);
+			RecieveCommandRechthoek(CmdBuf, inputStruct);
 			break;
 		case 3:
 			// wacht
-			RecieveCommandWacht(commandArray, inputStruct);
+			RecieveCommandWacht(CmdBuf, inputStruct);
 			break;
 		case 4:
 			// tekst
-			RecieveCommandTekst(commandArray, inputStruct);
+			RecieveCommandTekst(CmdBuf, inputStruct);
 			break;
 		case 5:
 			// bitmap
-			RecieveCommandBitmap(commandArray, inputStruct);
+			RecieveCommandBitmap(CmdBuf, inputStruct);
 			break;
 		case 6:
 			// cirkel
-			RecieveCommandCirkel(commandArray, inputStruct);
+			RecieveCommandCirkel(CmdBuf, inputStruct);
 			break;
 		case 7:
 			// figuur
-			RecieveCommandFiguur(commandArray, inputStruct);
+			RecieveCommandFiguur(CmdBuf, inputStruct);
 			break;
 		case 8:
 			// herhaal
-			RecieveCommandHerhaal(commandArray, inputStruct);
+			RecieveCommandHerhaal(CmdBuf, inputStruct);
 			break;
 	}
 }

@@ -24,14 +24,14 @@ typedef struct CmdStruct {
 
 typedef uint16_t command[12];
 
-Error RecieveCommandLijn(command commandArray, input_vars inputStruct);
-Error RecieveCommandClear(command commandArray, input_vars inputStruct);
-Error RecieveCommandRechthoek(command commandArray, input_vars inputStruct);
-Error RecieveCommandTekst(command commandArray, input_vars inputStruct);
-Error RecieveCommandBitmap(command commandArray, input_vars inputStruct);
-Error RecieveCommandWacht(command commandArray, input_vars inputStruct);
-Error RecieveCommandHerhaal(command commandArray, input_vars inputStruct);
-Error RecieveCommandFiguur(command commandArray, input_vars inputStruct);
-Error RecieveCommandCirkel(command commandArray, input_vars inputStruct);
+Error RecieveCommandLijn(CmdStruct CmdBuf, input_vars inputStruct);
+Error RecieveCommandClear(CmdStruct CmdBuf, input_vars inputStruct);
+Error RecieveCommandRechthoek(CmdStruct CmdBuf, input_vars inputStruct);
+Error RecieveCommandTekst(CmdStruct CmdBuf, input_vars inputStruct);
+Error RecieveCommandBitmap(CmdStruct CmdBuf, input_vars inputStruct);
+Error RecieveCommandWacht(CmdStruct CmdBuf, input_vars inputStruct);
+Error RecieveCommandHerhaal(CmdStruct CmdBuf, input_vars inputStruct);
+Error RecieveCommandFiguur(CmdStruct CmdBuf, input_vars inputStruct);
+Error RecieveCommandCirkel(CmdStruct CmdBuf, input_vars inputStruct);
 
 #endif /* FRONT_LAYER_COMMANDS_H_ */
