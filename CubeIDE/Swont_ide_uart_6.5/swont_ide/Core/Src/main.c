@@ -26,9 +26,18 @@
 #include "Parser.h"
 #include "dma.h"
 #include "errorhandling.h"
+#include "fatfs.h"
 #include "gpio.h"
+#include "spi.h"
 #include "tim.h"
 #include "usart.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
+#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
 
 /* USER CODE END Includes */
 
@@ -101,6 +110,8 @@ int main(void) {
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_USART2_UART_Init();
+  MX_SPI1_Init();
+  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
   UB_VGA_Screen_Init();  // Init VGA-Screen
@@ -113,11 +124,8 @@ int main(void) {
   //  UB_VGA_SetPixel(10,14,VGA_COL_BLUE);
   //  UB_VGA_SetPixel(10,15,VGA_COL_BLUE);
   //  UB_VGA_SetPixel(10,16,VGA_COL_BLUE);
-  //  //UB_VGA_SetPixel(0,0,0x00);
-  //  //UB_VGA_SetPixel(319,,0x00);
-  Draw_Line(10, 10, 180, 40, VGA_COL_RED);
-  Draw_Line(10, 40, 180, 70, VGA_COL_WHITE);
-  Draw_Line(10, 70, 180, 100, VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(0,0,0x00);
+  //  UB_VGA_SetPixel(319,,0x00);
   int i;
 
   for (i = 0; i < LINE_BUFLEN; i++) input.line_rx_buffer[i] = 0;

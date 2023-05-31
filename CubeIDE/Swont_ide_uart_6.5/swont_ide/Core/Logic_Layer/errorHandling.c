@@ -30,11 +30,9 @@ Error TransmitError(Error ErrorCode)
  */
 ErrorHandle* GetError(Error ErrorCode)
 {
-	uint8_t SizeOfErrorList = sizeof(ErrorList)/sizeof(ErrorList[0]);
-	for(uint8_t i = 0; i < SizeOfErrorList; i++)
-	{
-		if(ErrorList[i].ErrorCode == ErrorCode)
-		{
+	size_t SizeOfErrorList = sizeof(ErrorList)/sizeof(ErrorList[0]);
+	for(size_t i = 0; i < SizeOfErrorList; i++){
+		if(ErrorList[i].ErrorCode == ErrorCode){
 			return &ErrorList[i];
 		}
 	}
