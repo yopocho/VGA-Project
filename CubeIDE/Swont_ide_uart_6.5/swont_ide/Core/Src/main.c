@@ -84,7 +84,7 @@ int main(void) {
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  command commandBuf = {0};
+  CmdStruct arg_struct;
 
   /* USER CODE END Init */
 
@@ -139,8 +139,19 @@ int main(void) {
   while (1) {
     if (input.command_execute_flag == TRUE) {
       // Do some stuff
-      ParseOnKomma(input, 0, 0, 0, commandBuf);
-      ClearScreen(commandBuf[1]);
+      ParseOnKomma(input, 0, 0, 0, &arg_struct);
+      switch(arg_struct.commandNummer)
+      {
+      case 0:
+    	  DrawLine(arg_struct.argBuf[1], arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[4], arg_struct.argBuf[5], arg_struct.argBuf[6]);
+    	  break;
+      case 1:
+    	  ClearScreen(arg_struct.argBuf[1]);
+    	  break;
+      case 2:
+    	  DrawRectangle(arg_struct.argBuf[1], arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[4], arg_struct.argBuf[5], arg_struct.argBuf[6]);
+    	  break;
+      }
 
 
       // When finished reset the flag

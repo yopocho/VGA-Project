@@ -20,7 +20,8 @@
  * @param commandArray
  */
 Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
-				  uint8_t convertToNumber, int convertColor, CmdStruct CmdBuf) {
+				   uint8_t convertToNumber, int convertColor,
+				   CmdStruct *CmdBuf) {
 	uint8_t commaCounter = 0;
 	uint8_t placeInBuf = 0;
 	char incommingMessage[inputStruct.msglen];
@@ -37,7 +38,7 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				if (convertColor)
 					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
 				if (convertToNumber)
-					CmdBuf.argBuf[neededArgument] = atoi(incommingMessage);
+					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
 				break;
 			}
 			commaCounter++;
@@ -51,7 +52,7 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				if (convertColor)
 					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
 				if (convertToNumber)
-					CmdBuf.argBuf[neededArgument] = atoi(incommingMessage);
+					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
 			}
 			break;
 		}
@@ -72,11 +73,11 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
  * @param commandArray
  * @param inputStruct
  */
-Error CheckWhatCommand(char incommingCommand[], CmdStruct CmdBuf,
-					  input_vars inputStruct) {
+Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
+					   input_vars inputStruct) {
 	for (uint8_t i = 0; i < AMOUNT_OF_COMMANDS; i++) {
 		if (strcmp(incommingCommand, possibleCommands[i]) == 0) {
-			CmdBuf.commandNummer = i;
+			CmdBuf->commandNummer = i;
 #ifdef FRONT_LAYER_DEBUG
 			OutputDebug(debugMessageCommand, sizeof(debugMessageCommand),
 						&huart2);
@@ -94,10 +95,11 @@ Error CheckWhatCommand(char incommingCommand[], CmdStruct CmdBuf,
  * @param commandArray
  * @param argPlace
  */
-Error CheckWhatColor(char incommingColor[], CmdStruct CmdBuf, uint8_t argPlace) {
+Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
+					 uint8_t argPlace) {
 	for (uint8_t i = 0; i < AMOUNT_OF_COLORS; i++) {
 		if (strcmp(incommingColor, possibleColors[i]) == 0) {
-			CmdBuf.argBuf[argPlace] = colorCodes[i];
+			CmdBuf->argBuf[argPlace] = colorCodes[i];
 #ifdef FRONT_LAYER_DEBUG
 			OutputDebug(debugMessageColor, sizeof(debugMessageColor), &huart2);
 #endif
@@ -113,43 +115,43 @@ Error CheckWhatColor(char incommingColor[], CmdStruct CmdBuf, uint8_t argPlace) 
  * @param commandArray
  * @param inputStruct
  */
-Error DoOnCommand(CmdStruct CmdBuf, input_vars inputStruct) {
-	switch (CmdBuf.commandNummer) {
+Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
+	switch (CmdBuf->commandNummer) {
 		case 0:
 			// lijn
-			RecieveCommandLijn(CmdBuf, inputStruct);
+			RecieveCommandLijn(&CmdBuf, inputStruct);
 			break;
 		case 1:
 			// clearscherm
-			RecieveCommandClear(CmdBuf, inputStruct);
+			RecieveCommandClear(&CmdBuf, inputStruct);
 			break;
 		case 2:
 			// rechthoek
-			RecieveCommandRechthoek(CmdBuf, inputStruct);
+			RecieveCommandRechthoek(&CmdBuf, inputStruct);
 			break;
 		case 3:
 			// wacht
-			RecieveCommandWacht(CmdBuf, inputStruct);
+			RecieveCommandWacht(&CmdBuf, inputStruct);
 			break;
 		case 4:
 			// tekst
-			RecieveCommandTekst(CmdBuf, inputStruct);
+			RecieveCommandTekst(&CmdBuf, inputStruct);
 			break;
 		case 5:
 			// bitmap
-			RecieveCommandBitmap(CmdBuf, inputStruct);
+			RecieveCommandBitmap(&CmdBuf, inputStruct);
 			break;
 		case 6:
 			// cirkel
-			RecieveCommandCirkel(CmdBuf, inputStruct);
+			RecieveCommandCirkel(&CmdBuf, inputStruct);
 			break;
 		case 7:
 			// figuur
-			RecieveCommandFiguur(CmdBuf, inputStruct);
+			RecieveCommandFiguur(&CmdBuf, inputStruct);
 			break;
 		case 8:
 			// herhaal
-			RecieveCommandHerhaal(CmdBuf, inputStruct);
+			RecieveCommandHerhaal(&CmdBuf, inputStruct);
 			break;
 	}
 }
@@ -163,6 +165,6 @@ Error DoOnCommand(CmdStruct CmdBuf, input_vars inputStruct) {
  * @param uartHandle
  */
 Error OutputDebug(char message[], size_t messageLength,
-				 UART_HandleTypeDef *uartHandle) {
+				  UART_HandleTypeDef *uartHandle) {
 	HAL_UART_Transmit(uartHandle, message, messageLength, 10);
 }
