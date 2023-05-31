@@ -115,6 +115,9 @@ int main(void) {
   UB_VGA_Screen_Init();  // Init VGA-Screen
 
   UB_VGA_FillScreen(VGA_COL_BLACK);
+  DrawRectangle(10, 10, 200, 220, VGA_COL_YELLOW, 1);
+  DrawRectangle(11, 11, 300, 220, VGA_COL_BLUE, 1);
+  DrawRectangle(160, 100, 150, 110, VGA_COL_RED, 1);
 
   int i;
 

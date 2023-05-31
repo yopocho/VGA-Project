@@ -10,59 +10,6 @@
 #include <main.h>
 #include <math.h>
 
-/**
- * @fn Error DrawRectangle(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
- * @brief Draws a rectangle with the specified color within the x & y coordinates
- *
- * @param xp
- * @param yp
- * @param Width
- * @param Heigth
- * @param color
- * @param lined
- * @return
- */
-Error DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
-		uint8_t color, uint8_t lined) {
-
-	//Error checks
-	if(xp > VGA_DISPLAY_X) 			return ERR_ARG_OOB;
-	if(yp > VGA_DISPLAY_Y) 			return ERR_ARG_OOB;
-	if(lined < 0 || lined > 1) 		return ERR_ARG_OOB;
-	if(xp + Width > VGA_DISPLAY_X) 	return ERR_ARG_OOB;
-	if(yp + Heigth > VGA_DISPLAY_Y)	return ERR_ARG_OOB;
-
-
-	if (lined == 0) {
-		for (uint8_t y = yp; y < yp + Heigth; y++) {
-			for (uint8_t x = xp; x < xp + Width; x++) {
-				UB_VGA_SetPixel(x, y, color);
-			}
-		}
-	}
-	//rectangle not filled, only lines
-	if (lined == 1) {
-		//top line
-		for (uint8_t x = xp; x < xp + Width; x++) {
-			UB_VGA_SetPixel(x, yp, color);
-		}
-		//bottom line
-		for (uint8_t x = xp; x < xp + Width; x++) {
-			UB_VGA_SetPixel(x, yp + Heigth, color);
-		}
-
-		//Left vertical line
-		for (uint8_t y = yp; y < yp + Heigth; y++) {
-			UB_VGA_SetPixel(xp, y, color);
-
-		}
-		//Right vertical line
-		for (uint8_t y = yp; y < yp + Heigth; y++) {
-			UB_VGA_SetPixel(xp + Width, y, color);
-		}
-	}
-	return ERR_NONE;
-}
 
 /**
  * @fn Error DrawLine(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
@@ -106,6 +53,51 @@ Error DrawLine(uint8_t xp1, uint8_t yp1, uint8_t xp2, uint8_t yp2, uint8_t color
 	}
 	return ERR_NONE;
 }
+
+/**
+ * @fn Error DrawRectangle(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
+ * @brief Draws a rectangle with the specified color within the x & y coordinates
+ *
+ * @param xp
+ * @param yp
+ * @param Width
+ * @param Heigth
+ * @param color
+ * @param lined
+ * @return
+ */
+Error DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
+		uint8_t color, uint8_t lined) {
+
+	//Error checks
+	if(xp > VGA_DISPLAY_X) 			return ERR_ARG_OOB;
+	if(yp > VGA_DISPLAY_Y) 			return ERR_ARG_OOB;
+	if(lined < 0 || lined > 1) 		return ERR_ARG_OOB;
+	if(xp + Width > VGA_DISPLAY_X) 	return ERR_ARG_OOB;
+	if(yp + Heigth > VGA_DISPLAY_Y)	return ERR_ARG_OOB;
+
+	if (lined == 0) {
+		for (uint8_t y = yp; y < yp + Heigth; y++) {
+			for (uint8_t x = xp; x < xp + Width; x++) {
+				UB_VGA_SetPixel(x, y, color);
+			}
+		}
+	}
+	//rectangle not filled, only lines
+	if (lined == 1) {
+		//top line
+		DrawLine(xp, yp, xp+Width, yp, color, 1);
+		//bottom line
+		DrawLine(xp, yp+Heigth, xp+Width, yp+Heigth, color, 1);
+		//Left vertical line
+		DrawLine(xp, yp, xp, yp+Heigth, color, 1);
+		//Right vertical line
+		DrawLine(xp+Width, yp, xp+Width, yp+Heigth, color, 1);
+	}
+	return ERR_NONE;
+}
+
+
 
 /**
  * @fn Error ClearScreen(uint8_t)
