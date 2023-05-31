@@ -19,7 +19,7 @@
  * @param convertColor
  * @param commandArray
  */
-void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
+Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				  uint8_t convertToNumber, int convertColor, CmdStruct CmdBuf) {
 	uint8_t commaCounter = 0;
 	uint8_t placeInBuf = 0;
@@ -72,7 +72,7 @@ void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
  * @param commandArray
  * @param inputStruct
  */
-void CheckWhatCommand(char incommingCommand[], CmdStruct CmdBuf,
+Error CheckWhatCommand(char incommingCommand[], CmdStruct CmdBuf,
 					  input_vars inputStruct) {
 	for (uint8_t i = 0; i < AMOUNT_OF_COMMANDS; i++) {
 		if (strcmp(incommingCommand, possibleCommands[i]) == 0) {
@@ -94,7 +94,7 @@ void CheckWhatCommand(char incommingCommand[], CmdStruct CmdBuf,
  * @param commandArray
  * @param argPlace
  */
-void CheckWhatColor(char incommingColor[], CmdStruct CmdBuf, uint8_t argPlace) {
+Error CheckWhatColor(char incommingColor[], CmdStruct CmdBuf, uint8_t argPlace) {
 	for (uint8_t i = 0; i < AMOUNT_OF_COLORS; i++) {
 		if (strcmp(incommingColor, possibleColors[i]) == 0) {
 			CmdBuf.argBuf[argPlace] = colorCodes[i];
@@ -113,7 +113,7 @@ void CheckWhatColor(char incommingColor[], CmdStruct CmdBuf, uint8_t argPlace) {
  * @param commandArray
  * @param inputStruct
  */
-void DoOnCommand(CmdStruct CmdBuf, input_vars inputStruct) {
+Error DoOnCommand(CmdStruct CmdBuf, input_vars inputStruct) {
 	switch (CmdBuf.commandNummer) {
 		case 0:
 			// lijn
@@ -162,7 +162,7 @@ void DoOnCommand(CmdStruct CmdBuf, input_vars inputStruct) {
  * @param messageLength
  * @param uartHandle
  */
-void OutputDebug(char message[], size_t messageLength,
+Error OutputDebug(char message[], size_t messageLength,
 				 UART_HandleTypeDef *uartHandle) {
 	HAL_UART_Transmit(uartHandle, message, messageLength, 10);
 }

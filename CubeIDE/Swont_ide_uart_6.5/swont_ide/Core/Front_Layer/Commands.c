@@ -15,7 +15,7 @@
  * @param commandArray
  * @param inputStruct
  */
-void RecieveCommandLijn(CmdStruct CmdBuf, input_vars inputStruct) {
+Error RecieveCommandLijn(CmdStruct CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
@@ -34,8 +34,8 @@ void RecieveCommandLijn(CmdStruct CmdBuf, input_vars inputStruct) {
  * @param commandArray
  * @param inputStruct
  */
-void RecieveCommandClear(CmdStruct CmdBuf, input_vars inputStruct) {
-	ParseOnKomma(inputStruct, 1, 0, 1, CmdBuf);
+Error RecieveCommandClear(CmdStruct CmdBuf, input_vars inputStruct) {
+	ParseOnKomma(inputStruct, 1, 0, 1, CmdBuf)
 }
 
 /**
@@ -45,7 +45,7 @@ void RecieveCommandClear(CmdStruct CmdBuf, input_vars inputStruct) {
  * @param commandArray
  * @param inputStruct
  */
-void RecieveCommandRechthoek(CmdStruct CmdBuf, input_vars inputStruct) {
+Error RecieveCommandRechthoek(CmdStruct CmdBuf, input_vars inputStruct) 
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
@@ -57,9 +57,9 @@ void RecieveCommandRechthoek(CmdStruct CmdBuf, input_vars inputStruct) {
 	}
 }
 
-void RecieveCommandTekst(CmdStruct CmdBuf, input_vars inputStruct) {}
+Error RecieveCommandTekst(CmdStruct CmdBuf, input_vars inputStruct) {}
 
-void RecieveCommandBitmap(CmdStruct CmdBuf, input_vars inputStruct) {
+Error RecieveCommandBitmap(CmdStruct CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 3; i++) {
 		neededArg = i + 1;
@@ -74,7 +74,7 @@ void RecieveCommandBitmap(CmdStruct CmdBuf, input_vars inputStruct) {
  * @param commandArray
  * @param inputStruct
  */
-void RecieveCommandWacht(CmdStruct CmdBuf, input_vars inputStruct) {
+Error RecieveCommandWacht(CmdStruct CmdBuf, input_vars inputStruct) {
 	ParseOnKomma(inputStruct, 1, 1, 0, CmdBuf);
 }
 
@@ -85,7 +85,7 @@ void RecieveCommandWacht(CmdStruct CmdBuf, input_vars inputStruct) {
  * @param commandArray
  * @param inputStruct
  */
-void RecieveCommandHerhaal(CmdStruct CmdBuf, input_vars inputStruct) {
+Error RecieveCommandHerhaal(CmdStruct CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 2; i++) {
 		neededArg = i + 1;
@@ -93,6 +93,6 @@ void RecieveCommandHerhaal(CmdStruct CmdBuf, input_vars inputStruct) {
 	}
 }
 
-void RecieveCommandFiguur(CmdStruct CmdBuf, input_vars inputStruct) {}
+Error RecieveCommandFiguur(CmdStruct CmdBuf, input_vars inputStruct) {}
 
-void RecieveCommandCirkel(CmdStruct CmdBuf, input_vars inputStruct) {}
+Error RecieveCommandCirkel(CmdStruct CmdBuf, input_vars inputStruct) {}
