@@ -34,14 +34,14 @@ Error AddToBuffer(CmdStruct *command) {
  * @param commandArray
  * @param inputStruct
  */
-Error RecieveCommandLijn(CmdStruct CmdBuf, input_vars inputStruct) {
+Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
 		if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 1, *CmdBuf);
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 1, 0, *CmdBuf);
 		}
 	}
 //	AddToBuffer(&CmdBuf);
@@ -54,8 +54,8 @@ Error RecieveCommandLijn(CmdStruct CmdBuf, input_vars inputStruct) {
  * @param commandArray
  * @param inputStruct
  */
-Error RecieveCommandClear(CmdStruct CmdBuf, input_vars inputStruct) {
-	ParseOnKomma(inputStruct, 1, 0, 1, CmdBuf);
+Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct) {
+	ParseOnKomma(inputStruct, 1, 0, 1, *CmdBuf);
 }
 
 /**
@@ -65,21 +65,21 @@ Error RecieveCommandClear(CmdStruct CmdBuf, input_vars inputStruct) {
  * @param commandArray
  * @param inputStruct
  */
-Error RecieveCommandRechthoek(CmdStruct CmdBuf, input_vars inputStruct) {
+Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
 		if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 1, *CmdBuf);
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 1, 0, *CmdBuf);
 		}
 	}
 }
 
-Error RecieveCommandTekst(CmdStruct CmdBuf, input_vars inputStruct) {}
+Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {}
 
-Error RecieveCommandBitmap(CmdStruct CmdBuf, input_vars inputStruct) {
+Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 3; i++) {
 		neededArg = i + 1;
@@ -94,7 +94,7 @@ Error RecieveCommandBitmap(CmdStruct CmdBuf, input_vars inputStruct) {
  * @param commandArray
  * @param inputStruct
  */
-Error RecieveCommandWacht(CmdStruct CmdBuf, input_vars inputStruct) {
+Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
 	ParseOnKomma(inputStruct, 1, 1, 0, CmdBuf);
 }
 
@@ -105,7 +105,7 @@ Error RecieveCommandWacht(CmdStruct CmdBuf, input_vars inputStruct) {
  * @param commandArray
  * @param inputStruct
  */
-Error RecieveCommandHerhaal(CmdStruct CmdBuf, input_vars inputStruct) {
+Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 2; i++) {
 		neededArg = i + 1;
@@ -113,6 +113,6 @@ Error RecieveCommandHerhaal(CmdStruct CmdBuf, input_vars inputStruct) {
 	}
 }
 
-Error RecieveCommandFiguur(CmdStruct CmdBuf, input_vars inputStruct) {}
+Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {}
 
-Error RecieveCommandCirkel(CmdStruct CmdBuf, input_vars inputStruct) {}
+Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {}
