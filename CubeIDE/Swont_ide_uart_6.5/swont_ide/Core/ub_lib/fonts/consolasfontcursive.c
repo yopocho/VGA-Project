@@ -5,8 +5,10 @@
  *      Author: Sjoerd
  */
 
-#ifndef UB_LIB_FONTS_CONSOLASFONTCURSIVE_H_
-#define UB_LIB_FONTS_CONSOLASFONTCURSIVE_H_
+#ifndef UB_LIB_FONTS_CONSOLASFONTCURSIVE_C_
+#define UB_LIB_FONTS_CONSOLASFONTCURSIVE_C_
+
+#include <drawtext.h>
 
 // Consolas (cursive) 16 px font, with 1 bit per pixel
 // only these characters: !,.?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
@@ -1082,4 +1084,4 @@ const uint8_t consolas_cursive_bitmap[] =
 };
 
 
-#endif /* UB_LIB_FONTS_CONSOLASFONTCURSIVE_H_ */
+#endif /* UB_LIB_FONTS_CONSOLASFONTCURSIVE_C_ */

@@ -5,8 +5,10 @@
  *      Author: Sjoerd
  */
 
-#ifndef UB_LIB_FONTS_ARIALFONTCURSIVE_H_
-#define UB_LIB_FONTS_ARIALFONTCURSIVE_H_
+#ifndef UB_LIB_FONTS_ARIALFONTCURSIVE_C_
+#define UB_LIB_FONTS_ARIALFONTCURSIVE_C_
+
+#include <drawtext.h>
 
 // Arial (cursive) 16 px font, with 1 bit per pixel
 // only these characters: !,.?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
@@ -1081,4 +1083,4 @@ const uint8_t arial_cursive_bitmap[] =
 
 };
 
-#endif /* UB_LIB_FONTS_ARIALFONTCURSIVE_H_ */
+#endif /* UB_LIB_FONTS_ARIALFONTCURSIVE_C_ */

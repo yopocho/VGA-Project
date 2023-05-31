@@ -5,8 +5,10 @@
  *      Author: Sjoerd
  */
 
-#ifndef UB_LIB_FONTS_CONSOLASFONTBOLD_H_
-#define UB_LIB_FONTS_CONSOLASFONTBOLD_H_
+#ifndef UB_LIB_FONTS_CONSOLASFONTBOLD_C_
+#define UB_LIB_FONTS_CONSOLASFONTBOLD_C_
+
+#include <drawtext.h>
 
 // Consolas (bold) 16 px font, with 1 bit per pixel
 // only these characters: !,.?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
@@ -1081,4 +1083,4 @@ const uint8_t consolas_bold_bitmap[] =
 
 };
 
-#endif /* UB_LIB_FONTS_CONSOLASFONTBOLD_H_ */
+#endif /* UB_LIB_FONTS_CONSOLASFONTBOLD_C_ */

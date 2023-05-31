@@ -5,25 +5,12 @@
  *      Author: Sjoerd
  */
 
-#ifndef UB_LIB_FONTS_DRAWTEXT_H_
-#define UB_LIB_FONTS_DRAWTEXT_H_
+#ifndef UB_LIB_FONTS_FONTS_C_
+#define UB_LIB_FONTS_FONTS_C_
 
-#define STANDARD_FONT_SIZE 16
+#include <fonts/fonts.h>
+#include <drawtext.h>
 
-#include <stdio.h>
-#include <fonts/arialfontbold.h>
-#include <fonts/arialfontcursive.h>
-#include <fonts/arialfontnormal.h>
-#include <fonts/consolasfontbold.h>
-#include <fonts/consolasfontcursive.h>
-#include <fonts/consolasfontnormal.h>
-
-/*! Struct for storing bitmap information about glyphs (font characters) */
-typedef struct _font_glyph_desc
-{
-	uint8_t width_px;        /*!< Width in pixels of the glyph */
-	uint16_t offset;         /*!< Byte offset of the glyph in the bitmap array */
-} font_glyph_desc;
 
 /*! Array of ASCII values of glyphs in order */
 const uint32_t glyphs_ascii_list[] = {
@@ -88,7 +75,7 @@ const uint32_t glyphs_ascii_list[] = {
 
 
 /*! Array of Arial regular type glyph descriptions */
-const font_glyph_desc arial_regular_glyph_dsc[] =
+const font_glyph_desc arial_normal_glyph_dsc[] =
 {
 	{.width_px = 2, .offset = 0},	  /*ASCII: 0021 (!)*/
 	{.width_px = 2, .offset = 16},	  /*ASCII: 002c (,)*/
@@ -271,7 +258,7 @@ const font_glyph_desc arial_cursive_glyph_dsc[] =
 };
 
 /*! Array of Consolas regular type glyph descriptions */
-const font_glyph_desc consolas_regular_glyph_dsc[] =
+const font_glyph_desc consolas_normal_glyph_dsc[] =
 {
 	{.width_px = 3, .offset = 0},	 /*ASCII: 0021 (!)*/
 	{.width_px = 5, .offset = 16},	 /*ASCII: 002c (,)*/
@@ -481,13 +468,13 @@ const uint8_t *font_bitmaps_list[] =
 /*!< Array of all combinations of font names and styles */
 const font_glyph_desc *font_dsc_list[] =
 {
-	arial_regular_glyph_dsc,
+	arial_normal_glyph_dsc,
 	arial_bold_glyph_dsc,
 	arial_cursive_glyph_dsc,
-	consolas_regular_glyph_dsc,
+	consolas_normal_glyph_dsc,
 	consolas_bold_glyph_dsc,
 	consolas_cursive_glyph_dsc,
 	NULL	// end indicator
 };
 
-#endif /* UB_LIB_FONTS_DRAWTEXT_H_ */
+#endif /* UB_LIB_FONTS_FONTS_C_ */

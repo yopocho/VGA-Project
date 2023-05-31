@@ -8,6 +8,8 @@
 #ifndef UB_LIB_ARIALFONTNORMAL_H_
 #define UB_LIB_ARIALFONTNORMAL_H_
 
+#include <drawtext.h>
+
 // Arial (regular) 16 px font, with 1 bit per pixel
 // only these characters: !,.?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
 // .ttf file (font files) converted to bitmap array with https://lvgl.io/tools/font_conv_v5_3
