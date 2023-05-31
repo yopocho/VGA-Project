@@ -36,13 +36,11 @@ uint8_t colorCodes[] = {
 	VGA_COL_YELLOW,		VGA_COL_GRAY,	 VGA_COL_WHITE,		   VGA_COL_PINK};
 
 void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
-				  uint8_t convertToNumber, int convertColor,
-				  command commandArray);
-void CheckWhatCommand(char incommingCommand[], command commandArray,
+				  uint8_t convertToNumber, int convertColor, CmdStruct CmdBuf);
+void CheckWhatCommand(char incommingCommand[], CmdStruct CmdBuf,
 					  input_vars inputStruct);
-void CheckWhatColor(char incommingColor[], command commandArray,
-					uint8_t argPlace);
-void DoOnCommand(command commandArray, input_vars inputStruct);
+void CheckWhatColor(char incommingColor[], CmdStruct CmdBuf, uint8_t argPlace);
+void DoOnCommand(CmdStruct CmdBuf, input_vars inputStruct);
 void OutputDebug(char message[], size_t messageLength,
 				 UART_HandleTypeDef *uartHandle);
 
