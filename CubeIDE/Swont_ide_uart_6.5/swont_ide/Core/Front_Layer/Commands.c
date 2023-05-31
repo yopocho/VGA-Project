@@ -77,7 +77,9 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 	}
 }
 
-Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {}
+Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
+
+}
 
 Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;

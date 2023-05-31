@@ -20,8 +20,8 @@
  * @param commandArray
  */
 Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
-				   uint8_t convertToNumber, int convertColor,
-				   CmdStruct *CmdBuf) {
+				   uint8_t convertToNumber, int convertColor, uint8_t getText,
+				   uint8_t getFont, uint8_t getStyle, CmdStruct *CmdBuf) {
 	uint8_t commaCounter = 0;
 	uint8_t placeInBuf = 0;
 	char incommingMessage[inputStruct.msglen];
@@ -39,6 +39,9 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
 				if (convertToNumber)
 					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
+				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
+				if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
+				if (getFont) strcpy(CmdBuf->textFont , incommingMessage);
 				break;
 			}
 			commaCounter++;
@@ -53,6 +56,9 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
 				if (convertToNumber)
 					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
+				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
+								if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
+								if (getFont) strcpy(CmdBuf->textFont , incommingMessage);
 			}
 			break;
 		}
