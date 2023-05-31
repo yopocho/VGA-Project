@@ -12,19 +12,28 @@
 
 /**
  * @enum Error
- * @brief Enum which contains all error codes
+ * @brief Enum for all API error codes
  *
  */
-typedef enum
+typedef const enum
 {
-	ERR_INVALID_ARG,/**< ERR_INVALID_ARG */
-	ERR_INVALID_CMD,/**< ERR_INVALID_CMD */
-	ERR_ARG_OOB,    /**< ERR_ARG_OOB */
-	ERR_MSG_LEN,    /**< ERR_MSG_LEN */
-	ERR_NONE,       /**< ERR_NONE */
-	ERR_GENERIC,    /**< ERR_GENERIC */
-	ERR_UART_FAIL,  /**< ERR_UART_FAIL */
-	ERR_UNKNOWN_ERR /**< ERR_UNKNOWN_ERR */
+	ERR_INVALID_ARG,       /**< ERR_INVALID_ARG */
+	ERR_INVALID_CMD,       /**< ERR_INVALID_CMD */
+	ERR_ARG_OOB,           /**< ERR_ARG_OOB */
+	ERR_MSG_LEN,           /**< ERR_MSG_LEN */
+	ERR_NONE,              /**< ERR_NONE */
+	ERR_GENERIC,           /**< ERR_GENERIC */
+	ERR_UART_FAIL,         /**< ERR_UART_FAIL */
+	ERR_UNKNOWN_ERR,       /**< ERR_UNKNOWN_ERR */
+	ERR_SDCARD_MOUNT,      /**< ERR_SDCARD_MOUNT */
+	ERR_SDCARD_GETFREE,    /**< ERR_SDCARD_GETFREE */
+	ERR_SDCARD_READ,       /**< ERR_SDCARD_READ */
+	ERR_SDCARD_WRITE,      /**< ERR_SDCARD_WRITE */
+	ERR_SDCARD_OPEN,       /**< ERR_SDCARD_OPEN */
+	ERR_SDCARD_UNAVAILABLE,/**< ERR_SDCARD_UNAVAILABLE */
+	ERR_BITMAP_FORMAT,     /**< ERR_BITMAP_FORMAT */
+	ERR_SDCARD_CLOSE,      /**< ERR_SDCARD_CLOSE */
+	ERR_SDCARD_LSEEK       /**< ERR_SDCARD_LSEEK */
 } Error;
 
 /**
@@ -51,15 +60,24 @@ typedef struct ErrorDataType {
 	char* Msg;
 } ErrorHandle;
 
-static ErrorHandle ErrorList[] =
+static const ErrorHandle ErrorList[] =
 {
-	{ERR_INVALID_ARG, 	LOW, 	"The supplied list of arguments is invalid\n\r"	},
-	{ERR_INVALID_CMD, 	LOW, 	"Given command is wrong/unknown\n\r"			},
-	{ERR_ARG_OOB, 		LOW, 	"Coordinates are out-of-bounds\n\r"				},
-	{ERR_MSG_LEN, 		LOW, 	"Message length exceeded\n\r"					},
-	{ERR_NONE, 			NONE, 	"No issue\n\r"									},
-	{ERR_GENERIC, 		LOW, 	"Error\n\r"										},
-	{ERR_UART_FAIL,		HIGH,	"UART Transmit failed\n\r"						}
+	{ERR_INVALID_ARG, 			LOW, 	"The supplied list of arguments is invalid\r\n"	},
+	{ERR_INVALID_CMD, 			LOW, 	"Given command is wrong/unknown\r\n"			},
+	{ERR_ARG_OOB, 				LOW, 	"Coordinates are out-of-bounds\r\n"				},
+	{ERR_MSG_LEN, 				LOW, 	"Message length exceeded\r\n"					},
+	{ERR_NONE, 					NONE, 	"No issue\r\n"									},
+	{ERR_GENERIC, 				LOW, 	"Error\r\n"										},
+	{ERR_UART_FAIL,				HIGH,	"UART Transmit failed\r\n"						},
+	{ERR_SDCARD_MOUNT,			LOW,	"Could not mount SD-card\r\n"					},
+	{ERR_SDCARD_GETFREE,		LOW,	"Could not retrieve free space on SD-card\r\n"	},
+	{ERR_SDCARD_READ,			LOW,	"Could not read data from SD-card\r\n"			},
+	{ERR_SDCARD_WRITE,			LOW,	"Could not write to SD-card\r\n"				},
+	{ERR_SDCARD_OPEN,			LOW,	"Could not open SD-card\r\n"					},
+	{ERR_SDCARD_UNAVAILABLE, 	LOW,	"SDCard unavailable\r\n"						},
+	{ERR_BITMAP_FORMAT,			LOW,	"Supplied bitmap has an incorrect format\r\n"	},
+	{ERR_SDCARD_CLOSE,			LOW,	"Unable to close SD-card\r\n"					},
+	{ERR_SDCARD_LSEEK,			LOW,	"FatFS f_lseek misbehaved\r\n"					}
 };
 
 Error TransmitError(Error ErrorCode);

@@ -20,14 +20,18 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "dma.h"
+#include "fatfs.h"
+#include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-#include "Parser.h"
-#include "errorhandling.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+#include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
 
 /* USER CODE END Includes */
 
@@ -99,22 +103,21 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_USART2_UART_Init();
+  MX_SPI1_Init();
+  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
+
+  Error tempError = SDCardInit(); //Init SD Card
+  if(tempError != ERR_NONE)
+  {
+	  TransmitError(tempError);
+  }
 
   UB_VGA_Screen_Init(); // Init VGA-Screen
 
   UB_VGA_FillScreen(VGA_COL_BLACK);
-//  UB_VGA_SetPixel(10,10,VGA_COL_BLUE);
-//  UB_VGA_SetPixel(10,11,VGA_COL_BLUE);
-//  UB_VGA_SetPixel(10,12,VGA_COL_BLUE);
-//  UB_VGA_SetPixel(10,13,VGA_COL_BLUE);
-//  UB_VGA_SetPixel(10,14,VGA_COL_BLUE);
-//  UB_VGA_SetPixel(10,15,VGA_COL_BLUE);
-//  UB_VGA_SetPixel(10,16,VGA_COL_BLUE);
-//  UB_VGA_SetPixel(0,0,0x00);
-//  UB_VGA_SetPixel(319,,0x00);
-  int i;
 
+  int i;
   for(i = 0; i < LINE_BUFLEN; i++)
 	  input.line_rx_buffer[i] = 0;
 
@@ -139,10 +142,8 @@ int main(void)
   {
 	  if(input.command_execute_flag == TRUE)
 	  {
-		  // Do some stuff
-		  printf("yes\n");
-		  colorTest = ~colorTest; // Toggle screen color
-		  UB_VGA_FillScreen(colorTest);
+		  Error err = DrawBitmapFromSDCard(0,0,RIGHT);
+		  if(err != ERR_NONE) TransmitError(err);
 
 		  // When finished reset the flag
 		  input.command_execute_flag = FALSE;
