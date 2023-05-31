@@ -22,8 +22,6 @@
 /* USER CODE BEGIN Includes */
 #include "main.h"
 
-#include "Commands.h"
-//#include "Parser.h"
 #include "dma.h"
 #include "errorhandling.h"
 #include "gpio.h"
@@ -84,7 +82,6 @@ int main(void) {
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  command commandBuf = {0};
 
   /* USER CODE END Init */
 
@@ -106,17 +103,8 @@ int main(void) {
   UB_VGA_Screen_Init();  // Init VGA-Screen
 
   UB_VGA_FillScreen(VGA_COL_BLACK);
-  //  UB_VGA_SetPixel(10,10,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,11,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,12,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,13,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,14,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,15,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,16,VGA_COL_BLUE);
-  //  //UB_VGA_SetPixel(0,0,0x00);
-  //  //UB_VGA_SetPixel(319,,0x00);
   UB_VGA_FillScreen(VGA_COL_WHITE);
- int i;
+  int i;
 
   for (i = 0; i < LINE_BUFLEN; i++) input.line_rx_buffer[i] = 0;
 
@@ -138,10 +126,6 @@ int main(void) {
   /* USER CODE BEGIN WHILE */
   while (1) {
     if (input.command_execute_flag == TRUE) {
-      // Do some stuff
-      ParseOnKomma(input, 0, 0, 0, commandBuf);
-      ClearScreen(commandBuf[1]);
-
 
       // When finished reset the flag
       input.command_execute_flag = FALSE;

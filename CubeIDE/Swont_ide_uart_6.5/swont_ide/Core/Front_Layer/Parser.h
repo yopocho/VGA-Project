@@ -11,6 +11,7 @@
 #include "Commands.h"
 #include "main.h"
 #include "usart.h"
+#include "errorHandling.h"
 
 // #define FRONT_LAYER_DEBUG
 #define AMOUNT_OF_COMMANDS 9
