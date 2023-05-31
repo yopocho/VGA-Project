@@ -11,7 +11,7 @@
 #include <math.h>
 
 /**
- * @fn int DrawRectangle(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
+ * @fn Error DrawRectangle(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
  * @brief Draws a rectangle with the specified color within the x & y coordinates
  *
  * @param xp
@@ -65,7 +65,7 @@ Error DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
 }
 
 /**
- * @fn int DrawLine(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
+ * @fn Error DrawLine(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
  * @brief Draws a line in between the specified points with color and thickness
  *
  * @param xp
@@ -108,7 +108,7 @@ Error DrawLine(uint8_t xp1, uint8_t yp1, uint8_t xp2, uint8_t yp2, uint8_t color
 }
 
 /**
- * @fn int ClearScreen(uint8_t)
+ * @fn Error ClearScreen(uint8_t)
  * @brief Clears the screen in the specified color
  *
  * @param color

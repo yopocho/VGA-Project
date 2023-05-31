@@ -11,9 +11,11 @@
 #include <stdio.h>
 #include <stdint.h>
 
-/// @struct _font_glyph_desc
-/// @brief A struct with the offset and width of a glyph
-///
+/**
+ * @struct _font_glyph_desc
+ * @brief A struct with the offset and width of a glyph
+ *
+ */
 typedef struct _font_glyph_desc
 {
 	uint8_t width_px;        // Width in pixels of the glyph //

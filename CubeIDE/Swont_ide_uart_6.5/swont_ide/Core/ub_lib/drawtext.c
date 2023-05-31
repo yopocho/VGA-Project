@@ -8,11 +8,14 @@
 #include <drawtext.h>
 #include <main.h>
 #include <fonts/fonts.h>
-/// @fn int8_t FindGlyph(char)
-/// @brief Finds the glyph in a predifined glyph list
-///
-/// @param c
-/// @return
+
+/**
+ * @fn int8_t FindGlyph(char)
+ * @brief Finds the glyph in a predifined glyph list
+ *
+ * @param c
+ * @return
+ */
 int8_t FindGlyph(char c)
 {
 	uint8_t index = 0;
