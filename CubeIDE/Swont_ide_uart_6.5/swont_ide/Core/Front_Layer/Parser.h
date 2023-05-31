@@ -35,15 +35,15 @@ uint8_t colorCodes[] = {
 	VGA_COL_LIGHTRED,	VGA_COL_MAGENTA, VGA_COL_LIGHTMAGENTA, VGA_COL_BROWN,
 	VGA_COL_YELLOW,		VGA_COL_GRAY,	 VGA_COL_WHITE,		   VGA_COL_PINK};
 
-void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
+Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				  uint8_t convertToNumber, int convertColor,
 				  command commandArray);
-void CheckWhatCommand(char incommingCommand[], command commandArray,
+Error CheckWhatCommand(char incommingCommand[], command commandArray,
 					  input_vars inputStruct);
-void CheckWhatColor(char incommingColor[], command commandArray,
+Error CheckWhatColor(char incommingColor[], command commandArray,
 					uint8_t argPlace);
-void DoOnCommand(command commandArray, input_vars inputStruct);
-void OutputDebug(char message[], size_t messageLength,
+Error DoOnCommand(command commandArray, input_vars inputStruct);
+Error OutputDebug(char message[], size_t messageLength,
 				 UART_HandleTypeDef *uartHandle);
 
 #endif /* FRONT_LAYER_PARSER_H_ */

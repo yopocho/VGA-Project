@@ -9,6 +9,7 @@
 #define FRONT_LAYER_COMMANDS_H_
 
 #include "main.h"
+#include "errorHandling.h"
 
 // size of the circulair buffer (which is also the max amount for the herhaal
 // command)
@@ -23,14 +24,14 @@ typedef struct CmdStruct {
 
 typedef uint16_t command[12];
 
-void RecieveCommandLijn(command commandArray, input_vars inputStruct);
-void RecieveCommandClear(command commandArray, input_vars inputStruct);
-void RecieveCommandRechthoek(command commandArray, input_vars inputStruct);
-void RecieveCommandTekst(command commandArray, input_vars inputStruct);
-void RecieveCommandBitmap(command commandArray, input_vars inputStruct);
-void RecieveCommandWacht(command commandArray, input_vars inputStruct);
-void RecieveCommandHerhaal(command commandArray, input_vars inputStruct);
-void RecieveCommandFiguur(command commandArray, input_vars inputStruct);
-void RecieveCommandCirkel(command commandArray, input_vars inputStruct);
+Error RecieveCommandLijn(command commandArray, input_vars inputStruct);
+Error RecieveCommandClear(command commandArray, input_vars inputStruct);
+Error RecieveCommandRechthoek(command commandArray, input_vars inputStruct);
+Error RecieveCommandTekst(command commandArray, input_vars inputStruct);
+Error RecieveCommandBitmap(command commandArray, input_vars inputStruct);
+Error RecieveCommandWacht(command commandArray, input_vars inputStruct);
+Error RecieveCommandHerhaal(command commandArray, input_vars inputStruct);
+Error RecieveCommandFiguur(command commandArray, input_vars inputStruct);
+Error RecieveCommandCirkel(command commandArray, input_vars inputStruct);
 
 #endif /* FRONT_LAYER_COMMANDS_H_ */
