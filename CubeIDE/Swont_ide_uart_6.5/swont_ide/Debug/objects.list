@@ -1,7 +1,12 @@
+"./Core/Front_Layer/Commands.o"
 "./Core/Front_Layer/Parser.o"
+<<<<<<< HEAD
 "./Core/Logic_Layer/Logic_Debug.o"
 "./Core/Logic_Layer/errorHandling.o"
 "./Core/Logic_Layer/sdcard.o"
+=======
+"./Core/Src/Draw_Line.o"
+>>>>>>> master
 "./Core/Src/dma.o"
 "./Core/Src/gpio.o"
 "./Core/Src/main.o"
