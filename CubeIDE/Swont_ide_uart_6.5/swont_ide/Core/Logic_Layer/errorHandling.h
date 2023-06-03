@@ -51,7 +51,7 @@ typedef struct ErrorDataType {
 	char* Msg;
 } ErrorHandle;
 
-static ErrorHandle ErrorList[] =
+const static ErrorHandle ErrorList[] =
 {
 	{ERR_INVALID_ARG, 	LOW, 	"The supplied list of arguments is invalid\n\r"	},
 	{ERR_INVALID_CMD, 	LOW, 	"Given command is wrong/unknown\n\r"			},

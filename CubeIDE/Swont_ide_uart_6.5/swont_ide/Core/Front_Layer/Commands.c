@@ -7,9 +7,34 @@
 
 #include "Commands.h"
 
-CmdStruct circCmdBuf[CMDBUF_MAX_SIZE];
-CmdStruct *pCircCmdBuf = &circCmdBuf[0];
-uint32_t circCmdBufLen;
+CmdStruct CmdBuf[CMD_BUFF_SIZE];
+CmdStruct *pCmdBuf = &CmdBuf[0];
+uint32_t CmdBufLen = 0;
+
+Error CircBufPush(CmdStruct *CmdBuf) {
+	pCmdBuf->commandNummer = CmdBuf->commandNummer;
+	memcpy(pCmdBuf->argBuf, CmdBuf->argBuf, sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
+	memcpy(pCmdBuf->textSentence, CmdBuf->textSentence, sizeof(CmdBuf->textSentence[0]) * MAX_CMD_CHARS);
+
+	//Check if the buffer pointer has reached the end and if so, loop back to start
+	if(pCmdBuf == &CmdBuf[CMD_BUFF_SIZE - 1]) {
+		pCmdBuf = &CmdBuf[0];
+		return ERR_NONE;
+	}
+	if(CmdBufLen != CMD_BUFF_SIZE) {
+		++CmdBufLen;
+	}
+	++pCmdBuf;
+	return ERR_NONE;
+}
+
+CmdStruct CircBufPop(void) {
+	--pCmdBuf;
+	--CmdBufLen;
+	return *pCmdBuf;
+}
+
+
 
 /**
  * @fn void RecieveCommandLijn(command, input_vars)
@@ -29,7 +54,6 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, *CmdBuf);
 		}
 	}
-//	AddToBuffer(&CmdBuf);
 }
 
 /**
@@ -62,9 +86,7 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 	}
 }
 
-Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
-
-}
+Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {}
 
 Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
