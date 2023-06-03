@@ -7,6 +7,27 @@
 
 #include "Commands.h"
 
+CmdStruct CmdBuf[CMD_BUFF_SIZE];
+CmdStruct *pCmdBuf = &CmdBuf[0];
+uint32_t CmdBufLen = 0;
+
+Error CircBufPush(CmdStruct *CmdBuf) {
+	pCmdBuf->commandNummer = CmdBuf->commandNummer;
+	memcpy(pCmdBuf->argBuf, CmdBuf->argBuf, sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
+	memcpy(pCmdBuf->textSentence, CmdBuf->textSentence, sizeof(CmdBuf->textSentence[0]) * MAX_CMD_CHARS);
+	++pCmdBuf;
+	++CmdBufLen;
+	return ERR_NONE;
+}
+
+CmdStruct CircBufPop(void) {
+	--pCmdBuf;
+	--CmdBufLen;
+	return *pCmdBuf;
+}
+
+
+
 /**
  * @fn void RecieveCommandLijn(command, input_vars)
  * @brief when line command is recieved adds the nesisary args and adds them to
@@ -25,6 +46,11 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, *CmdBuf);
 		}
 	}
+	printf("yeye\r\n");
+	printf("%d\r\n",(uint32_t)CmdBuf->commandNummer);
+	CircBufPush(CmdBuf);
+	CmdStruct temp = CircBufPop();
+	printf("%d\r\n", temp.commandNummer);
 }
 
 /**
