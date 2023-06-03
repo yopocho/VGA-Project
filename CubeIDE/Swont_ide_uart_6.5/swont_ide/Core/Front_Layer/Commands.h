@@ -21,6 +21,8 @@ typedef struct CmdStruct {
 	int commandNummer;
 	uint16_t argBuf[MAX_CMD_ARGS];
 	char textSentence[MAX_CMD_CHARS];
+	char textFont[30];
+	char textStyle[30];
 } CmdStruct;
 
 extern CmdStruct CmdBuf[CMD_BUFF_SIZE];
