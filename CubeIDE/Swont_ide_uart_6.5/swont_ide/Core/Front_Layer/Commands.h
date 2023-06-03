@@ -39,6 +39,5 @@ Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct);
 Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct);
 Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct);
 Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct);
-Error AddToBuffer(CmdStruct *command);
 
 #endif /* FRONT_LAYER_COMMANDS_H_ */
