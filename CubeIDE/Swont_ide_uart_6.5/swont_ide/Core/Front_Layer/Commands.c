@@ -11,6 +11,14 @@ CmdStruct CmdBuf[CMD_BUFF_SIZE];
 CmdStruct *pCmdBuf = &CmdBuf[0];
 uint32_t CmdBufLen = 0;
 
+/**
+ * @fn Error CircBufPush(CmdStruct*)
+ * @brief Pushes given CmdStruct to circular buffer, incrementing pCmdBuf with each addition.
+ * When pCmdBuf has reached the end of CmdBuf, loop back to the beginning to be circular.
+ *
+ * @param CmdBuf
+ * @return Error
+ */
 Error CircBufPush(CmdStruct *CmdBuf) {
 	pCmdBuf->commandNummer = CmdBuf->commandNummer;
 	memcpy(pCmdBuf->argBuf, CmdBuf->argBuf, sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
@@ -21,13 +29,19 @@ Error CircBufPush(CmdStruct *CmdBuf) {
 		pCmdBuf = &CmdBuf[0];
 		return ERR_NONE;
 	}
-	if(CmdBufLen != CMD_BUFF_SIZE) {
+	if(CmdBufLen != CMD_BUFF_SIZE - 1) {
 		++CmdBufLen;
 	}
 	++pCmdBuf;
 	return ERR_NONE;
 }
 
+/**
+ * @fn CmdStruct CircBufPop(void)
+ * @brief Pops head of CmdBuf
+ *
+ * @return CmdStruct
+ */
 CmdStruct CircBufPop(void) {
 	--pCmdBuf;
 	--CmdBufLen;
