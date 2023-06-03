@@ -127,6 +127,7 @@ int main(void) {
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  CmdStruct temp;
   while (1) {
     if (input.command_execute_flag == TRUE) {
       // Do some stuff
@@ -135,12 +136,15 @@ int main(void) {
       {
       case 0:
     	  DrawLine(arg_struct.argBuf[1], arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[4], arg_struct.argBuf[5], arg_struct.argBuf[6]);
+    	  CircBufPush(&arg_struct);
     	  break;
       case 1:
     	  ClearScreen(arg_struct.argBuf[1]);
+    	  CircBufPush(&arg_struct);
     	  break;
       case 2:
     	  DrawRectangle(arg_struct.argBuf[1], arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[4], arg_struct.argBuf[5], arg_struct.argBuf[6]);
+    	  CircBufPush(&arg_struct);
     	  break;
       }
 

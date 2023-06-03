@@ -15,8 +15,16 @@ Error CircBufPush(CmdStruct *CmdBuf) {
 	pCmdBuf->commandNummer = CmdBuf->commandNummer;
 	memcpy(pCmdBuf->argBuf, CmdBuf->argBuf, sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
 	memcpy(pCmdBuf->textSentence, CmdBuf->textSentence, sizeof(CmdBuf->textSentence[0]) * MAX_CMD_CHARS);
+
+	//Check if the buffer pointer has reached the end and if so, loop back to start
+	if(pCmdBuf == &CmdBuf[CMD_BUFF_SIZE - 1]) {
+		pCmdBuf = &CmdBuf[0];
+		return ERR_NONE;
+	}
+	if(CmdBufLen != CMD_BUFF_SIZE) {
+		++CmdBufLen;
+	}
 	++pCmdBuf;
-	++CmdBufLen;
 	return ERR_NONE;
 }
 
@@ -46,11 +54,6 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, *CmdBuf);
 		}
 	}
-	printf("yeye\r\n");
-	printf("%d\r\n",(uint32_t)CmdBuf->commandNummer);
-	CircBufPush(CmdBuf);
-	CmdStruct temp = CircBufPop();
-	printf("%d\r\n", temp.commandNummer);
 }
 
 /**
