@@ -189,10 +189,21 @@ Error Wait(uint32_t delayMs) {
 	return ERR_NONE;
 }
 
-
-//TODO: Implement command Herhaal
+/**
+ * @fn Error RepeatCommands(uint8_t, uint8_t)
+ * @brief Repeats the last amount repeatDepth commands for repeatCount amount of times.
+ * Reads from the circular buffer where the commands have been pushed to.
+ *
+ * @param repeatDepth
+ * @param repeatCount
+ * @return Error
+ */
 Error RepeatCommands(uint8_t repeatDepth, uint8_t repeatCount)
 {
+	if(pCircBuf->CmdBufLen < repeatDepth) {
+		return ERR_ARG_OOB;
+	}
+
 	if((pCircBuf->pHead - repeatDepth) < &pCircBuf->CmdBuf[0]) {
 		uint8_t index = repeatDepth - (pCircBuf->pHead - &pCircBuf->CmdBuf[0]);
 		pCircBuf->pRepeat = &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1] - index - 1;
@@ -201,21 +212,17 @@ Error RepeatCommands(uint8_t repeatDepth, uint8_t repeatCount)
 		pCircBuf->pRepeat = pCircBuf->pHead - repeatDepth;
 	}
 
-
-	if(pCircBuf->CmdBufLen >= repeatDepth) {
-		for(uint8_t i = 0; i < repeatDepth; i++) {
-			CmdStruct* poppedCmd = CircBufPop();
-			for(uint8_t j = 0; j < repeatCount; j++)
-			{
-				Error err = callCommand(poppedCmd);
-				printf("Repeating cmd %d \r\n", poppedCmd->commandNummer);
-				if(err != ERR_NONE) {
-					return err;
-				}
+	for(uint8_t i = 0; i < repeatDepth; i++) {
+		CmdStruct* poppedCmd = CircBufPop();
+		for(uint8_t j = 0; j < repeatCount; j++)
+		{
+			Error err = callCommand(poppedCmd);
+			printf("Repeating cmd %d \r\n", poppedCmd->commandNummer);
+			if(err != ERR_NONE) {
+				return err;
 			}
 		}
-		return ERR_NONE;
 	}
-	return ERR_ARG_OOB;
+	return ERR_NONE;
 }
 

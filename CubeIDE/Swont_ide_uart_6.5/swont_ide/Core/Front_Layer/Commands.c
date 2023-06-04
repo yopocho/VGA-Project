@@ -155,7 +155,7 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
  * @return
  */
 Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
-	ParseOnKomma(inputStruct, 1, 1, 0, 0, 0, 0,  *CmdBuf);
+	ParseOnKomma(inputStruct, 1, 0, 0, 0, 0, 0,  *CmdBuf);
 	return ERR_NONE;
 }
 
@@ -238,8 +238,9 @@ Error callCommand(CmdStruct *arg_struct){
 						arg_struct->argBuf[11]);
 			break;
 		case HERHAAL:
-			err = RepeatCommands(2, 1);
-//			err = RepeatCommands(arg_struct->argBuf[1], arg_struct->argBuf[2]);
+			//TODO: Bij ParseOnKomma wordt het eerste arg de tweede, en de tweede de komma? whyyyyy????
+//			err = RepeatCommands(2, 1);
+			err = RepeatCommands(arg_struct->argBuf[1], arg_struct->argBuf[2]);
 			break;
 		default:
 			return ERR_UNKNOWN_ERR;

@@ -64,9 +64,12 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 
 				if (convertToNumber)
 					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
-				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
-				if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
-				if (getFont) strcpy(CmdBuf->textFont , incommingMessage);
+				if (getText)
+					strcpy(CmdBuf->textSentence, incommingMessage);
+				if (getStyle)
+					strcpy(CmdBuf->textStyle, incommingMessage);
+				if (getFont)
+					strcpy(CmdBuf->textFont , incommingMessage);
 				break;
 			}
 			commaCounter++;
