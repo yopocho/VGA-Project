@@ -23,7 +23,6 @@
 #include "main.h"
 
 #include "Commands.h"
-#include "Parser.h"
 #include "dma.h"
 #include "errorhandling.h"
 #include "fatfs.h"
@@ -115,20 +114,10 @@ int main(void) {
   /* USER CODE BEGIN 2 */
 
   UB_VGA_Screen_Init();  // Init VGA-Screen
+  SDCardInit(); // Init SD-card
 
   UB_VGA_FillScreen(VGA_COL_BLACK);
-  //  UB_VGA_SetPixel(10,10,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,11,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,12,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,13,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,14,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,15,VGA_COL_BLUE);
-  //  UB_VGA_SetPixel(10,16,VGA_COL_BLUE);
-  //  //UB_VGA_SetPixel(0,0,0x00);
-  //  //UB_VGA_SetPixel(319,,0x00);
-  Draw_Line(10, 10, 180, 40, VGA_COL_RED);
-  Draw_Line(10, 40, 180, 70, VGA_COL_WHITE);
-  Draw_Line(10, 70, 180, 100, VGA_COL_BLUE);
+
   int i;
 
   for (i = 0; i < LINE_BUFLEN; i++) input.line_rx_buffer[i] = 0;
@@ -168,11 +157,10 @@ int main(void) {
                         arg_struct.argBuf[5], arg_struct.argBuf[6]);
           break;
         case 5:
-          DrawBitmap(arg_struct.argBuf[1], arg_struct.argBuf[2],
-                     arg_struct.argBuf[3]);
+        	DrawBitmapFromSDCard(arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[1]);
           break;
       }
-
+      memset(arg_struct.argBuf, 0, sizeof(arg_struct.argBuf));
       // When finished reset the flag
       input.command_execute_flag = FALSE;
     }

@@ -106,7 +106,7 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 3; i++) {
 		neededArg = i + 1;
-		ParseOnKomma(inputStruct, neededArg, 1, 0, CmdBuf);
+		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
 	}
 }
 
