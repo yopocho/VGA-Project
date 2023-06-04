@@ -1,12 +1,17 @@
 "./Core/Front_Layer/Commands.o"
 "./Core/Front_Layer/Parser.o"
 <<<<<<< HEAD
+<<<<<<< HEAD
 "./Core/Logic_Layer/Logic_Debug.o"
 "./Core/Logic_Layer/errorHandling.o"
 "./Core/Logic_Layer/sdcard.o"
 =======
 "./Core/Src/Draw_Line.o"
 >>>>>>> master
+=======
+"./Core/Logic_Layer/Logic_Debug.o"
+"./Core/Logic_Layer/errorHandling.o"
+>>>>>>> Feature_Parser2
 "./Core/Src/dma.o"
 "./Core/Src/gpio.o"
 "./Core/Src/main.o"
@@ -20,7 +25,10 @@
 "./Core/Src/usart.o"
 "./Core/Startup/startup_stm32f407vgtx.o"
 "./Core/ub_lib/drawshapes.o"
+<<<<<<< HEAD
 "./Core/ub_lib/drawtext.o"
+=======
+>>>>>>> Feature_Parser2
 "./Core/ub_lib/stm32_ub_vga_screen.o"
 "./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o"
 "./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o"

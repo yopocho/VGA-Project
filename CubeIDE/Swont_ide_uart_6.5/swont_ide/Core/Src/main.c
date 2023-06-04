@@ -22,7 +22,8 @@
 /* USER CODE BEGIN Includes */
 #include "main.h"
 
-
+#include "Commands.h"
+#include "Parser.h"
 #include "dma.h"
 #include "errorhandling.h"
 #include "fatfs.h"
@@ -92,6 +93,7 @@ int main(void) {
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  CmdStruct arg_struct;
 
   /* USER CODE END Init */
 
@@ -115,10 +117,18 @@ int main(void) {
   UB_VGA_Screen_Init();  // Init VGA-Screen
 
   UB_VGA_FillScreen(VGA_COL_BLACK);
-  DrawRectangle(10, 10, 200, 220, VGA_COL_YELLOW, 1);
-  DrawRectangle(11, 11, 300, 220, VGA_COL_BLUE, 1);
-  DrawRectangle(160, 100, 150, 110, VGA_COL_RED, 1);
-
+  //  UB_VGA_SetPixel(10,10,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,11,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,12,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,13,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,14,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,15,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,16,VGA_COL_BLUE);
+  //  //UB_VGA_SetPixel(0,0,0x00);
+  //  //UB_VGA_SetPixel(319,,0x00);
+  Draw_Line(10, 10, 180, 40, VGA_COL_RED);
+  Draw_Line(10, 40, 180, 70, VGA_COL_WHITE);
+  Draw_Line(10, 70, 180, 100, VGA_COL_BLUE);
   int i;
 
   for (i = 0; i < LINE_BUFLEN; i++) input.line_rx_buffer[i] = 0;
@@ -141,8 +151,27 @@ int main(void) {
   /* USER CODE BEGIN WHILE */
   while (1) {
     if (input.command_execute_flag == TRUE) {
-
-
+      // Do some stuff
+      ParseOnKomma(input, 0, 0, 0, 0, 0, 0, &arg_struct);
+      switch (arg_struct.commandNummer) {
+        case 0:
+          DrawLine(arg_struct.argBuf[1], arg_struct.argBuf[2],
+                   arg_struct.argBuf[3], arg_struct.argBuf[4],
+                   arg_struct.argBuf[5], arg_struct.argBuf[6]);
+          break;
+        case 1:
+          ClearScreen(arg_struct.argBuf[1]);
+          break;
+        case 2:
+          DrawRectangle(arg_struct.argBuf[1], arg_struct.argBuf[2],
+                        arg_struct.argBuf[3], arg_struct.argBuf[4],
+                        arg_struct.argBuf[5], arg_struct.argBuf[6]);
+          break;
+        case 5:
+          DrawBitmap(arg_struct.argBuf[1], arg_struct.argBuf[2],
+                     arg_struct.argBuf[3]);
+          break;
+      }
 
       // When finished reset the flag
       input.command_execute_flag = FALSE;

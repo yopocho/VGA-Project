@@ -7,21 +7,135 @@
 
 #include "Commands.h"
 
+CmdStruct CmdBuf[CMD_BUFF_SIZE];
+CmdStruct *pCmdBuf = &CmdBuf[0];
+uint32_t CmdBufLen = 0;
+
+/**
+ * @fn Error CircBufPush(CmdStruct*)
+ * @brief Pushes given CmdStruct to circular buffer, incrementing pCmdBuf with each addition.
+ * When pCmdBuf has reached the end of CmdBuf, loop back to the beginning to be circular.
+ *
+ * @param CmdBuf
+ * @return Error
+ */
+Error CircBufPush(CmdStruct *CmdBuf) {
+	pCmdBuf->commandNummer = CmdBuf->commandNummer;
+	memcpy(pCmdBuf->argBuf, CmdBuf->argBuf, sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
+	memcpy(pCmdBuf->textSentence, CmdBuf->textSentence, sizeof(CmdBuf->textSentence[0]) * MAX_CMD_CHARS);
+
+	//Check if the buffer pointer has reached the end and if so, loop back to start
+	if(pCmdBuf == &CmdBuf[CMD_BUFF_SIZE - 1]) {
+		pCmdBuf = &CmdBuf[0];
+		return ERR_NONE;
+	}
+	if(CmdBufLen != CMD_BUFF_SIZE - 1) {
+		++CmdBufLen;
+	}
+	++pCmdBuf;
+	return ERR_NONE;
+}
+
+/**
+ * @fn CmdStruct CircBufPop(void)
+ * @brief Pops head of CmdBuf
+ *
+ * @return CmdStruct
+ */
+CmdStruct CircBufPop(void) {
+	--pCmdBuf;
+	--CmdBufLen;
+	return *pCmdBuf;
+}
+
+
+
 /**
  * @fn void RecieveCommandLijn(command, input_vars)
- * @brief when line command is recieved adds the nesisary args and adds them to the buffer
+ * @brief when line command is recieved adds the nesisary args and adds them to
+ * the buffer
  *
  * @param commandArray
  * @param inputStruct
  */
-void RecieveCommandLijn(command commandArray, input_vars inputStruct) {
+Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
 		if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, commandArray);
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, commandArray);
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0,0,0,  *CmdBuf);
 		}
 	}
 }
+
+/**
+ * @fn void RecieveCommandClear(command, input_vars)
+ * @brief
+ *
+ * @param commandArray
+ * @param inputStruct
+ */
+Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct) {
+	ParseOnKomma(inputStruct, 1, 0, 1, 0, 0, 0,  *CmdBuf);
+}
+
+/**
+ * @fn void RecieveCommandRechthoek(command, input_vars)
+ * @brief
+ *
+ * @param commandArray
+ * @param inputStruct
+ */
+Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
+	uint8_t neededArg = 0;
+	for (uint8_t i = 0; i < 7; i++) {
+		neededArg = i + 1;
+		if (i == 4) {
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+		} else {
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+		}
+	}
+}
+
+Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {}
+
+Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
+	uint8_t neededArg = 0;
+	for (uint8_t i = 0; i < 3; i++) {
+		neededArg = i + 1;
+		ParseOnKomma(inputStruct, neededArg, 1, 0, CmdBuf);
+	}
+}
+
+/**
+ * @fn void RecieveCommandWacht(command, input_vars)
+ * @brief
+ *
+ * @param commandArray
+ * @param inputStruct
+ */
+Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
+	ParseOnKomma(inputStruct, 1, 1, 0, CmdBuf);
+}
+
+/**
+ * @fn void RecieveCommandHerhaal(command, input_vars)
+ * @brief
+ *
+ * @param commandArray
+ * @param inputStruct
+ */
+Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
+	uint8_t neededArg = 0;
+	for (uint8_t i = 0; i < 2; i++) {
+		neededArg = i + 1;
+		ParseOnKomma(inputStruct, neededArg, 1, 0, CmdBuf);
+	}
+}
+
+Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {}
+
+Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {}
