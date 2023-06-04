@@ -37,8 +37,11 @@ extern "C" {
 #include "stdio.h"
 #include "string.h"
 #include <stdlib.h>
-
+#include <stdarg.h>
 #include "stm32_ub_vga_screen.h"
+#include "errorHandling.h"
+#include "drawshapes.h"
+
 
 
 /* USER CODE END Includes */
@@ -66,6 +69,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define SPI1_CS_Pin GPIO_PIN_1
+#define SPI1_CS_GPIO_Port GPIOA
 #define VGA_BLUE0_Pin GPIO_PIN_8
 #define VGA_BLUE0_GPIO_Port GPIOE
 #define VGA_BLUE1_Pin GPIO_PIN_9
@@ -86,7 +91,11 @@ void Error_Handler(void);
 #define VGA_HSYNC_GPIO_Port GPIOB
 #define VGA_VSYNC_Pin GPIO_PIN_12
 #define VGA_VSYNC_GPIO_Port GPIOB
+#define SD_CS_Pin GPIO_PIN_3
+#define SD_CS_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
+
+#define SD_SPI_HANDLE hspi1
 
 #define BYTE_BUFLEN 	 1
 #define LINE_BUFLEN 	 1024

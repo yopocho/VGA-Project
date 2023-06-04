@@ -23,11 +23,21 @@
 #include "main.h"
 
 #include "Commands.h"
+#include "Parser.h"
 #include "dma.h"
 #include "errorhandling.h"
+#include "fatfs.h"
 #include "gpio.h"
+#include "spi.h"
 #include "tim.h"
 #include "usart.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
+#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
 
 /* USER CODE END Includes */
 
@@ -100,12 +110,25 @@ int main(void) {
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_USART2_UART_Init();
+  MX_SPI1_Init();
+  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
   UB_VGA_Screen_Init();  // Init VGA-Screen
 
   UB_VGA_FillScreen(VGA_COL_BLACK);
-  UB_VGA_FillScreen(VGA_COL_WHITE);
+  //  UB_VGA_SetPixel(10,10,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,11,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,12,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,13,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,14,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,15,VGA_COL_BLUE);
+  //  UB_VGA_SetPixel(10,16,VGA_COL_BLUE);
+  //  //UB_VGA_SetPixel(0,0,0x00);
+  //  //UB_VGA_SetPixel(319,,0x00);
+  Draw_Line(10, 10, 180, 40, VGA_COL_RED);
+  Draw_Line(10, 40, 180, 70, VGA_COL_WHITE);
+  Draw_Line(10, 70, 180, 100, VGA_COL_BLUE);
   int i;
 
   for (i = 0; i < LINE_BUFLEN; i++) input.line_rx_buffer[i] = 0;
@@ -130,21 +153,26 @@ int main(void) {
     if (input.command_execute_flag == TRUE) {
       // Do some stuff
       ParseOnKomma(input, 0, 0, 0, 0, 0, 0, &arg_struct);
-      switch(arg_struct.commandNummer)
-      {
-      case 0:
-    	  DrawLine(arg_struct.argBuf[1], arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[4], arg_struct.argBuf[5], arg_struct.argBuf[6]);
-    	  break;
-      case 1:
-    	  ClearScreen(arg_struct.argBuf[1]);
-    	  break;
-      case 2:
-    	  DrawRectangle(arg_struct.argBuf[1], arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[4], arg_struct.argBuf[5], arg_struct.argBuf[6]);
-    	  break;
-      case 5:
-    	  DrawBitmap(arg_struct.argBuf[1], arg_struct.argBuf[2], arg_struct.argBuf[3]);
-    	  break;
+      switch (arg_struct.commandNummer) {
+        case 0:
+          DrawLine(arg_struct.argBuf[1], arg_struct.argBuf[2],
+                   arg_struct.argBuf[3], arg_struct.argBuf[4],
+                   arg_struct.argBuf[5], arg_struct.argBuf[6]);
+          break;
+        case 1:
+          ClearScreen(arg_struct.argBuf[1]);
+          break;
+        case 2:
+          DrawRectangle(arg_struct.argBuf[1], arg_struct.argBuf[2],
+                        arg_struct.argBuf[3], arg_struct.argBuf[4],
+                        arg_struct.argBuf[5], arg_struct.argBuf[6]);
+          break;
+        case 5:
+          DrawBitmap(arg_struct.argBuf[1], arg_struct.argBuf[2],
+                     arg_struct.argBuf[3]);
+          break;
       }
+
       // When finished reset the flag
       input.command_execute_flag = FALSE;
     }
