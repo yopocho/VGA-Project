@@ -17,6 +17,18 @@
 #define MAX_CMD_ARGS 12
 #define MAX_CMD_CHARS 128
 
+typedef enum {
+	LIJN,
+	CLEARSCHERM,
+	RECHTHOEK,
+	WACHT,
+	TEKST,
+	BITMAP,
+	CIRKEL,
+	FIGUUR,
+	HERHAAL
+} Command;
+
 typedef struct CmdStruct {
 	int commandNummer;
 	uint16_t argBuf[MAX_CMD_ARGS];

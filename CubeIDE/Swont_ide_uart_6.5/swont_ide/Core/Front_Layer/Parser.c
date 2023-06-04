@@ -30,13 +30,16 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 	uint8_t commaCounter = 0;
 	uint8_t placeInBuf = 0;
 	Error err;
+
 	//Early error checks
 	if(inputStruct.msglen == 0) { //Only LF
 		return ERR_INVALID_CMD;
 	}
-	if(strchr(inputStruct.line_rx_buffer, ',') == NULL) { //Incomplete command
+	if(strchr(inputStruct.line_rx_buffer, ',') == NULL) { //No commas found, invalid
 		return ERR_INVALID_CMD;
 	}
+
+	//Parse incoming message on comma
 	char incommingMessage[inputStruct.msglen];
 	for (int j = 0; j <= inputStruct.msglen; j++) {
 		if (inputStruct.line_rx_buffer[j] == ',') {

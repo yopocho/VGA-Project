@@ -68,7 +68,7 @@ static const ErrorHandle ErrorList[] =
 {
 	{ERR_INVALID_ARG, 			LOW, 	"The supplied list of arguments is invalid\r\n"	},
 	{ERR_INVALID_CMD, 			LOW, 	"Given command is wrong/unknown\r\n"			},
-	{ERR_ARG_OOB, 				LOW, 	"Coordinates are out-of-bounds\r\n"				},
+	{ERR_ARG_OOB, 				LOW, 	"Argument(s) out-of-bounds\r\n"					},
 	{ERR_MSG_LEN, 				LOW, 	"Message length exceeded\r\n"					},
 	{ERR_NONE, 					NONE, 	"No issue\r\n"									},
 	{ERR_GENERIC, 				LOW, 	"Error\r\n"										},

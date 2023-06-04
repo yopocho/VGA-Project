@@ -193,16 +193,21 @@ Error Wait(uint32_t delayMs) {
 //TODO: Implement command Herhaal
 Error RepeatCommands(uint8_t repeatDepth, uint8_t repeatCount)
 {
-	for(uint8_t i = 0; i < repeatDepth; i++) {
-		CmdStruct poppedCmd = CircBufPop();
-		for(uint8_t j = 0; i < repeatCount; j++)
-		{
-			Error err = callCommand(&poppedCmd);
-			if(err != ERR_NONE) {
-				return err;
+	if(CmdBufLen >= repeatDepth) {
+		printf("This should only be called once...");
+		for(uint8_t i = 0; i < repeatDepth; i++) {
+			CmdStruct poppedCmd = CircBufPop();
+			for(uint8_t j = 0; j < repeatCount; j++)
+			{
+				Error err = callCommand(&poppedCmd);
+				printf("Repeating cmd %d \r\n", poppedCmd.commandNummer);
+				if(err != ERR_NONE) {
+					return err;
+				}
 			}
 		}
+		return ERR_NONE;
 	}
-	return ERR_NONE;
+	return ERR_ARG_OOB;
 }
 

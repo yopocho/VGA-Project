@@ -158,7 +158,9 @@ int main(void) {
 				TransmitError(err);
 				break;
 			}
-			err = CircBufPush(&arg_struct);
+			if(arg_struct.commandNummer != HERHAAL) {
+				err = CircBufPush(&arg_struct);
+			}
 			if(err != ERR_NONE) {
 				(void*)memset(&arg_struct, 0, sizeof(arg_struct));
 				input.command_execute_flag = FALSE;

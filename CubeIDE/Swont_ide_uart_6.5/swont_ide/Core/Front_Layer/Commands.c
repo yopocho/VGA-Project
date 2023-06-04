@@ -142,9 +142,9 @@ Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
  */
 Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
-	for (uint8_t i = 0; i < 2; i++) {
+	for (uint8_t i = 0; i < 3; i++) {
 		neededArg = i + 1;
-		ParseOnKomma(inputStruct, neededArg, 1, 1, 0, 0, 0, 0, CmdBuf);
+		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, 0, CmdBuf);
 	}
 	return ERR_NONE;
 }
@@ -180,29 +180,29 @@ Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {
 Error callCommand(CmdStruct *arg_struct){
 	Error err;
 	switch (arg_struct->commandNummer) {
-		case 0:
+		case LIJN:
 			err = DrawLine(	arg_struct->argBuf[1], arg_struct->argBuf[2],
 						arg_struct->argBuf[3], arg_struct->argBuf[4],
 						arg_struct->argBuf[5], arg_struct->argBuf[6]);
 			break;
-		case 1:
+		case CLEARSCHERM:
 			err = ClearScreen(arg_struct->argBuf[1]);
 			break;
-		case 2:
+		case RECHTHOEK:
 			err = DrawRectangle(arg_struct->argBuf[1], arg_struct->argBuf[2],
 			arg_struct->argBuf[3], arg_struct->argBuf[4],
 			arg_struct->argBuf[5], arg_struct->argBuf[6]);
 			break;
-		case 3:
+		case WACHT:
 			err = Wait(arg_struct->argBuf[1]);
 			break;
-		case 5:
+		case BITMAP:
 			err = DrawBitmapFromSDCard(arg_struct->argBuf[2], arg_struct->argBuf[3], arg_struct->argBuf[1]);
 			break;
-		case 6:
+		case CIRKEL:
 			err = DrawCircle(arg_struct->argBuf[1], arg_struct->argBuf[2], arg_struct->argBuf[3], arg_struct->argBuf[4]);
 			break;
-		case 7:
+		case FIGUUR:
 			err = DrawFigure(	arg_struct->argBuf[1], arg_struct->argBuf[2],
 						arg_struct->argBuf[3], arg_struct->argBuf[4],
 						arg_struct->argBuf[5], arg_struct->argBuf[6],
@@ -210,11 +210,15 @@ Error callCommand(CmdStruct *arg_struct){
 						arg_struct->argBuf[9], arg_struct->argBuf[10],
 						arg_struct->argBuf[11]);
 			break;
-		case 8:
-			err = RepeatCommands(arg_struct->argBuf[1], arg_struct->argBuf[2]);
+		case HERHAAL:
+			err = RepeatCommands(2, 1);
+//			err = RepeatCommands(arg_struct->argBuf[1], arg_struct->argBuf[2]);
 			break;
 		default:
 			return ERR_UNKNOWN_ERR;
+	}
+	if(err != ERR_NONE) {
+		return err;
 	}
 	return ERR_NONE;
 }
