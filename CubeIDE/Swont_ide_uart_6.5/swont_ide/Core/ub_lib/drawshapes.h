@@ -8,7 +8,7 @@
 #ifndef UB_LIB_DRAWSHAPES_H_
 #define UB_LIB_DRAWSHAPES_H_
 
-#include <main.h>
+#include "errorHandling.h"
 #include <errorHandling.h>
 
 #define BITMAPSIZE 50

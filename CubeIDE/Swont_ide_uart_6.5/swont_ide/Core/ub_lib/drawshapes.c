@@ -5,10 +5,9 @@
  *  Created on: 26 apr. 2023
  *      Author: Sjoerd
  */
-#include <bitmaps.h>
-#include <drawshapes.h>
-#include <main.h>
+
 #include <math.h>
+#include "drawshapes.h"
 
 
 /**
@@ -21,7 +20,7 @@
  * @param yp2
  * @param color
  * @param thickness
- * @return
+ * @return Error
  */
 Error DrawLine(uint8_t xp1, uint8_t yp1, uint8_t xp2, uint8_t yp2, uint8_t color,
 		uint8_t thickness) {
@@ -64,7 +63,7 @@ Error DrawLine(uint8_t xp1, uint8_t yp1, uint8_t xp2, uint8_t yp2, uint8_t color
  * @param Heigth
  * @param color
  * @param lined
- * @return
+ * @return Error
  */
 Error DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
 		uint8_t color, uint8_t lined) {
@@ -104,7 +103,7 @@ Error DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
  * @brief Clears the screen in the specified color
  *
  * @param color
- * @return
+ * @return Error
  */
 Error ClearScreen(uint8_t color) {
 	UB_VGA_FillScreen(color);
@@ -112,3 +111,17 @@ Error ClearScreen(uint8_t color) {
 
 }
 
+Error DrawCircle(uint16_t xp, uint16_t yp, uint16_t radius, uint8_t color) {
+	if(xp > VGA_DISPLAY_X || yp > VGA_DISPLAY_Y) {
+		return ERR_ARG_OOB;
+	}
+
+    double angle, x1, y1;
+    for(angle = 0; angle < 360; angle += 0.1)
+    {
+          x1 = radius * cos(angle * M_PI / 180);
+          y1 = radius * sin(angle * M_PI / 180);
+          UB_VGA_SetPixel(xp + x1, yp + y1, color);
+    }
+	return ERR_NONE;
+}
