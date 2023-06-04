@@ -93,6 +93,7 @@ int main(void) {
 
   /* USER CODE BEGIN Init */
   CmdStruct arg_struct;
+  Error err;
 
   /* USER CODE END Init */
 
@@ -114,7 +115,10 @@ int main(void) {
   /* USER CODE BEGIN 2 */
 
   UB_VGA_Screen_Init();  // Init VGA-Screen
-  SDCardInit(); // Init SD-card
+  err = SDCardInit(); // Init SD-card
+  if(err != ERR_NONE) {
+	  TransmitError(err);
+  }
 
   UB_VGA_FillScreen(VGA_COL_BLACK);
 
@@ -139,45 +143,26 @@ int main(void) {
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {
-		if (input.command_execute_flag == TRUE) {
-			ParseOnKomma(input, 0, 0, 0, 0, 0, 0, &arg_struct);
-			switch (arg_struct.commandNummer) {
-				case 0:
-					DrawLine(	arg_struct.argBuf[1], arg_struct.argBuf[2],
-								arg_struct.argBuf[3], arg_struct.argBuf[4],
-								arg_struct.argBuf[5], arg_struct.argBuf[6]);
-					break;
-				case 1:
-				ClearScreen(arg_struct.argBuf[1]);
-					break;
-				case 2:
-					DrawRectangle(arg_struct.argBuf[1], arg_struct.argBuf[2],
-					arg_struct.argBuf[3], arg_struct.argBuf[4],
-					arg_struct.argBuf[5], arg_struct.argBuf[6]);
-					break;
-				case 5:
-					DrawBitmapFromSDCard(arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[1]);
-					break;
-				case 6:
-					DrawCircle(arg_struct.argBuf[1], arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[4]);
-					break;
-				case 7:
-					DrawFigure(	arg_struct.argBuf[1], arg_struct.argBuf[2],
-								arg_struct.argBuf[3], arg_struct.argBuf[4],
-								arg_struct.argBuf[5], arg_struct.argBuf[6],
-								arg_struct.argBuf[7], arg_struct.argBuf[8],
-								arg_struct.argBuf[9], arg_struct.argBuf[10],
-								arg_struct.argBuf[11]);
-					break;
-				case 8:
-					break;
-				default:
-					return ERR_UNKNOWN_ERR;
+		while(input.command_execute_flag == TRUE) {
+			err = ParseOnKomma(input, 0, 0, 0, 0, 0, 0, &arg_struct);
+			if(err != ERR_NONE) {
+				TransmitError(err);
+				break;
 			}
-      memset(arg_struct.argBuf, 0, sizeof(arg_struct.argBuf));
-      // When finished reset the flag
-      input.command_execute_flag = FALSE;
-	}
+			err = callCommand(&arg_struct);
+			if(err != ERR_NONE) {
+				TransmitError(err);
+				break;
+			}
+			err = CircBufPush(&arg_struct);
+			if(err != ERR_NONE) {
+				TransmitError(err);
+				break;
+			}
+			(void*)memset(arg_struct.argBuf, 0, sizeof(arg_struct.argBuf));
+			// When finished reset the flag
+			input.command_execute_flag = FALSE;
+		}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

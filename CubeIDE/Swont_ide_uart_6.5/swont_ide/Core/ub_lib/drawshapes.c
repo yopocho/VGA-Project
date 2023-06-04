@@ -8,6 +8,7 @@
 
 #include <math.h>
 #include "drawshapes.h"
+#include "Commands.h"
 
 
 /**
@@ -175,17 +176,33 @@ Error DrawFigure(	uint16_t xp1, uint16_t yp1,
 }
 
 //TODO: Implement command Wacht
-///**
-// * @fn Error Wait(uint32_t delayMs)
-// * @brief Delays drawing for delayMs amont of milliseconds.
-// *
-// * @param delayMs
-// * @return Error
-// */
-//Error Wait(uint32_t delayMs) {
-//	HAL_Delay(delayMs);
-//	return ERR_NONE;
-//}
+/**
+ * @fn Error Wait(uint32_t delayMs)
+ * @brief Delays drawing for delayMs amont of milliseconds.
+ *
+ * @param delayMs
+ * @return Error
+ */
+Error Wait(uint32_t delayMs) {
+	HAL_Delay(delayMs);
+	printf("waiting :_");
+	return ERR_NONE;
+}
+
 
 //TODO: Implement command Herhaal
+Error RepeatCommands(uint8_t repeatDepth, uint8_t repeatCount)
+{
+	for(uint8_t i = 0; i < repeatDepth; i++) {
+		CmdStruct poppedCmd = CircBufPop();
+		for(uint8_t j = 0; i < repeatCount; j++)
+		{
+			Error err = callCommand(&poppedCmd);
+			if(err != ERR_NONE) {
+				return err;
+			}
+		}
+	}
+	return ERR_NONE;
+}
 

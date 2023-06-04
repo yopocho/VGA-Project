@@ -7,6 +7,7 @@
 
 #include "Commands.h"
 #include "errorHandling.h"
+//#include "Parser.h"
 
 CmdStruct CmdBuf[CMD_BUFF_SIZE];
 CmdStruct *pCmdBuf = &CmdBuf[0];
@@ -69,6 +70,7 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, 0,0,0,  *CmdBuf);
 		}
 	}
+	return ERR_NONE;
 }
 
 /**
@@ -171,6 +173,47 @@ Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {
 		else {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
 		}
+	}
+	return ERR_NONE;
+}
+
+Error callCommand(CmdStruct *arg_struct){
+	Error err;
+	switch (arg_struct->commandNummer) {
+		case 0:
+			err = DrawLine(	arg_struct->argBuf[1], arg_struct->argBuf[2],
+						arg_struct->argBuf[3], arg_struct->argBuf[4],
+						arg_struct->argBuf[5], arg_struct->argBuf[6]);
+			break;
+		case 1:
+			err = ClearScreen(arg_struct->argBuf[1]);
+			break;
+		case 2:
+			err = DrawRectangle(arg_struct->argBuf[1], arg_struct->argBuf[2],
+			arg_struct->argBuf[3], arg_struct->argBuf[4],
+			arg_struct->argBuf[5], arg_struct->argBuf[6]);
+			break;
+		case 3:
+			err = Wait(arg_struct->argBuf[1]);
+			break;
+		case 5:
+			err = DrawBitmapFromSDCard(arg_struct->argBuf[2], arg_struct->argBuf[3], arg_struct->argBuf[1]);
+			break;
+		case 6:
+			err = DrawCircle(arg_struct->argBuf[1], arg_struct->argBuf[2], arg_struct->argBuf[3], arg_struct->argBuf[4]);
+			break;
+		case 7:
+			err = DrawFigure(	arg_struct->argBuf[1], arg_struct->argBuf[2],
+						arg_struct->argBuf[3], arg_struct->argBuf[4],
+						arg_struct->argBuf[5], arg_struct->argBuf[6],
+						arg_struct->argBuf[7], arg_struct->argBuf[8],
+						arg_struct->argBuf[9], arg_struct->argBuf[10],
+						arg_struct->argBuf[11]);
+			break;
+		case 8:
+			break;
+		default:
+			return ERR_UNKNOWN_ERR;
 	}
 	return ERR_NONE;
 }

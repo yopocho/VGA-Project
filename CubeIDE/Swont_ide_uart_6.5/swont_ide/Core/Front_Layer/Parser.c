@@ -29,6 +29,7 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				   uint8_t getFont, uint8_t getStyle, CmdStruct *CmdBuf) {
 	uint8_t commaCounter = 0;
 	uint8_t placeInBuf = 0;
+	Error err;
 	char incommingMessage[inputStruct.msglen];
 	for (int j = 0; j <= inputStruct.msglen; j++) {
 		if (inputStruct.line_rx_buffer[j] == ',') {
@@ -38,8 +39,12 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 			OutputDebug(debugMessageParse, sizeof(debugMessageParse), &huart2);
 #endif
 			if (commaCounter == neededArgument) {
-				if (!commaCounter)
-					CheckWhatCommand(incommingMessage, CmdBuf, inputStruct);
+				if (!commaCounter) {
+					err = CheckWhatCommand(incommingMessage, CmdBuf, inputStruct);
+					if (err != ERR_NONE) {
+						return err;
+					}
+				}
 				if (convertColor)
 					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
 				if (convertToNumber)
@@ -94,9 +99,14 @@ Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
 			OutputDebug(debugMessageCommand, sizeof(debugMessageCommand),
 						&huart2);
 #endif
-			DoOnCommand(CmdBuf, inputStruct);
+			Error err = DoOnCommand(CmdBuf, inputStruct);
+			if(err != ERR_NONE) {
+				return err;
+			}
+			return ERR_NONE;
 		}
 	}
+	return ERR_INVALID_ARG;
 }
 /**
  * @fn void CheckWhatColor(char[], command, uint8_t)
@@ -115,9 +125,10 @@ Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
 #ifdef FRONT_LAYER_DEBUG
 			OutputDebug(debugMessageColor, sizeof(debugMessageColor), &huart2);
 #endif
-			break;
+			return ERR_NONE;
 		}
 	}
+	return ERR_UNKNOWN_COL;
 }
 /**
  * @fn void DoOnCommand(command, input_vars)
@@ -128,44 +139,46 @@ Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
  * @param inputStruct
  */
 Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
+	Error err;
 	switch (CmdBuf->commandNummer) {
 		case 0:
 			// lijn
-			RecieveCommandLijn(&CmdBuf, inputStruct);
+			err = RecieveCommandLijn(&CmdBuf, inputStruct);
 			break;
 		case 1:
 			// clearscherm
-			RecieveCommandClear(&CmdBuf, inputStruct);
+			err = RecieveCommandClear(&CmdBuf, inputStruct);
 			break;
 		case 2:
 			// rechthoek
-			RecieveCommandRechthoek(&CmdBuf, inputStruct);
+			err = RecieveCommandRechthoek(&CmdBuf, inputStruct);
 			break;
 		case 3:
 			// wacht
-			RecieveCommandWacht(&CmdBuf, inputStruct);
+			err = RecieveCommandWacht(&CmdBuf, inputStruct);
 			break;
 		case 4:
 			// tekst
-			RecieveCommandTekst(&CmdBuf, inputStruct);
+			err = RecieveCommandTekst(&CmdBuf, inputStruct);
 			break;
 		case 5:
 			// bitmap
-			RecieveCommandBitmap(&CmdBuf, inputStruct);
+			err = RecieveCommandBitmap(&CmdBuf, inputStruct);
 			break;
 		case 6:
 			// cirkel
-			RecieveCommandCirkel(&CmdBuf, inputStruct);
+			err = RecieveCommandCirkel(&CmdBuf, inputStruct);
 			break;
 		case 7:
 			// figuur
-			RecieveCommandFiguur(&CmdBuf, inputStruct);
+			err = RecieveCommandFiguur(&CmdBuf, inputStruct);
 			break;
 		case 8:
 			// herhaal
-			RecieveCommandHerhaal(&CmdBuf, inputStruct);
+			err = RecieveCommandHerhaal(&CmdBuf, inputStruct);
 			break;
 	}
+	return err;
 }
 
 /**
@@ -178,5 +191,8 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
  */
 Error OutputDebug(char message[], size_t messageLength,
 				  UART_HandleTypeDef *uartHandle) {
-	HAL_UART_Transmit(uartHandle, message, messageLength, 10);
+	if(HAL_UART_Transmit(uartHandle, message, messageLength, 10) != HAL_OK) {
+		return ERR_UART_FAIL;
+	}
+	return ERR_NONE;
 }

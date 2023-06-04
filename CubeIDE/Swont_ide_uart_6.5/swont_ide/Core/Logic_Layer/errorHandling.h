@@ -15,7 +15,7 @@
  * @brief Enum for all API error codes
  *
  */
-typedef const enum
+typedef enum
 {
 	ERR_INVALID_ARG,       /**< ERR_INVALID_ARG */
 	ERR_INVALID_CMD,       /**< ERR_INVALID_CMD */
@@ -36,7 +36,8 @@ typedef const enum
 	ERR_SDCARD_LSEEK,       /**< ERR_SDCARD_LSEEK */
 	ERR_INVALID_COL,
 	ERR_TEXT_OOB,
-	ERR_INVALID_CHAR
+	ERR_INVALID_CHAR,
+	ERR_UNKNOWN_COL
 } Error;
 
 /**
@@ -84,7 +85,8 @@ static const ErrorHandle ErrorList[] =
 	{ERR_SDCARD_LSEEK,			LOW,	"FatFS f_lseek misbehaved\r\n"					},
 	{ERR_INVALID_COL,			LOW,	"Given color in wrong or unkown\r\n"			},
 	{ERR_TEXT_OOB,				LOW,	"Text will not fit inside screen\r\n"			},
-	{ERR_INVALID_CHAR,			MEDIUM,	"Character is invalid or unkown in text\r\n"	}
+	{ERR_INVALID_CHAR,			MEDIUM,	"Character is invalid or unkown in text\r\n"	},
+	{ERR_UNKNOWN_COL,			LOW,	"Color unknown\r\n"}
 };
 
 Error TransmitError(Error ErrorCode);
