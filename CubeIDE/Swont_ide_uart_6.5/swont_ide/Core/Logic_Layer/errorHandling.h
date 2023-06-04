@@ -72,6 +72,7 @@ static const ErrorHandle ErrorList[] =
 	{ERR_NONE, 					NONE, 	"No issue\r\n"									},
 	{ERR_GENERIC, 				LOW, 	"Error\r\n"										},
 	{ERR_UART_FAIL,				HIGH,	"UART Transmit failed\r\n"						},
+	{ERR_UNKNOWN_ERR,			MEDIUM,	"Couldn't return error\r\n"						},
 	{ERR_SDCARD_MOUNT,			LOW,	"Could not mount SD-card\r\n"					},
 	{ERR_SDCARD_GETFREE,		LOW,	"Could not retrieve free space on SD-card\r\n"	},
 	{ERR_SDCARD_READ,			LOW,	"Could not read data from SD-card\r\n"			},

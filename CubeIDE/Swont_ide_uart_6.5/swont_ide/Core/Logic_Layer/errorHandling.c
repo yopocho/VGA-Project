@@ -33,10 +33,10 @@ ErrorHandle* GetError(Error ErrorCode)
 	size_t SizeOfErrorList = sizeof(ErrorList)/sizeof(ErrorList[0]);
 	for(size_t i = 0; i < SizeOfErrorList; i++){
 		if(ErrorList[i].ErrorCode == ErrorCode){
-			return &ErrorList[i];
+			return (ErrorHandle*)&ErrorList[i];
 		}
 	}
-	return ERR_UNKNOWN_ERR;
+	return (ErrorHandle*)&ErrorList[ERR_UNKNOWN_ERR];
 }
 
 
