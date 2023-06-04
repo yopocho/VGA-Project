@@ -111,6 +111,16 @@ Error ClearScreen(uint8_t color) {
 
 }
 
+/**
+ * @fn Error DrawCircle(uint16_t, uint16_t, uint16_t, uint8_t)
+ * @brief Draws a circle with center xp,yp, of radius radius and of color color
+ *
+ * @param xp
+ * @param yp
+ * @param radius
+ * @param color
+ * @return Error
+ */
 Error DrawCircle(uint16_t xp, uint16_t yp, uint16_t radius, uint8_t color) {
 	if(xp > VGA_DISPLAY_X || yp > VGA_DISPLAY_Y) {
 		return ERR_ARG_OOB;
@@ -125,3 +135,42 @@ Error DrawCircle(uint16_t xp, uint16_t yp, uint16_t radius, uint8_t color) {
     }
 	return ERR_NONE;
 }
+
+/**
+ * @fn Error DrawFigure(uint16_t, uint16_t, uint16_t, uint16_t, uint16_t, uint16_t, uint16_t, uint16_t, uint16_t, uint16_t, uint8_t)
+ * @brief Draws a figure with lines to and from p1-p5 in the given color.
+ *
+ * @param xp1
+ * @param yp1
+ * @param xp2
+ * @param yp2
+ * @param xp3
+ * @param yp3
+ * @param xp4
+ * @param yp4
+ * @param xp5
+ * @param yp5
+ * @param color
+ * @return Error
+ */
+Error DrawFigure(	uint16_t xp1, uint16_t yp1,
+					uint16_t xp2, uint16_t yp2,
+					uint16_t xp3, uint16_t yp3,
+					uint16_t xp4, uint16_t yp4,
+					uint16_t xp5, uint16_t yp5,
+					uint8_t color) {
+
+	uint16_t coords[10] = {xp1,yp1,xp2,yp2,xp3,yp3,xp4,yp4,xp5,yp5};
+
+	//Loop over all the start and end coordinates, drawing a line between them
+	for(uint8_t i = 0; i < 10; i += 2) {
+		Error err = DrawLine(coords[i], coords[i+1], coords[i+2], coords[i+3], color, FIGURE_THICKNESS);
+		if(err != ERR_NONE) {
+			return err;
+		}
+	}
+
+	return ERR_NONE;
+
+}
+

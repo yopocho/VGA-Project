@@ -9,9 +9,8 @@
 #define UB_LIB_DRAWSHAPES_H_
 
 #include "errorHandling.h"
-#include <errorHandling.h>
 
-#define BITMAPSIZE 50
+#define FIGURE_THICKNESS 3 //Pixels
 
 /**
  * @enum bitmapKey
