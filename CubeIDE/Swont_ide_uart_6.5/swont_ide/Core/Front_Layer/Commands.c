@@ -39,9 +39,9 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
 		if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0,0,0,  *CmdBuf);
 		}
 	}
 //	AddToBuffer(&CmdBuf);
@@ -55,7 +55,7 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
  * @param inputStruct
  */
 Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct) {
-	ParseOnKomma(inputStruct, 1, 0, 1, *CmdBuf);
+	ParseOnKomma(inputStruct, 1, 0, 1, 0, 0, 0,  *CmdBuf);
 }
 
 /**
@@ -70,9 +70,9 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
 		if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
 		}
 	}
 }
