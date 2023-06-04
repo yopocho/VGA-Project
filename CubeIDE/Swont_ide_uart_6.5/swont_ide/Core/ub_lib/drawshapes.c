@@ -185,7 +185,7 @@ Error DrawFigure(	uint16_t xp1, uint16_t yp1,
  */
 Error Wait(uint32_t delayMs) {
 	HAL_Delay(delayMs);
-	printf("waiting :_");
+	printf("waiting :)");
 	return ERR_NONE;
 }
 
@@ -193,14 +193,15 @@ Error Wait(uint32_t delayMs) {
 //TODO: Implement command Herhaal
 Error RepeatCommands(uint8_t repeatDepth, uint8_t repeatCount)
 {
-	if(CmdBufLen >= repeatDepth) {
-		printf("This should only be called once...");
+	pCircBuf->pRepeat = (&pCircBuf->pHead - repeatDepth) % CMD_BUFF_SIZE;
+
+	if(pCircBuf->CmdBufLen >= repeatDepth) {
 		for(uint8_t i = 0; i < repeatDepth; i++) {
-			CmdStruct poppedCmd = CircBufPop();
+			CmdStruct* poppedCmd = CircBufPop();
 			for(uint8_t j = 0; j < repeatCount; j++)
 			{
-				Error err = callCommand(&poppedCmd);
-				printf("Repeating cmd %d \r\n", poppedCmd.commandNummer);
+				Error err = callCommand(poppedCmd);
+				printf("Repeating cmd %d \r\n", poppedCmd->commandNummer);
 				if(err != ERR_NONE) {
 					return err;
 				}

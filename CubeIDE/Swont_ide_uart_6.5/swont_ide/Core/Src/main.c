@@ -115,6 +115,7 @@ int main(void) {
   /* USER CODE BEGIN 2 */
 
   UB_VGA_Screen_Init();  // Init VGA-Screen
+  CircBufInit(); //Init circular buffer
   err = SDCardInit(); // Init SD-card
   if(err != ERR_NONE) {
 	  TransmitError(err);

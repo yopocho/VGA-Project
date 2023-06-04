@@ -7,11 +7,23 @@
 
 #include "Commands.h"
 #include "errorHandling.h"
-//#include "Parser.h"
 
-CmdStruct CmdBuf[CMD_BUFF_SIZE];
-CmdStruct *pCmdBuf = &CmdBuf[0];
-uint32_t CmdBufLen = 0;
+CircularBuffer circBuf;
+CircularBuffer *pCircBuf;
+
+/**
+ * @fn void CircBufInit(void)
+ * @brief Initializes the circular buffer for the "Herhaal"-command
+ *
+ */
+void CircBufInit(void)
+{
+	pCircBuf = &circBuf;
+	memset(pCircBuf->CmdBuf, 0, sizeof(pCircBuf->CmdBuf[0]));
+	pCircBuf->pHead = &pCircBuf->CmdBuf[0];
+	pCircBuf->pRepeat = &pCircBuf->CmdBuf[0];
+	pCircBuf->CmdBufLen = 0;
+}
 
 /**
  * @fn Error CircBufPush(CmdStruct*)
@@ -22,19 +34,22 @@ uint32_t CmdBufLen = 0;
  * @return Error
  */
 Error CircBufPush(CmdStruct *CmdBuf) {
-	pCmdBuf->commandNummer = CmdBuf->commandNummer;
-	memcpy(pCmdBuf->argBuf, CmdBuf->argBuf, sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
-	memcpy(pCmdBuf->textSentence, CmdBuf->textSentence, sizeof(CmdBuf->textSentence[0]) * MAX_CMD_CHARS);
 
+	pCircBuf->pHead->commandNummer = CmdBuf->commandNummer;
+	memcpy(pCircBuf->pHead->argBuf, CmdBuf->argBuf, sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
+	memcpy(pCircBuf->pHead->textSentence, CmdBuf->textSentence, sizeof(CmdBuf->textSentence[0]) * MAX_CMD_CHARS);
+	printf("Pushed %d\n\r", CmdBuf->commandNummer);
+	printf("Pushed %d\n\r", pCircBuf->pHead->commandNummer);
 	//Check if the buffer pointer has reached the end and if so, loop back to start
-	if(pCmdBuf == &CmdBuf[CMD_BUFF_SIZE - 1]) {
-		pCmdBuf = &CmdBuf[0];
+	if(pCircBuf->pHead == &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1]) {
+		pCircBuf->pHead = &pCircBuf->CmdBuf[0];
+		printf("At buffers end w/ pushing, looping back around!\r\n");
 		return ERR_NONE;
 	}
-	if(CmdBufLen != CMD_BUFF_SIZE - 1) {
-		++CmdBufLen;
+	if(pCircBuf->CmdBufLen != CMD_BUFF_SIZE - 1) {
+		++pCircBuf->CmdBufLen;
 	}
-	++pCmdBuf;
+	++pCircBuf->pHead;
 	return ERR_NONE;
 }
 
@@ -44,10 +59,22 @@ Error CircBufPush(CmdStruct *CmdBuf) {
  *
  * @return CmdStruct
  */
-CmdStruct CircBufPop(void) {
-	--pCmdBuf;
-	--CmdBufLen;
-	return *pCmdBuf;
+CmdStruct* CircBufPop(void) {
+//	if(pCircBuf->pRepeat == &pCircBuf->CmdBuf[0]) {
+//		pCircBuf->pRepeat = &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1];
+//		printf("At buffers end w/ popping, looping back around!\r\n");
+//	}
+//	else {
+//		--pCircBuf->pRepeat;
+//	}
+//	return pCircBuf->pRepeat;
+	if(pCircBuf->pRepeat == &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1]) {
+		pCircBuf->pRepeat = &pCircBuf->CmdBuf[0];
+		printf("At buffers end w/ pushing, looping back around!\r\n");
+		return ERR_NONE;
+	}
+
+	return pCircBuf->pRepeat++;
 }
 
 
