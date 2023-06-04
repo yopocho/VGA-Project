@@ -138,32 +138,46 @@ int main(void) {
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1) {
-    if (input.command_execute_flag == TRUE) {
-      // Do some stuff
-      ParseOnKomma(input, 0, 0, 0, 0, 0, 0, &arg_struct);
-      switch (arg_struct.commandNummer) {
-        case 0:
-          DrawLine(arg_struct.argBuf[1], arg_struct.argBuf[2],
-                   arg_struct.argBuf[3], arg_struct.argBuf[4],
-                   arg_struct.argBuf[5], arg_struct.argBuf[6]);
-          break;
-        case 1:
-          ClearScreen(arg_struct.argBuf[1]);
-          break;
-        case 2:
-          DrawRectangle(arg_struct.argBuf[1], arg_struct.argBuf[2],
-                        arg_struct.argBuf[3], arg_struct.argBuf[4],
-                        arg_struct.argBuf[5], arg_struct.argBuf[6]);
-          break;
-        case 5:
-        	DrawBitmapFromSDCard(arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[1]);
-          break;
-      }
+	while (1) {
+		if (input.command_execute_flag == TRUE) {
+			ParseOnKomma(input, 0, 0, 0, 0, 0, 0, &arg_struct);
+			switch (arg_struct.commandNummer) {
+				case 0:
+					DrawLine(	arg_struct.argBuf[1], arg_struct.argBuf[2],
+								arg_struct.argBuf[3], arg_struct.argBuf[4],
+								arg_struct.argBuf[5], arg_struct.argBuf[6]);
+					break;
+				case 1:
+				ClearScreen(arg_struct.argBuf[1]);
+					break;
+				case 2:
+					DrawRectangle(arg_struct.argBuf[1], arg_struct.argBuf[2],
+					arg_struct.argBuf[3], arg_struct.argBuf[4],
+					arg_struct.argBuf[5], arg_struct.argBuf[6]);
+					break;
+				case 5:
+					DrawBitmapFromSDCard(arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[1]);
+					break;
+				case 6:
+					DrawCircle(arg_struct.argBuf[1], arg_struct.argBuf[2], arg_struct.argBuf[3], arg_struct.argBuf[4]);
+					break;
+				case 7:
+					DrawFigure(	arg_struct.argBuf[1], arg_struct.argBuf[2],
+								arg_struct.argBuf[3], arg_struct.argBuf[4],
+								arg_struct.argBuf[5], arg_struct.argBuf[6],
+								arg_struct.argBuf[7], arg_struct.argBuf[8],
+								arg_struct.argBuf[9], arg_struct.argBuf[10],
+								arg_struct.argBuf[11]);
+					break;
+				case 8:
+					break;
+				default:
+					return ERR_UNKNOWN_ERR;
+			}
       memset(arg_struct.argBuf, 0, sizeof(arg_struct.argBuf));
       // When finished reset the flag
       input.command_execute_flag = FALSE;
-    }
+	}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

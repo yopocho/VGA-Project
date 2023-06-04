@@ -8,7 +8,8 @@
 #include "Parser.h"
 
 /**
- * @fn void ParseOnKomma(input_vars, uint8_t, uint8_t, int, command)
+ * @fn Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument, uint8_t convertToNumber,
+ * int convertColor, uint8_t getText, uint8_t getFont, uint8_t getStyle, CmdStruct* CmdBuf)
  * @brief parser on comma function. works by looping
  * through the input and then executing calling the command that is futher
  * needed
@@ -17,7 +18,11 @@
  * @param neededArgument
  * @param convertToNumber
  * @param convertColor
- * @param commandArray
+ * @param getText
+ * @param getFont
+ * @param getStyle
+ * @param CmdBuf
+ * @return Error
  */
 Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				   uint8_t convertToNumber, int convertColor, uint8_t getText,
@@ -68,6 +73,7 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 			placeInBuf++;
 		}
 	}
+	return ERR_NONE;
 }
 
 /**

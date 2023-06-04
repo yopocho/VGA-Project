@@ -6,6 +6,7 @@
  */
 
 #include "Commands.h"
+#include "errorHandling.h"
 
 CmdStruct CmdBuf[CMD_BUFF_SIZE];
 CmdStruct *pCmdBuf = &CmdBuf[0];
@@ -100,7 +101,10 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 	}
 }
 
-Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {}
+//TODO: Integrate command tekst into parser
+Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
+	return ERR_NONE;
+}
 
 Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
@@ -110,6 +114,7 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	}
 }
 
+//TODO: Integrate command Wacht into parser
 /**
  * @fn void RecieveCommandWacht(command, input_vars)
  * @brief
@@ -118,9 +123,11 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
  * @param inputStruct
  */
 Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
-	ParseOnKomma(inputStruct, 1, 1, 0, CmdBuf);
+//	ParseOnKomma(inputStruct, 1, 1, 0, CmdBuf);
+	return ERR_NONE;
 }
 
+//TODO: Integrate command Herhaal into parser
 /**
  * @fn void RecieveCommandHerhaal(command, input_vars)
  * @brief
@@ -129,13 +136,38 @@ Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
  * @param inputStruct
  */
 Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
-	uint8_t neededArg = 0;
-	for (uint8_t i = 0; i < 2; i++) {
-		neededArg = i + 1;
-		ParseOnKomma(inputStruct, neededArg, 1, 0, CmdBuf);
-	}
+//	uint8_t neededArg = 0;
+//	for (uint8_t i = 0; i < 2; i++) {
+//		neededArg = i + 1;
+//		ParseOnKomma(inputStruct, neededArg, 1, 0, CmdBuf);
+//	}
+	return ERR_NONE;
 }
 
-Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {}
+Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {
+	uint8_t neededArg = 0;
+	for (uint8_t i = 0; i < 12; i++) {
+		neededArg = i + 1;
+		if(i == 10) {
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+		}
+		else {
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+		}
+	}
+	return ERR_NONE;
+}
 
-Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {}
+Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {
+	uint8_t neededArg = 0;
+	for (uint8_t i = 0; i < 5; i++) {
+		neededArg = i + 1;
+		if(i == 3) {
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+		}
+		else {
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+		}
+	}
+	return ERR_NONE;
+}
