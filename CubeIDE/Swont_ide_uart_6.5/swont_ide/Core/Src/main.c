@@ -146,20 +146,26 @@ int main(void) {
 		while(input.command_execute_flag == TRUE) {
 			err = ParseOnKomma(input, 0, 0, 0, 0, 0, 0, &arg_struct);
 			if(err != ERR_NONE) {
+				(void*)memset(&arg_struct, 0, sizeof(arg_struct));
+				input.command_execute_flag = FALSE;
 				TransmitError(err);
 				break;
 			}
 			err = callCommand(&arg_struct);
 			if(err != ERR_NONE) {
+				(void*)memset(&arg_struct, 0, sizeof(arg_struct));
+				input.command_execute_flag = FALSE;
 				TransmitError(err);
 				break;
 			}
 			err = CircBufPush(&arg_struct);
 			if(err != ERR_NONE) {
+				(void*)memset(&arg_struct, 0, sizeof(arg_struct));
+				input.command_execute_flag = FALSE;
 				TransmitError(err);
 				break;
 			}
-			(void*)memset(arg_struct.argBuf, 0, sizeof(arg_struct.argBuf));
+			(void*)memset(&arg_struct, 0, sizeof(arg_struct));
 			// When finished reset the flag
 			input.command_execute_flag = FALSE;
 		}

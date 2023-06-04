@@ -141,11 +141,11 @@ Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
  * @param inputStruct
  */
 Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
-//	uint8_t neededArg = 0;
-//	for (uint8_t i = 0; i < 2; i++) {
-//		neededArg = i + 1;
-//		ParseOnKomma(inputStruct, neededArg, 1, 0, CmdBuf);
-//	}
+	uint8_t neededArg = 0;
+	for (uint8_t i = 0; i < 2; i++) {
+		neededArg = i + 1;
+		ParseOnKomma(inputStruct, neededArg, 1, 1, 0, 0, 0, 0, CmdBuf);
+	}
 	return ERR_NONE;
 }
 
@@ -211,6 +211,7 @@ Error callCommand(CmdStruct *arg_struct){
 						arg_struct->argBuf[11]);
 			break;
 		case 8:
+			err = RepeatCommands(arg_struct->argBuf[1], arg_struct->argBuf[2]);
 			break;
 		default:
 			return ERR_UNKNOWN_ERR;

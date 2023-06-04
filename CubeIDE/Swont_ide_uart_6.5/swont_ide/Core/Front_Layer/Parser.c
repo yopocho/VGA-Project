@@ -30,6 +30,13 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 	uint8_t commaCounter = 0;
 	uint8_t placeInBuf = 0;
 	Error err;
+	//Early error checks
+	if(inputStruct.msglen == 0) { //Only LF
+		return ERR_INVALID_CMD;
+	}
+	if(strchr(inputStruct.line_rx_buffer, ',') == NULL) { //Incomplete command
+		return ERR_INVALID_CMD;
+	}
 	char incommingMessage[inputStruct.msglen];
 	for (int j = 0; j <= inputStruct.msglen; j++) {
 		if (inputStruct.line_rx_buffer[j] == ',') {
@@ -45,8 +52,13 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 						return err;
 					}
 				}
-				if (convertColor)
-					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
+				if (convertColor) {
+					err = CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
+					if(err != ERR_NONE) {
+						return err;
+					}
+				}
+
 				if (convertToNumber)
 					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
 				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
@@ -106,7 +118,7 @@ Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
 			return ERR_NONE;
 		}
 	}
-	return ERR_INVALID_ARG;
+	return ERR_INVALID_CMD;
 }
 /**
  * @fn void CheckWhatColor(char[], command, uint8_t)
