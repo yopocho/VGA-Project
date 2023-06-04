@@ -53,7 +53,7 @@ CmdStruct CircBufPop(void) {
 
 /**
  * @fn void RecieveCommandLijn(command, input_vars)
- * @brief when line command is recieved adds the nesisary args and adds them to
+ * @brief when line command is recieved adds the necessary args and adds them to
  * the buffer
  *
  * @param commandArray
@@ -80,6 +80,7 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
  */
 Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct) {
 	ParseOnKomma(inputStruct, 1, 0, 1, 0, 0, 0,  *CmdBuf);
+	return ERR_NONE;
 }
 
 /**
@@ -99,6 +100,7 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
 		}
 	}
+	return ERR_NONE;
 }
 
 //TODO: Integrate command tekst into parser
@@ -112,18 +114,19 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 		neededArg = i + 1;
 		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
 	}
+	return ERR_NONE;
 }
 
-//TODO: Integrate command Wacht into parser
 /**
- * @fn void RecieveCommandWacht(command, input_vars)
+ * @fn Error RecieveCommandWacht(CmdStruct*, input_vars)
  * @brief
  *
- * @param commandArray
+ * @param CmdBuf
  * @param inputStruct
+ * @return
  */
 Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
-//	ParseOnKomma(inputStruct, 1, 1, 0, CmdBuf);
+	ParseOnKomma(inputStruct, 1, 1, 0, 0, 0, 0,  *CmdBuf);
 	return ERR_NONE;
 }
 

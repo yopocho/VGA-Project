@@ -174,3 +174,18 @@ Error DrawFigure(	uint16_t xp1, uint16_t yp1,
 
 }
 
+//TODO: Implement command Wacht
+///**
+// * @fn Error Wait(uint32_t delayMs)
+// * @brief Delays drawing for delayMs amont of milliseconds.
+// *
+// * @param delayMs
+// * @return Error
+// */
+//Error Wait(uint32_t delayMs) {
+//	HAL_Delay(delayMs);
+//	return ERR_NONE;
+//}
+
+//TODO: Implement command Herhaal
+
