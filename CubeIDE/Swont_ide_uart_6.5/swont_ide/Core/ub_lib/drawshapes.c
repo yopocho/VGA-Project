@@ -193,7 +193,14 @@ Error Wait(uint32_t delayMs) {
 //TODO: Implement command Herhaal
 Error RepeatCommands(uint8_t repeatDepth, uint8_t repeatCount)
 {
-	pCircBuf->pRepeat = (&pCircBuf->pHead - repeatDepth) % CMD_BUFF_SIZE;
+	if((pCircBuf->pHead - repeatDepth) < &pCircBuf->CmdBuf[0]) {
+		uint8_t index = repeatDepth - (pCircBuf->pHead - &pCircBuf->CmdBuf[0]);
+		pCircBuf->pRepeat = &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1] - index - 1;
+	}
+	else {
+		pCircBuf->pRepeat = pCircBuf->pHead - repeatDepth;
+	}
+
 
 	if(pCircBuf->CmdBufLen >= repeatDepth) {
 		for(uint8_t i = 0; i < repeatDepth; i++) {

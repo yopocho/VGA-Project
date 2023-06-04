@@ -13,7 +13,7 @@
 
 // size of the circulair buffer (which is also the max amount for the herhaal
 // command)
-#define CMD_BUFF_SIZE 3
+#define CMD_BUFF_SIZE 64
 #define MAX_CMD_ARGS 12
 #define MAX_CMD_CHARS 128
 

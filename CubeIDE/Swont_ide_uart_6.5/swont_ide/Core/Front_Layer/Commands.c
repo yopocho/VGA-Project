@@ -34,7 +34,7 @@ void CircBufInit(void)
  * @return Error
  */
 Error CircBufPush(CmdStruct *CmdBuf) {
-
+	printf("%lu\r\n", pCircBuf->pHead);
 	pCircBuf->pHead->commandNummer = CmdBuf->commandNummer;
 	memcpy(pCircBuf->pHead->argBuf, CmdBuf->argBuf, sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
 	memcpy(pCircBuf->pHead->textSentence, CmdBuf->textSentence, sizeof(CmdBuf->textSentence[0]) * MAX_CMD_CHARS);
