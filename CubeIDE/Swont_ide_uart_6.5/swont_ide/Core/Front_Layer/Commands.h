@@ -17,6 +17,18 @@
 #define MAX_CMD_ARGS 12
 #define MAX_CMD_CHARS 128
 
+typedef enum {
+	LIJN,
+	CLEARSCHERM,
+	RECHTHOEK,
+	WACHT,
+	TEKST,
+	BITMAP,
+	CIRKEL,
+	FIGUUR,
+	HERHAAL
+} Command;
+
 typedef struct CmdStruct {
 	int commandNummer;
 	uint16_t argBuf[MAX_CMD_ARGS];
@@ -25,9 +37,15 @@ typedef struct CmdStruct {
 	char textStyle[30];
 } CmdStruct;
 
-extern CmdStruct CmdBuf[CMD_BUFF_SIZE];
-extern CmdStruct *pCmdBuf;
-extern uint32_t CmdBufLen;
+typedef struct CircularBuffer{
+	CmdStruct CmdBuf[CMD_BUFF_SIZE];
+	CmdStruct *pHead;
+	CmdStruct *pRepeat;
+	uint32_t CmdBufLen;
+} CircularBuffer;
+
+extern CircularBuffer circBuf;
+extern CircularBuffer *pCircBuf;
 
 Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct);
 Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct);
@@ -39,6 +57,6 @@ Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct);
 Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct);
 Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct);
 Error CircBufPush(CmdStruct *CmdBuf);
-CmdStruct CircBufPop(void);
+CmdStruct* CircBufPop(void);
 
 #endif /* FRONT_LAYER_COMMANDS_H_ */

@@ -6,10 +6,24 @@
  */
 
 #include "Commands.h"
+#include "errorHandling.h"
 
-CmdStruct CmdBuf[CMD_BUFF_SIZE];
-CmdStruct *pCmdBuf = &CmdBuf[0];
-uint32_t CmdBufLen = 0;
+CircularBuffer circBuf;
+CircularBuffer *pCircBuf;
+
+/**
+ * @fn void CircBufInit(void)
+ * @brief Initializes the circular buffer for the "Herhaal"-command
+ *
+ */
+void CircBufInit(void)
+{
+	pCircBuf = &circBuf;
+	memset(pCircBuf->CmdBuf, 0, sizeof(pCircBuf->CmdBuf[0]));
+	pCircBuf->pHead = &pCircBuf->CmdBuf[0];
+	pCircBuf->pRepeat = &pCircBuf->CmdBuf[0];
+	pCircBuf->CmdBufLen = 0;
+}
 
 /**
  * @fn Error CircBufPush(CmdStruct*)
@@ -20,19 +34,22 @@ uint32_t CmdBufLen = 0;
  * @return Error
  */
 Error CircBufPush(CmdStruct *CmdBuf) {
-	pCmdBuf->commandNummer = CmdBuf->commandNummer;
-	memcpy(pCmdBuf->argBuf, CmdBuf->argBuf, sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
-	memcpy(pCmdBuf->textSentence, CmdBuf->textSentence, sizeof(CmdBuf->textSentence[0]) * MAX_CMD_CHARS);
-
+	printf("%lu\r\n", pCircBuf->pHead);
+	pCircBuf->pHead->commandNummer = CmdBuf->commandNummer;
+	memcpy(pCircBuf->pHead->argBuf, CmdBuf->argBuf, sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
+	memcpy(pCircBuf->pHead->textSentence, CmdBuf->textSentence, sizeof(CmdBuf->textSentence[0]) * MAX_CMD_CHARS);
+	printf("Pushed %d\n\r", CmdBuf->commandNummer);
+	printf("Pushed %d\n\r", pCircBuf->pHead->commandNummer);
 	//Check if the buffer pointer has reached the end and if so, loop back to start
-	if(pCmdBuf == &CmdBuf[CMD_BUFF_SIZE - 1]) {
-		pCmdBuf = &CmdBuf[0];
+	if(pCircBuf->pHead == &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1]) {
+		pCircBuf->pHead = &pCircBuf->CmdBuf[0];
+		printf("At buffers end w/ pushing, looping back around!\r\n");
 		return ERR_NONE;
 	}
-	if(CmdBufLen != CMD_BUFF_SIZE - 1) {
-		++CmdBufLen;
+	if(pCircBuf->CmdBufLen != CMD_BUFF_SIZE - 1) {
+		++pCircBuf->CmdBufLen;
 	}
-	++pCmdBuf;
+	++pCircBuf->pHead;
 	return ERR_NONE;
 }
 
@@ -42,17 +59,29 @@ Error CircBufPush(CmdStruct *CmdBuf) {
  *
  * @return CmdStruct
  */
-CmdStruct CircBufPop(void) {
-	--pCmdBuf;
-	--CmdBufLen;
-	return *pCmdBuf;
+CmdStruct* CircBufPop(void) {
+//	if(pCircBuf->pRepeat == &pCircBuf->CmdBuf[0]) {
+//		pCircBuf->pRepeat = &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1];
+//		printf("At buffers end w/ popping, looping back around!\r\n");
+//	}
+//	else {
+//		--pCircBuf->pRepeat;
+//	}
+//	return pCircBuf->pRepeat;
+	if(pCircBuf->pRepeat == &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1]) {
+		pCircBuf->pRepeat = &pCircBuf->CmdBuf[0];
+		printf("At buffers end w/ pushing, looping back around!\r\n");
+		return ERR_NONE;
+	}
+
+	return pCircBuf->pRepeat++;
 }
 
 
 
 /**
  * @fn void RecieveCommandLijn(command, input_vars)
- * @brief when line command is recieved adds the nesisary args and adds them to
+ * @brief when line command is recieved adds the necessary args and adds them to
  * the buffer
  *
  * @param commandArray
@@ -68,6 +97,7 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, 0,0,0,  *CmdBuf);
 		}
 	}
+	return ERR_NONE;
 }
 
 /**
@@ -79,6 +109,7 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
  */
 Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct) {
 	ParseOnKomma(inputStruct, 1, 0, 1, 0, 0, 0,  *CmdBuf);
+	return ERR_NONE;
 }
 
 /**
@@ -98,9 +129,13 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
 		}
 	}
+	return ERR_NONE;
 }
 
-Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {}
+//TODO: Integrate command tekst into parser
+Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
+	return ERR_NONE;
+}
 
 Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
@@ -108,19 +143,23 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 		neededArg = i + 1;
 		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
 	}
+	return ERR_NONE;
 }
 
 /**
- * @fn void RecieveCommandWacht(command, input_vars)
+ * @fn Error RecieveCommandWacht(CmdStruct*, input_vars)
  * @brief
  *
- * @param commandArray
+ * @param CmdBuf
  * @param inputStruct
+ * @return
  */
 Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
-	ParseOnKomma(inputStruct, 1, 1, 0, CmdBuf);
+	ParseOnKomma(inputStruct, 1, 0, 0, 0, 0, 0,  *CmdBuf);
+	return ERR_NONE;
 }
 
+//TODO: Integrate command Herhaal into parser
 /**
  * @fn void RecieveCommandHerhaal(command, input_vars)
  * @brief
@@ -130,12 +169,84 @@ Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
  */
 Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
-	for (uint8_t i = 0; i < 2; i++) {
+	for (uint8_t i = 0; i < 3; i++) {
 		neededArg = i + 1;
-		ParseOnKomma(inputStruct, neededArg, 1, 0, CmdBuf);
+		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, 0, CmdBuf);
 	}
+	return ERR_NONE;
 }
 
-Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {}
+Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {
+	uint8_t neededArg = 0;
+	for (uint8_t i = 0; i < 12; i++) {
+		neededArg = i + 1;
+		if(i == 10) {
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+		}
+		else {
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+		}
+	}
+	return ERR_NONE;
+}
 
-Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {}
+Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {
+	uint8_t neededArg = 0;
+	for (uint8_t i = 0; i < 5; i++) {
+		neededArg = i + 1;
+		if(i == 3) {
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+		}
+		else {
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+		}
+	}
+	return ERR_NONE;
+}
+
+Error callCommand(CmdStruct *arg_struct){
+	Error err;
+	switch (arg_struct->commandNummer) {
+		case LIJN:
+			err = DrawLine(	arg_struct->argBuf[1], arg_struct->argBuf[2],
+						arg_struct->argBuf[3], arg_struct->argBuf[4],
+						arg_struct->argBuf[5], arg_struct->argBuf[6]);
+			break;
+		case CLEARSCHERM:
+			err = ClearScreen(arg_struct->argBuf[1]);
+			break;
+		case RECHTHOEK:
+			err = DrawRectangle(arg_struct->argBuf[1], arg_struct->argBuf[2],
+			arg_struct->argBuf[3], arg_struct->argBuf[4],
+			arg_struct->argBuf[5], arg_struct->argBuf[6]);
+			break;
+		case WACHT:
+			err = Wait(arg_struct->argBuf[1]);
+			break;
+		case BITMAP:
+			err = DrawBitmapFromSDCard(arg_struct->argBuf[2], arg_struct->argBuf[3], arg_struct->argBuf[1]);
+			break;
+		case CIRKEL:
+			err = DrawCircle(arg_struct->argBuf[1], arg_struct->argBuf[2], arg_struct->argBuf[3], arg_struct->argBuf[4]);
+			break;
+		case FIGUUR:
+			err = DrawFigure(	arg_struct->argBuf[1], arg_struct->argBuf[2],
+						arg_struct->argBuf[3], arg_struct->argBuf[4],
+						arg_struct->argBuf[5], arg_struct->argBuf[6],
+						arg_struct->argBuf[7], arg_struct->argBuf[8],
+						arg_struct->argBuf[9], arg_struct->argBuf[10],
+						arg_struct->argBuf[11]);
+			break;
+		case HERHAAL:
+			//TODO: Bij ParseOnKomma wordt het eerste arg de tweede, en de tweede de komma? whyyyyy????
+//			err = RepeatCommands(2, 1);
+			err = RepeatCommands(arg_struct->argBuf[1], arg_struct->argBuf[2]);
+			break;
+		default:
+			return ERR_UNKNOWN_ERR;
+	}
+	if(err != ERR_NONE) {
+		return err;
+	}
+	return ERR_NONE;
+}

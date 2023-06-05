@@ -15,7 +15,7 @@
  * @brief Enum for all API error codes
  *
  */
-typedef const enum
+typedef enum
 {
 	ERR_INVALID_ARG,       /**< ERR_INVALID_ARG */
 	ERR_INVALID_CMD,       /**< ERR_INVALID_CMD */
@@ -36,7 +36,8 @@ typedef const enum
 	ERR_SDCARD_LSEEK,       /**< ERR_SDCARD_LSEEK */
 	ERR_INVALID_COL,
 	ERR_TEXT_OOB,
-	ERR_INVALID_CHAR
+	ERR_INVALID_CHAR,
+	ERR_UNKNOWN_COL
 } Error;
 
 /**
@@ -67,11 +68,12 @@ static const ErrorHandle ErrorList[] =
 {
 	{ERR_INVALID_ARG, 			LOW, 	"The supplied list of arguments is invalid\r\n"	},
 	{ERR_INVALID_CMD, 			LOW, 	"Given command is wrong/unknown\r\n"			},
-	{ERR_ARG_OOB, 				LOW, 	"Coordinates are out-of-bounds\r\n"				},
+	{ERR_ARG_OOB, 				LOW, 	"Argument(s) out-of-bounds\r\n"					},
 	{ERR_MSG_LEN, 				LOW, 	"Message length exceeded\r\n"					},
 	{ERR_NONE, 					NONE, 	"No issue\r\n"									},
 	{ERR_GENERIC, 				LOW, 	"Error\r\n"										},
 	{ERR_UART_FAIL,				HIGH,	"UART Transmit failed\r\n"						},
+	{ERR_UNKNOWN_ERR,			MEDIUM,	"Couldn't return error\r\n"						},
 	{ERR_SDCARD_MOUNT,			LOW,	"Could not mount SD-card\r\n"					},
 	{ERR_SDCARD_GETFREE,		LOW,	"Could not retrieve free space on SD-card\r\n"	},
 	{ERR_SDCARD_READ,			LOW,	"Could not read data from SD-card\r\n"			},
@@ -83,7 +85,8 @@ static const ErrorHandle ErrorList[] =
 	{ERR_SDCARD_LSEEK,			LOW,	"FatFS f_lseek misbehaved\r\n"					},
 	{ERR_INVALID_COL,			LOW,	"Given color in wrong or unkown\r\n"			},
 	{ERR_TEXT_OOB,				LOW,	"Text will not fit inside screen\r\n"			},
-	{ERR_INVALID_CHAR,			MEDIUM,	"Character is invalid or unkown in text\r\n"	}
+	{ERR_INVALID_CHAR,			MEDIUM,	"Character is invalid or unkown in text\r\n"	},
+	{ERR_UNKNOWN_COL,			LOW,	"Color unknown\r\n"}
 };
 
 Error TransmitError(Error ErrorCode);
