@@ -17,7 +17,7 @@
 Error TransmitError(Error ErrorCode)
 {
 	ErrorHandle* Error = GetError(ErrorCode);
-	printf("[%02d:%02d:%02d][%d]%s", (HAL_GetTick()/1000/60/60)%24, (HAL_GetTick()/1000/60)%60, (HAL_GetTick()/1000)%60, Error->Severity, Error->Msg);
+	printf("[%02lu:%02lu:%02lu][%d]%s", (HAL_GetTick()/1000/60/60)%24, (HAL_GetTick()/1000/60)%60, (HAL_GetTick()/1000)%60, Error->Severity, Error->Msg);
 	return ERR_NONE;
 }
 
