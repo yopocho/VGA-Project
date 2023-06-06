@@ -134,6 +134,23 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 
 //TODO: Integrate command tekst into parser
 Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
+	uint8_t neededArg = 0;
+	for(int i = 0; i < 7; i++)
+	{
+		neededArg = i + 1;
+		//hi
+		if (i == 2){
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+		}else if(i == 3){
+			ParseOnKomma(inputStruct, neededArg, 0, 0, 1, 0, 0, *CmdBuf);
+		}else if (i == 4){
+			ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 1, 0, *CmdBuf);
+		}else if (i == 6){
+			ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 0, 1, *CmdBuf);
+		}else{
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+		}
+	}
 	return ERR_NONE;
 }
 
@@ -237,6 +254,9 @@ Error callCommand(CmdStruct *arg_struct){
 						arg_struct->argBuf[9], arg_struct->argBuf[10],
 						arg_struct->argBuf[11]);
 			break;
+		case TEKST:
+			err = DrawText(arg_struct->argBuf[1], arg_struct->argBuf[2], arg_struct->argBuf[3], arg_struct->textSentence, arg_struct->textFont, arg_struct->argBuf[6], arg_struct->textStyle);
+		break;
 		case HERHAAL:
 			//TODO: Bij ParseOnKomma wordt het eerste arg de tweede, en de tweede de komma? whyyyyy????
 //			err = RepeatCommands(2, 1);
