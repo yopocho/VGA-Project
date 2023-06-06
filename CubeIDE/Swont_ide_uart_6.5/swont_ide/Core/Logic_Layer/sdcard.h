@@ -8,14 +8,13 @@
 #ifndef LOGIC_LAYER_SDCARD_H_
 #define LOGIC_LAYER_SDCARD_H_
 
-#include "main.h"
-#include "fatfs.h"
 #include "drawshapes.h"
+#include "fatfs.h"
+#include "main.h"
 
-
-FATFS FatFs; //FatFS Handle
-FIL fil, *pFil; //File Handle
-FRESULT fres; //Error Handle
+FATFS FatFs;     // FatFS Handle
+FIL fil, *pFil;  // File Handle
+FRESULT fres;    // Error Handle
 
 /**
  * @fn Error SDCardInit()
@@ -25,7 +24,6 @@ FRESULT fres; //Error Handle
  */
 extern Error SDCardInit();
 
-
 /**
  * @fn Error SDCardDeinit()
  * @brief deinitializes the SD card
@@ -33,7 +31,6 @@ extern Error SDCardInit();
  * @return Error
  */
 extern Error SDCardDeinit();
-
 
 /**
  * @fn Error DrawBitmapFromSDCard(uint16_t, uint16_t, bitmapKey)

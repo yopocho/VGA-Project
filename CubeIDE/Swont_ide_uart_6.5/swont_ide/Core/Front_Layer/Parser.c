@@ -8,8 +8,9 @@
 #include "Parser.h"
 
 /**
- * @fn Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument, uint8_t convertToNumber,
- * int convertColor, uint8_t getText, uint8_t getFont, uint8_t getStyle, CmdStruct* CmdBuf)
+ * @fn Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
+ * uint8_t convertToNumber, int convertColor, uint8_t getText, uint8_t getFont,
+ * uint8_t getStyle, CmdStruct* CmdBuf)
  * @brief parser on comma function. works by looping
  * through the input and then executing calling the command that is futher
  * needed
@@ -31,42 +32,42 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 	uint8_t placeInBuf = 0;
 	Error err;
 
-	//Early error checks
-	if(inputStruct.msglen == 0) { //Only LF
+	// Early error checks
+	if (inputStruct.msglen == 0) {	// Only LF
 		return ERR_INVALID_CMD;
 	}
-	if(strchr(inputStruct.line_rx_buffer, ',') == NULL) { //No commas found, invalid
+	if (strchr(inputStruct.line_rx_buffer, ',') ==
+		NULL) {	 // No commas found, invalid
 		return ERR_INVALID_CMD;
 	}
 
-	//Parse incoming message on comma
+	// Parse incoming message on comma
 	char incommingMessage[inputStruct.msglen];
 	for (int j = 0; j <= inputStruct.msglen; j++) {
 		if (inputStruct.line_rx_buffer[j] != 0 &&
-					inputStruct.line_rx_buffer[j] != ',' ) {
-			if(getText){
+			inputStruct.line_rx_buffer[j] != ',') {
+			if (getText) {
 				incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
-									placeInBuf++;
-			}else if(inputStruct.line_rx_buffer[j] != ' ')
-			{
+				placeInBuf++;
+			} else if (inputStruct.line_rx_buffer[j] != ' ') {
 				incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
-													placeInBuf++;
+				placeInBuf++;
 			}
-				}
+		}
 		if (j == inputStruct.msglen) {
-								incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
-								placeInBuf++;
-								if (commaCounter == neededArgument) {
-									if (convertColor)
-										CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
-									if (convertToNumber)
-										CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
-									if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
-									if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
-									if (getFont) strcpy(CmdBuf->textFont , incommingMessage);
-								}
-								break;
-							}
+			incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
+			placeInBuf++;
+			if (commaCounter == neededArgument) {
+				if (convertColor)
+					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
+				if (convertToNumber)
+					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
+				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
+				if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
+				if (getFont) strcpy(CmdBuf->textFont, incommingMessage);
+			}
+			break;
+		}
 		if (inputStruct.line_rx_buffer[j] == ',') {
 			incommingMessage[j] = 0;
 			placeInBuf = 0;
@@ -75,26 +76,25 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 #endif
 			if (commaCounter == neededArgument) {
 				if (!commaCounter) {
-					err = CheckWhatCommand(incommingMessage, CmdBuf, inputStruct);
+					err =
+						CheckWhatCommand(incommingMessage, CmdBuf, inputStruct);
 					if (err != ERR_NONE) {
 						return err;
 					}
 				}
 				if (convertColor) {
-					err = CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
-					if(err != ERR_NONE) {
+					err = CheckWhatColor(incommingMessage, CmdBuf,
+										 neededArgument);
+					if (err != ERR_NONE) {
 						return err;
 					}
 				}
 
 				if (convertToNumber)
 					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
-				if (getText)
-					strcpy(CmdBuf->textSentence, incommingMessage);
-				if (getStyle)
-					strcpy(CmdBuf->textStyle, incommingMessage);
-				if (getFont)
-					strcpy(CmdBuf->textFont , incommingMessage);
+				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
+				if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
+				if (getFont) strcpy(CmdBuf->textFont, incommingMessage);
 				break;
 			}
 			commaCounter++;
@@ -124,7 +124,7 @@ Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
 						&huart2);
 #endif
 			Error err = DoOnCommand(CmdBuf, inputStruct);
-			if(err != ERR_NONE) {
+			if (err != ERR_NONE) {
 				return err;
 			}
 			return ERR_NONE;
@@ -215,7 +215,7 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
  */
 Error OutputDebug(char message[], size_t messageLength,
 				  UART_HandleTypeDef *uartHandle) {
-	if(HAL_UART_Transmit(uartHandle, message, messageLength, 10) != HAL_OK) {
+	if (HAL_UART_Transmit(uartHandle, message, messageLength, 10) != HAL_OK) {
 		return ERR_UART_FAIL;
 	}
 	return ERR_NONE;
