@@ -135,10 +135,9 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 //TODO: Integrate command tekst into parser
 Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
-	for(int i = 0; i < 7; i++)
+	for(uint8_t i = 0; i < 7; i++)
 	{
 		neededArg = i + 1;
-		//hi
 		if (i == 2){
 			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
 		}else if(i == 3){
@@ -163,6 +162,7 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	return ERR_NONE;
 }
 
+//TODO: waarschuwing wanneer wacht klaar is?
 /**
  * @fn Error RecieveCommandWacht(CmdStruct*, input_vars)
  * @brief
@@ -186,13 +186,21 @@ Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
  */
 Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
-	for (uint8_t i = 0; i < 3; i++) {
+	for (uint8_t i = 0; i < 2; i++) {
 		neededArg = i + 1;
-		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, 0, CmdBuf);
+		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, 0, *CmdBuf);
 	}
 	return ERR_NONE;
 }
 
+/**
+ * @fn Error RecieveCommandFiguur(CmdStruct*, input_vars)
+ * @brief
+ *
+ * @param CmdBuf
+ * @param inputStruct
+ * @return
+ */
 Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 12; i++) {

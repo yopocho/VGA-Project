@@ -42,6 +42,31 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 	//Parse incoming message on comma
 	char incommingMessage[inputStruct.msglen];
 	for (int j = 0; j <= inputStruct.msglen; j++) {
+		if (inputStruct.line_rx_buffer[j] != 0 &&
+					inputStruct.line_rx_buffer[j] != ',' ) {
+			if(getText){
+				incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
+									placeInBuf++;
+			}else if(inputStruct.line_rx_buffer[j] != ' ')
+			{
+				incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
+													placeInBuf++;
+			}
+				}
+		if (j == inputStruct.msglen) {
+								incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
+								placeInBuf++;
+								if (commaCounter == neededArgument) {
+									if (convertColor)
+										CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
+									if (convertToNumber)
+										CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
+									if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
+									if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
+									if (getFont) strcpy(CmdBuf->textFont , incommingMessage);
+								}
+								break;
+							}
 		if (inputStruct.line_rx_buffer[j] == ',') {
 			incommingMessage[j] = 0;
 			placeInBuf = 0;
@@ -75,25 +100,6 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 			commaCounter++;
 			// set the array to 0 again to fill with the argument
 			memset(incommingMessage, 0, sizeof(incommingMessage));
-		}
-		if (j == inputStruct.msglen) {
-			incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
-			placeInBuf++;
-			if (commaCounter == neededArgument) {
-				if (convertColor)
-					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
-				if (convertToNumber)
-					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
-				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
-								if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
-								if (getFont) strcpy(CmdBuf->textFont , incommingMessage);
-			}
-			break;
-		}
-		if (inputStruct.line_rx_buffer[j] != 0 &&
-			inputStruct.line_rx_buffer[j] != ',') {
-			incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
-			placeInBuf++;
 		}
 	}
 	return ERR_NONE;
