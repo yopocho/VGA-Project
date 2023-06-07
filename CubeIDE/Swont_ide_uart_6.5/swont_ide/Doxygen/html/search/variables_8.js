@@ -11,8 +11,8 @@ var searchData=
   ['hctsiz_8',['HCTSIZ',['../struct_u_s_b___o_t_g___host_channel_type_def.html#a14cb8c8dbbafdef182c82c0493ca48ab',1,'USB_OTG_HostChannelTypeDef']]],
   ['hdma_9',['hdma',['../struct_t_i_m___handle_type_def.html#a15338c71de82fa178c685be868e694bd',1,'TIM_HandleTypeDef']]],
   ['hdma_5ftim1_5fup_10',['hdma_tim1_up',['../stm32__ub__vga__screen_8c.html#a66e79e362967e621b35e4adc5a9239c1',1,'hdma_tim1_up():&#160;tim.c'],['../tim_8c.html#a66e79e362967e621b35e4adc5a9239c1',1,'hdma_tim1_up():&#160;tim.c'],['../stm32f4xx__it_8c.html#a66e79e362967e621b35e4adc5a9239c1',1,'hdma_tim1_up():&#160;tim.c']]],
-  ['hdmarx_11',['hdmarx',['../struct_____u_a_r_t___handle_type_def.html#aad7929af8d6acf108c85fe9c7b83c128',1,'__UART_HandleTypeDef']]],
-  ['hdmatx_12',['hdmatx',['../struct_____u_a_r_t___handle_type_def.html#afdedbb0ffa1d4bc145a01434d4794c92',1,'__UART_HandleTypeDef']]],
+  ['hdmarx_11',['hdmarx',['../struct_____s_p_i___handle_type_def.html#a0876a1b344524bbdbd984be1c3b07a10',1,'__SPI_HandleTypeDef::hdmarx()'],['../struct_____u_a_r_t___handle_type_def.html#aad7929af8d6acf108c85fe9c7b83c128',1,'__UART_HandleTypeDef::hdmarx()']]],
+  ['hdmatx_12',['hdmatx',['../struct_____s_p_i___handle_type_def.html#aa311e9419f520aee2d2fa30668ce485c',1,'__SPI_HandleTypeDef::hdmatx()'],['../struct_____u_a_r_t___handle_type_def.html#afdedbb0ffa1d4bc145a01434d4794c92',1,'__UART_HandleTypeDef::hdmatx()']]],
   ['hfir_13',['HFIR',['../struct_u_s_b___o_t_g___host_type_def.html#a509fd299e7540892623954ea4dc1313c',1,'USB_OTG_HostTypeDef']]],
   ['hfnum_14',['HFNUM',['../struct_u_s_b___o_t_g___host_type_def.html#ab4f17f7ef96cf4933e30b1950925c613',1,'USB_OTG_HostTypeDef']]],
   ['hfsr_15',['HFSR',['../group___c_m_s_i_s__core___debug_functions.html#ga14ad254659362b9752c69afe3fd80934',1,'SCB_Type']]],
@@ -24,10 +24,11 @@ var searchData=
   ['hsestate_21',['HSEState',['../struct_r_c_c___osc_init_type_def.html#a7e05d6eec98ed8cdaba00ca3d167ff72',1,'RCC_OscInitTypeDef']]],
   ['hsicalibrationvalue_22',['HSICalibrationValue',['../struct_r_c_c___osc_init_type_def.html#a9b2e48e452d0c334f2b9473216064560',1,'RCC_OscInitTypeDef']]],
   ['hsistate_23',['HSIState',['../struct_r_c_c___osc_init_type_def.html#a39b62cae65fe7a251000354e5bba8cb6',1,'RCC_OscInitTypeDef']]],
-  ['hsync_5fcnt_24',['hsync_cnt',['../struct_v_g_a__t.html#a88c84d6a39870a48a456e4bec88f3e66',1,'VGA_t']]],
-  ['htim1_25',['htim1',['../tim_8h.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1():&#160;tim.c'],['../stm32f4xx__it_8c.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1():&#160;tim.c'],['../tim_8c.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1():&#160;tim.c'],['../stm32__ub__vga__screen_8c.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1():&#160;tim.c']]],
-  ['htim2_26',['htim2',['../tim_8h.html#a2c80fd5510e2990a59a5c90d745c716c',1,'htim2():&#160;tim.c'],['../stm32f4xx__it_8c.html#a2c80fd5510e2990a59a5c90d745c716c',1,'htim2():&#160;tim.c'],['../tim_8c.html#a2c80fd5510e2990a59a5c90d745c716c',1,'htim2():&#160;tim.c'],['../stm32__ub__vga__screen_8c.html#a2c80fd5510e2990a59a5c90d745c716c',1,'htim2():&#160;tim.c']]],
-  ['htr_27',['HTR',['../struct_a_d_c___type_def.html#a297ac2d83a1837bfdc0333474b977de0',1,'ADC_TypeDef']]],
-  ['huart2_28',['huart2',['../usart_8h.html#aa9479c261d65eecedd3d9582f7f0f89c',1,'huart2():&#160;usart.c'],['../stm32f4xx__it_8c.html#aa9479c261d65eecedd3d9582f7f0f89c',1,'huart2():&#160;usart.c'],['../usart_8c.html#aa9479c261d65eecedd3d9582f7f0f89c',1,'huart2():&#160;usart.c']]],
-  ['hwflowctl_29',['HwFlowCtl',['../struct_u_a_r_t___init_type_def.html#adbf4734130666b94201c6658464c1622',1,'UART_InitTypeDef']]]
+  ['hspi1_24',['hspi1',['../spi_8h.html#a9c6222bae4d0328dd843ae099623b40b',1,'hspi1():&#160;spi.c'],['../spi_8c.html#a9c6222bae4d0328dd843ae099623b40b',1,'hspi1():&#160;spi.c']]],
+  ['hsync_5fcnt_25',['hsync_cnt',['../struct_v_g_a__t.html#a88c84d6a39870a48a456e4bec88f3e66',1,'VGA_t']]],
+  ['htim1_26',['htim1',['../tim_8h.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1():&#160;tim.c'],['../stm32f4xx__it_8c.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1():&#160;tim.c'],['../tim_8c.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1():&#160;tim.c'],['../stm32__ub__vga__screen_8c.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1():&#160;tim.c']]],
+  ['htim2_27',['htim2',['../tim_8h.html#a2c80fd5510e2990a59a5c90d745c716c',1,'htim2():&#160;tim.c'],['../stm32f4xx__it_8c.html#a2c80fd5510e2990a59a5c90d745c716c',1,'htim2():&#160;tim.c'],['../tim_8c.html#a2c80fd5510e2990a59a5c90d745c716c',1,'htim2():&#160;tim.c'],['../stm32__ub__vga__screen_8c.html#a2c80fd5510e2990a59a5c90d745c716c',1,'htim2():&#160;tim.c']]],
+  ['htr_28',['HTR',['../struct_a_d_c___type_def.html#a297ac2d83a1837bfdc0333474b977de0',1,'ADC_TypeDef']]],
+  ['huart2_29',['huart2',['../usart_8h.html#aa9479c261d65eecedd3d9582f7f0f89c',1,'huart2():&#160;usart.c'],['../stm32f4xx__it_8c.html#aa9479c261d65eecedd3d9582f7f0f89c',1,'huart2():&#160;usart.c'],['../usart_8c.html#aa9479c261d65eecedd3d9582f7f0f89c',1,'huart2():&#160;usart.c']]],
+  ['hwflowctl_30',['HwFlowCtl',['../struct_u_a_r_t___init_type_def.html#adbf4734130666b94201c6658464c1622',1,'UART_InitTypeDef']]]
 ];

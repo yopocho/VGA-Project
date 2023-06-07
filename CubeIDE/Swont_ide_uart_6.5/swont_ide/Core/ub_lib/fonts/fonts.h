@@ -8,22 +8,20 @@
 #ifndef UB_LIB_FONTS_FONTS_H_
 #define UB_LIB_FONTS_FONTS_H_
 
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 
 /**
  * @struct _font_glyph_desc
  * @brief A struct with the offset and width of a glyph
  *
  */
-typedef struct _font_glyph_desc
-{
-	uint8_t width_px;        // Width in pixels of the glyph //
-	uint16_t offset;         // Byte offset of the glyph in the bitmap array //
+typedef struct _font_glyph_desc {
+  uint8_t width_px;  // Width in pixels of the glyph //
+  uint16_t offset;   // Byte offset of the glyph in the bitmap array //
 } font_glyph_desc;
 
-
-//Extern variables
+// Extern variables
 extern const uint32_t glyphs_ascii_list[];
 
 extern const uint8_t arial_normal_bitmap[];

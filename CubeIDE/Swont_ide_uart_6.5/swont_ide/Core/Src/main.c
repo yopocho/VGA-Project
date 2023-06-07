@@ -22,7 +22,8 @@
 /* USER CODE BEGIN Includes */
 #include "main.h"
 
-
+#include "Commands.h"
+#include "Parser.h"
 #include "dma.h"
 #include "errorhandling.h"
 #include "fatfs.h"
@@ -30,6 +31,7 @@
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
+#include "sdcard.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -76,6 +78,7 @@ void SystemClock_Config(void);
 
 /* USER CODE END 0 */
 
+
 /**
  * @brief  The application entry point.
  * @retval int
@@ -92,6 +95,8 @@ int main(void) {
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  CmdStruct arg_struct;
+  Error err;
 
   /* USER CODE END Init */
 
@@ -113,6 +118,11 @@ int main(void) {
   /* USER CODE BEGIN 2 */
 
   UB_VGA_Screen_Init();  // Init VGA-Screen
+  CircBufInit(); //Init circular buffer
+  err = SDCardInit(); // Init SD-card
+  if(err != ERR_NONE) {
+	  TransmitError(err);
+  }
 
   UB_VGA_FillScreen(VGA_COL_BLACK);
 
@@ -136,14 +146,36 @@ int main(void) {
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1) {
-    if (input.command_execute_flag == TRUE) {
-
-
-
-      // When finished reset the flag
-      input.command_execute_flag = FALSE;
-    }
+	while (1) {
+		while(input.command_execute_flag == TRUE) {
+			err = ParseOnKomma(input, 0, 0, 0, 0, 0, 0, &arg_struct);
+			(void*)memset(&input, 0, sizeof(arg_struct));
+			if(err != ERR_NONE) {
+				(void*)memset(&arg_struct, 0, sizeof(arg_struct));
+				input.command_execute_flag = FALSE;
+				TransmitError(err);
+				break;
+			}
+			err = callCommand(&arg_struct);
+			if(err != ERR_NONE) {
+				(void*)memset(&arg_struct, 0, sizeof(arg_struct));
+				input.command_execute_flag = FALSE;
+				TransmitError(err);
+				break;
+			}
+			if(arg_struct.commandNummer != HERHAAL) {
+				err = CircBufPush(&arg_struct);
+			}
+			if(err != ERR_NONE) {
+				(void*)memset(&arg_struct, 0, sizeof(arg_struct));
+				input.command_execute_flag = FALSE;
+				TransmitError(err);
+				break;
+			}
+			(void*)memset(&arg_struct, 0, sizeof(arg_struct));
+			// When finished reset the flag
+			input.command_execute_flag = FALSE;
+		}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

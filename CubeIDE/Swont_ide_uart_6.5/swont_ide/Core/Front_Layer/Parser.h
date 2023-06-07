@@ -9,40 +9,27 @@
 #define FRONT_LAYER_PARSER_H_
 
 #include "Commands.h"
+#include "errorHandling.h"
 #include "main.h"
 #include "usart.h"
 
-#define FRONT_LAYER_DEBUG
 #define AMOUNT_OF_COMMANDS 9
 #define AMOUNT_OF_COLORS 16
 
-char debugMessageParse[] = "Found comma in message\n";
-char debugMessageCommand[] = "Matched command with number\n";
-char debugMessageColor[] = "found color\n";
+extern const char *possibleCommands[];
 
-char *possibleCommands[] = {"lijn",	  "clearscherm", "rechthoek",
-							"wacht",  "tekst",		 "bitmap",
-							"cirkel", "figuur",		 "herhaal"};
+extern const char *possibleColors[];
 
-char *possibleColors[] = {"zwart",		"blauw",   "lichtblauw",	"groen",
-						  "lichtgroen", "cyaan",   "lichtcyaan",	"rood",
-						  "lichtrood",	"magenta", " lichtmagenta", "bruin",
-						  "geel",		"grijs",   "wit",			"roze"};
+extern const uint8_t colorCodes[];
 
-uint8_t colorCodes[] = {
-	VGA_COL_BLACK,		VGA_COL_BLUE,	 VGA_COL_LIGHTBLUE,	   VGA_COL_GREEN,
-	VGA_COL_LIGHTGREEN, VGA_COL_CYAN,	 VGA_COL_LIGHTCYAN,	   VGA_COL_RED,
-	VGA_COL_LIGHTRED,	VGA_COL_MAGENTA, VGA_COL_LIGHTMAGENTA, VGA_COL_BROWN,
-	VGA_COL_YELLOW,		VGA_COL_GRAY,	 VGA_COL_WHITE,		   VGA_COL_PINK};
-
-void ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
-				  uint8_t convertToNumber, int convertColor,
-				  command commandArray);
-void CheckWhatCommand(char incommingCommand[], command commandArray,
-					  input_vars inputStruct);
-void CheckWhatColor(char incommingColor[], command commandArray,
-					uint8_t argPlace);
-void OutputDebug(char message[], size_t messageLength,
-				 UART_HandleTypeDef *uartHandle);
+extern Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
+						  uint8_t convertToNumber, int convertColor,
+						  uint8_t getText, uint8_t getFont, uint8_t getStyle,
+						  CmdStruct *CmdBuf);
+extern Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
+							  input_vars inputStruct);
+extern Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
+							uint8_t argPlace);
+extern Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct);
 
 #endif /* FRONT_LAYER_PARSER_H_ */

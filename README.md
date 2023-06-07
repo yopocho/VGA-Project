@@ -5,12 +5,12 @@ This repository contains an example project which utilizes a custom driver which
 On behalf of IP (Innovative Power) Culemborg, created at the Univeristy of Applied Sciences Utrecht.
 
 ## Overview
-
+![image1](images/Functioneel_Schema.png)
 
 
 ### Front Layer
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque non nunc eget mauris tristique sollicitudin quis et nisl. Vestibulum neque tellus, posuere ut orci vel, laoreet fermentum mi. Nullam sit amet finibus dolor, eget ultricies metus. Aenean non nulla eu nunc ornare sollicitudin vel quis arcu. In eget lectus semper, laoreet libero cursus, tincidunt orci. Proin pellentesque ut dolor sit amet luctus. Vestibulum enim nisi, ultricies eget laoreet et, accumsan in risus. Integer vehicula dictum mauris, sed consectetur libero luctus gravida. Morbi bibendum nulla ac accumsan tristique. Quisque eget condimentum nunc.
+The Front Layer is the point of contact between the program and the user. This is where the most errors can occure. The first point of entry is an interupt that takes care of the UART. The recieved messaged is put into an input struct with the command length. When a message is recieved the message is put into the parser to check what command it is. If a command is found the rest of the arguments wil be looked for and added to a new command struct. This command struct is filled with the command number, command arguments, text, font & font style. this struct can be passed on to all the different layers.
 
 ### Logic Layer
 
@@ -24,7 +24,15 @@ Nullam ac nulla sit amet metus condimentum lobortis non sit amet neque. Nam euis
 
 ## Use
 
-Mauris maximus, diam eget commodo pretium, metus est sollicitudin urna, eget condimentum arcu velit a diam. Aliquam dui quam, vulputate vitae gravida imperdiet, faucibus non lacus. Suspendisse potenti. Ut blandit quam a lacinia tincidunt. Nunc convallis lectus ut vulputate ornare. Donec risus turpis, scelerisque sed blandit id, tristique et neque. Vestibulum et consequat lorem. Pellentesque vel elit eu lacus fermentum iaculis. Curabitur pretium auctor augue, egestas commodo magna lacinia non. Vivamus pharetra est ut placerat consectetur. Pellentesque vel interdum tellus. In vestibulum sit amet turpis nec elementum.
+- lijn, x, y, x’, y’, kleur, dikte
+- rechthoek, x_lup, y_lup, breedte, hoogte, kleur, gevuld (1,0) [als 1: rand (1px) met kleur]
+- tekst, x, y, kleur, tekst, fontnaam (arial, consolas), fontgrootte (1,2), fontstijl (normaal, vet, cursief)
+- bitmap, nr, x-lup, y-lup  [tenminste: pijl (in 4 richtingen), smiley (boos, blij)]
+- clearscherm, kleur
+- wacht, msecs
+- herhaal, aantal (laatst uitgevoerde commando’s), hoevaak (herhalen)
+- cirkel, x, y, radius, kleur
+- figuur, x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, kleur
 
 
 ## Built With
@@ -44,13 +52,38 @@ Mauris maximus, diam eget commodo pretium, metus est sollicitudin urna, eget con
 This project is licensed under the MIT License
 
 ## List of commands
-clearscherm,
-lijn,
-rechthoek,
-wacht,
-tekst,
-bitmap,
-cirkel,
-figuur,
-herhaal,
+- clearscherm,
+- lijn,
+- rechthoek,
+- wacht,
+- tekst,
+- bitmap,
+- cirkel,
+- figuur,
+- herhaal,
+
+## known bugs and errors
+- [x] command , 
+        - (example: clearscherm ,) if there is a space on any other spot there is no problem but when it is a comma richt after the space it will give an unkown command error. This is because it doesnt recoginze the command with a space at the end.
+- [x] herhaal, doesnt seem to work
+- [x] too many functions don't return an error
+- [x] wacht doesn't wait
+- [x] negative values in thickness
+- [x] too many arguments
+- [x] too little arguments is no error
+- [ ] extra arguments: (example clearscherm, wit, wit) wordt gewoon uitgevoerd
+- [ ] commands without arguments but with, get pushed to VGA
+- [ ] herhaal, text gets mushed
+- [ ] 
+
+
+
+## posible new features
+- [ ] parser filter on \n: so we can send multiple commands at the same 
+- [ ] random numbers: to auto generate input
+- [ ] history command that shows the named commands and arguments but doesn't run them
+
+
+
+
 
