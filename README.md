@@ -5,7 +5,7 @@ This repository contains an example project which utilizes a custom driver which
 On behalf of IP (Innovative Power) Culemborg, created at the Univeristy of Applied Sciences Utrecht.
 
 ## Overview
-
+![image1](images/Funtioneel_Schema.png)
 
 
 ### Front Layer
