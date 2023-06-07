@@ -36,12 +36,12 @@ uint8_t colorCodes[] = {
 	VGA_COL_YELLOW,		VGA_COL_GRAY,	 VGA_COL_WHITE,		   VGA_COL_PINK};
 
 Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
-		   uint8_t convertToNumber, int convertColor, uint8_t getText,
-		   uint8_t getFont, uint8_t getStyle, CmdStruct *CmdBuf);
+				   uint8_t convertToNumber, int convertColor, uint8_t getText,
+				   uint8_t getFont, uint8_t getStyle, CmdStruct *CmdBuf);
 Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
-			   input_vars inputStruct);
+					   input_vars inputStruct);
 Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
-			 uint8_t argPlace);
+					 uint8_t argPlace);
 Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct);
 
 Error OutputDebug(char message[], size_t messageLength,

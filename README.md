@@ -73,6 +73,8 @@ This project is licensed under the MIT License
 - [x] too little arguments is no error
 - [ ] extra arguments: (example clearscherm, wit, wit) wordt gewoon uitgevoerd
 - [ ] commands without arguments but with, get pushed to VGA
+- [ ] herhaal, text gets mushed
+- [ ] 
 
 
 
