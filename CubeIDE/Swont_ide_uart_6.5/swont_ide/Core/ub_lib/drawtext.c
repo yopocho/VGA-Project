@@ -132,6 +132,14 @@ Error DrawText(uint16_t x1, uint16_t y1, uint8_t color, char *textString,
   // font type not found in font_types_list array, so return error code
 
   while (*(textString + i) != '\0') {
+
+	// warning check: text glyphs out of bounds
+	if ((x_offset + x1) < 0 || (x_offset + x1) > VGA_DISPLAY_X ||
+		(y1 + fontSize * (STANDARD_FONT_SIZE * 2)) < 0 || (y1 + fontSize * (STANDARD_FONT_SIZE * 2)) > VGA_DISPLAY_Y) {
+	x_offset = 0;
+	y_offset += STANDARD_FONT_SIZE + PIXELBETWEENGLYPHS; //extra room for newline
+
+	}
     index_glyph = FindGlyph(*(textString + i));
 
     // invalid character received
@@ -139,7 +147,7 @@ Error DrawText(uint16_t x1, uint16_t y1, uint8_t color, char *textString,
 
     // space character received
     if (index_glyph == 127) {
-      x_offset += SPACESIZE * fontSize;  // add space between glyphs
+      x_offset += SPACESIZE + fontSize;  // add space between glyphs
       i++;
       continue;  // go to next character in textString
     }
@@ -148,16 +156,7 @@ Error DrawText(uint16_t x1, uint16_t y1, uint8_t color, char *textString,
               fontDesc);  // test with different font types
 
     width_px = arial_normal_glyph_dsc[index_glyph].width_px;
-    x_offset +=
-        (width_px * fontSize) + PIXELBETWEENGLYPHS;  // 2px room between subsequent glyphs
-
-    // warning check: text glyphs out of bounds
-    if ((x_offset + x1) < 0 || (x_offset + x1) > VGA_DISPLAY_X ||
-        (y1 + fontSize * STANDARD_FONT_SIZE) < 0 || (y1 + fontSize * STANDARD_FONT_SIZE) > VGA_DISPLAY_Y) {
-    x_offset = 0;
-    y_offset =+ STANDARD_FONT_SIZE + PIXELBETWEENGLYPHS; //extra room for newline
-
-    }
+    x_offset += (width_px * fontSize) + SPACESIZE;  // 2px room between subsequent glyphs
     i++;
   }
   return ERR_NONE;

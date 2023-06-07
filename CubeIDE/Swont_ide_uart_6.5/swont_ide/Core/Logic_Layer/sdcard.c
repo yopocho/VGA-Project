@@ -69,7 +69,7 @@ Error SDCardDeinit() {
  * @return Error
  */
 Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector) {
-  if (xp > VGA_DISPLAY_X || yp > VGA_DISPLAY_Y) {
+  if (xp > VGA_DISPLAY_X || yp > VGA_DISPLAY_Y || selector > ANGRY || selector < LEFT) {
     return ERR_ARG_OOB;
   }
 
@@ -82,9 +82,22 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector) {
   char filename[20] = "";
   itoa(selector, filename, 10);
   strcat(filename, ".txt");
+
+  //Check if bitmap exists on SD card
+  FILINFO fno;
+  fres = f_stat(filename, &fno);
+  if(fres != FR_OK) {
+	  return ERR_SDCARD_OPEN;
+  }
+
+  //If it exists, go ahead and open the bitmap file
   fres = f_open(&fil, filename, FA_READ);
   if (fres != FR_OK) {
-    return ERR_SDCARD_OPEN;
+	  fres = f_close(&fil);
+	  if (fres != FR_OK) {
+		return ERR_SDCARD_CLOSE;
+	  }
+	  return ERR_SDCARD_OPEN;
   }
 
   // Setup preambleBuf to read preamble of bitmap into
@@ -99,8 +112,13 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector) {
 #endif
   } else if (preambleBuf[3] != 'x')
     return ERR_BITMAP_FORMAT;
-  else
-    return ERR_SDCARD_READ;
+  else {
+	  fres = f_close(&fil);
+	  if (fres != FR_OK) {
+		return ERR_SDCARD_CLOSE;
+	  }
+	  return ERR_SDCARD_READ;
+  }
 
   // Parse preambleBuf
   uint16_t width = atoi(preambleBuf);
@@ -119,13 +137,17 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector) {
 
   pFil = &fil;
 
-  // Loop over every coordinte of where the bitmap has to be drawn, read the
+  // Loop over every coordinate of where the bitmap has to be drawn, read the
   // pixel's colour and write to framebuffer
   for (uint16_t y = yp; y < limitY; y++) {
     for (uint16_t x = xp; x < limitX; x++) {
       fres = f_read(&fil, (void*)readBuf, packetSize, (UINT*)&bufLen);
       if (fres != FR_OK) {
-        return ERR_SDCARD_READ;
+    	  fres = f_close(&fil);
+    	  if (fres != FR_OK) {
+    		return ERR_SDCARD_CLOSE;
+    	  }
+    	  return ERR_SDCARD_READ;
       }
       readBuf[strlen((const char*)readBuf) - 1] = '\0';
       uint8_t pixelColor = (uint8_t)strtol((const char*)readBuf, NULL, 0);
@@ -140,7 +162,11 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector) {
       fres = f_lseek(
           pFil, f_tell(pFil) + (packetSize * (xp + width - VGA_DISPLAY_X)));
       if (fres != FR_OK) {
-        return ERR_SDCARD_LSEEK;
+    	  fres = f_close(&fil);
+    	  if (fres != FR_OK) {
+    		return ERR_SDCARD_CLOSE;
+    	  }
+    	  return ERR_SDCARD_LSEEK;
       }
     }
     pixelOverflow = 0;

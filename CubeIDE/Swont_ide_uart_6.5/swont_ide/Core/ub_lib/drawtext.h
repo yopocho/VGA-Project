@@ -10,7 +10,7 @@
 
 #define STANDARD_FONT_SIZE 16
 #define SPACESIZE 4
-#define PIXELBETWEENGLYPHS 2
+#define PIXELBETWEENGLYPHS 10
 
 
 #include <stdio.h>
