@@ -23,6 +23,7 @@
 #include "main.h"
 
 #include "Commands.h"
+#include "Parser.h"
 #include "dma.h"
 #include "errorhandling.h"
 #include "fatfs.h"
@@ -30,6 +31,7 @@
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
+#include "sdcard.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

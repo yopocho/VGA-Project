@@ -7,6 +7,21 @@
 
 #include "Parser.h"
 
+const char *possibleCommands[] = {"lijn",	  "clearscherm", "rechthoek",
+							"wacht",  "tekst",		 "bitmap",
+							"cirkel", "figuur",		 "herhaal"};
+
+const char *possibleColors[] = {"zwart",		"blauw",   "lichtblauw",	"groen",
+						  "lichtgroen", "cyaan",   "lichtcyaan",	"rood",
+						  "lichtrood",	"magenta", " lichtmagenta", "bruin",
+						  "geel",		"grijs",   "wit",			"roze"};
+
+const uint8_t colorCodes[] = {
+	VGA_COL_BLACK,		VGA_COL_BLUE,	 VGA_COL_LIGHTBLUE,	   VGA_COL_GREEN,
+	VGA_COL_LIGHTGREEN, VGA_COL_CYAN,	 VGA_COL_LIGHTCYAN,	   VGA_COL_RED,
+	VGA_COL_LIGHTRED,	VGA_COL_MAGENTA, VGA_COL_LIGHTMAGENTA, VGA_COL_BROWN,
+	VGA_COL_YELLOW,		VGA_COL_GRAY,	 VGA_COL_WHITE,		   VGA_COL_PINK};
+
 /**
  * @fn Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
  * uint8_t convertToNumber, int convertColor, uint8_t getText, uint8_t getFont,
@@ -43,9 +58,14 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 
 	// Parse incoming message on comma
 	char incommingMessage[inputStruct.msglen];
+	memset(incommingMessage, 0, sizeof(incommingMessage));
+	// loop through incomming characters
 	for (int j = 0; j <= inputStruct.msglen; j++) {
+		if (inputStruct.line_rx_buffer[j] == '-') return ERR_INVALID_ARG;
+		// check for commas, 0 & spaces to delete them of seperate message
 		if (inputStruct.line_rx_buffer[j] != 0 &&
 			inputStruct.line_rx_buffer[j] != ',') {
+			// if its for the text command don't delete the spaces
 			if (getText) {
 				incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
 				placeInBuf++;
@@ -54,24 +74,45 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				placeInBuf++;
 			}
 		}
+		// if its the final letter check incomming message
 		if (j == inputStruct.msglen) {
 			incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
 			placeInBuf++;
 			if (commaCounter == neededArgument) {
-				if (convertColor)
-					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
+				if (convertColor) {
+					err = CheckWhatColor(incommingMessage, CmdBuf,
+										 neededArgument);
+					if (err != ERR_NONE) {
+						return err;
+					}
+				}
 				if (convertToNumber)
 					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
 				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
-				if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
-				if (getFont) strcpy(CmdBuf->textFont, incommingMessage);
+				if (getStyle) {
+					if (strcmp(incommingMessage, "normaal") != 0 &&
+						strcmp(incommingMessage, "vet") != 0 &&
+						strcmp(incommingMessage, "cursief") != 0) {
+						return ERR_INVALID_ARG;
+					} else
+						strcpy(CmdBuf->textStyle, incommingMessage);
+				}
+				if (getFont) {
+					if (strcmp(incommingMessage, "consolas") != 0 &&
+						strcmp(incommingMessage, "arial") != 0) {
+						return ERR_INVALID_ARG;
+					} else
+						strcpy(CmdBuf->textFont, incommingMessage);
+				}
 			}
 			break;
 		}
+		// actual comma parse (check for comma)
 		if (inputStruct.line_rx_buffer[j] == ',') {
 			incommingMessage[j] = 0;
 			placeInBuf = 0;
 			if (commaCounter == neededArgument) {
+				// if comma counter is 0 then we need the command
 				if (!commaCounter) {
 					err =
 						CheckWhatCommand(incommingMessage, CmdBuf, inputStruct);
@@ -90,8 +131,21 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				if (convertToNumber)
 					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
 				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
-				if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
-				if (getFont) strcpy(CmdBuf->textFont, incommingMessage);
+				if (getStyle) {
+					if (strcmp(incommingMessage, "normaal") != 0 &&
+						strcmp(incommingMessage, "vet") != 0 &&
+						strcmp(incommingMessage, "cursief") != 0) {
+						return ERR_INVALID_ARG;
+					} else
+						strcpy(CmdBuf->textStyle, incommingMessage);
+				}
+				if (getFont) {
+					if (strcmp(incommingMessage, "consolas") != 0 &&
+						strcmp(incommingMessage, "arial") != 0) {
+						return ERR_INVALID_ARG;
+					} else
+						strcpy(CmdBuf->textFont, incommingMessage);
+				}
 				break;
 			}
 			commaCounter++;
@@ -120,6 +174,7 @@ Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
 			if (err != ERR_NONE) {
 				return err;
 			}
+
 			return ERR_NONE;
 		}
 	}
@@ -157,39 +212,39 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
 	switch (CmdBuf->commandNummer) {
 		case 0:
 			// lijn
-			err = RecieveCommandLijn((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandLijn(CmdBuf, inputStruct);
 			break;
 		case 1:
 			// clearscherm
-			err = RecieveCommandClear((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandClear(CmdBuf, inputStruct);
 			break;
 		case 2:
 			// rechthoek
-			err = RecieveCommandRechthoek((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandRechthoek(CmdBuf, inputStruct);
 			break;
 		case 3:
 			// wacht
-			err = RecieveCommandWacht((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandWacht(CmdBuf, inputStruct);
 			break;
 		case 4:
 			// tekst
-			err = RecieveCommandTekst((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandTekst(CmdBuf, inputStruct);
 			break;
 		case 5:
 			// bitmap
-			err = RecieveCommandBitmap((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandBitmap(CmdBuf, inputStruct);
 			break;
 		case 6:
 			// cirkel
-			err = RecieveCommandCirkel((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandCirkel(CmdBuf, inputStruct);
 			break;
 		case 7:
 			// figuur
-			err = RecieveCommandFiguur((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandFiguur(CmdBuf, inputStruct);
 			break;
 		case 8:
 			// herhaal
-			err = RecieveCommandHerhaal((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandHerhaal(CmdBuf, inputStruct);
 			break;
 		default:
 			return ERR_INVALID_CMD;
@@ -197,3 +252,4 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
 	}
 	return err;
 }
+

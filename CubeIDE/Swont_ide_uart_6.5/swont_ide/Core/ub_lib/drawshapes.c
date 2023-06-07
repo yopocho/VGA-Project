@@ -7,10 +7,12 @@
  */
 
 #include "drawshapes.h"
+#include "errorHandling.h"
 
 #include <math.h>
 
 #include "Commands.h"
+#include "main.h"
 
 /**
  * @fn Error DrawLine(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)

@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['initialise_5fmonitor_5fhandles_0',['initialise_monitor_handles',['../syscalls_8c.html#a25c7f100d498300fff65568c2fcfe639',1,'syscalls.c']]],
-  ['itm_5fcheckchar_1',['ITM_CheckChar',['../group___c_m_s_i_s__core___debug_functions.html#gae61ce9ca5917735325cd93b0fb21dd29',1,'core_armv8mml.h']]],
-  ['itm_5freceivechar_2',['ITM_ReceiveChar',['../group___c_m_s_i_s__core___debug_functions.html#gac3ee2c30a1ac4ed34c8a866a17decd53',1,'core_armv8mml.h']]],
-  ['itm_5fsendchar_3',['ITM_SendChar',['../group___c_m_s_i_s__core___debug_functions.html#gac90a497bd64286b84552c2c553d3419e',1,'core_armv8mml.h']]]
+  ['get_5ffattime_0',['get_fattime',['../fatfs_8c.html#af58b536abfd30f77213f4ecaf2ac52f5',1,'get_fattime(void):&#160;fatfs.c'],['../diskio_8c.html#a256b4d335e1e6a0cc9f3e6ed6c5405c4',1,'get_fattime(void):&#160;diskio.c'],['../diskio_8h.html#af58b536abfd30f77213f4ecaf2ac52f5',1,'get_fattime(void):&#160;fatfs.c'],['../ff_8h.html#af58b536abfd30f77213f4ecaf2ac52f5',1,'get_fattime(void):&#160;fatfs.c']]],
+  ['geterror_1',['GetError',['../error_handling_8c.html#a230cb0d7367873a37c71d70990eb5014',1,'GetError(Error ErrorCode):&#160;errorHandling.c'],['../error_handling_8h.html#a230cb0d7367873a37c71d70990eb5014',1,'GetError(Error ErrorCode):&#160;errorHandling.c']]]
 ];

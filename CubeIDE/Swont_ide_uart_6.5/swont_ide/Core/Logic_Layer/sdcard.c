@@ -7,6 +7,10 @@
 
 #include "sdcard.h"
 
+FATFS FatFs;     // FatFS Handle
+FIL fil, *pFil;  // File Handle
+FRESULT fres;    // Error Handle
+
 /**
  * @fn Error SDCardInit()
  * @brief Initializes the SD card

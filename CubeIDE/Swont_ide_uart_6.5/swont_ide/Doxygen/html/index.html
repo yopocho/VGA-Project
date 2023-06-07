@@ -5,7 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>VGA_Project: Main Page</title>
+<<<<<<< Updated upstream
+<title>VGA: Driver for user IO to VGA output for STM32F407</title>
+=======
+<title>VGA: package templates</title>
+>>>>>>> Stashed changes
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">VGA_Project<span id="projectnumber">&#160;0.1</span>
+   <div id="projectname">VGA
    </div>
   </td>
  </tr>
@@ -68,10 +72,95 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">VGA_Project Documentation</div></div>
+<div><div class="header">
+<<<<<<< Updated upstream
+  <div class="headertitle"><div class="title">Driver for user IO to VGA output for STM32F407 </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="mainpage"></a> This repository contains an example project which utilizes a custom driver which interfaces between a UART peripheral and a VGA-screen driver, allowing for increased simplicity in reusing recycled VGA-screens.</p>
+<p>On behalf of IP (Innovative Power) Culemborg, created at the Univeristy of Applied Sciences Utrecht.</p>
+<h1><a class="anchor" id="autotoc_md0"></a>
+Overview</h1>
+<p><img src="/Users/r_middelman/Software_Ontwikkeling/VGA-Project/images/Functioneel_Schema.png" alt="FunctioneelSchema" class="inline"/></p>
+<h2><a class="anchor" id="autotoc_md1"></a>
+Front Layer</h2>
+<p>The Front Layer is the point of contact between the program and the user. This is where the most errors can occure. The first point of entry is an interupt that takes care of the UART. The recieved messaged is put into an input struct with the command length. When a message is recieved the message is put into the parser to check what command it is. If a command is found the rest of the arguments wil be looked for and added to a new command struct. This command struct is filled with the command number, command arguments, text, font &amp; font style. this struct can be passed on to all the different layers.</p>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Logic Layer</h2>
+<p>Suspendisse commodo consectetur nulla, sit amet eleifend odio mattis sed. Phasellus pretium euismod nibh at feugiat. In vehicula venenatis dolor. Pellentesque et rutrum sem. Vivamus dictum finibus est, nec dictum ligula fringilla vitae. Duis nec risus et dolor egestas sodales et quis orci. Aliquam vel ullamcorper ipsum.</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+IO Layer</h2>
+<p>Nullam ac nulla sit amet metus condimentum lobortis non sit amet neque. Nam euismod metus dolor, in lacinia diam congue ut. Morbi blandit imperdiet eros, eu vehicula purus vestibulum in. In a dolor dolor. Cras quis hendrerit elit. Vivamus nec gravida purus. Duis dapibus mollis risus non feugiat. Donec porta arcu non est interdum egestas. Ut ullamcorper libero convallis, ullamcorper lorem a, volutpat ex. Proin tincidunt nec ante eget sodales. Nunc sed accumsan lacus.</p>
+<h1><a class="anchor" id="autotoc_md4"></a>
+Use</h1>
+<ul>
+<li>lijn, x, y, x’, y’, kleur, dikte</li>
+<li>rechthoek, x_lup, y_lup, breedte, hoogte, kleur, gevuld (1,0) [als 1: rand (1px) met kleur]</li>
+<li>tekst, x, y, kleur, tekst, fontnaam (arial, consolas), fontgrootte (1,2), fontstijl (normaal, vet, cursief)</li>
+<li>bitmap, nr, x-lup, y-lup [tenminste: pijl (in 4 richtingen), smiley (boos, blij)]</li>
+<li>clearscherm, kleur</li>
+<li>wacht, msecs</li>
+<li>herhaal, aantal (laatst uitgevoerde commando’s), hoevaak (herhalen)</li>
+<li>cirkel, x, y, radius, kleur</li>
+<li>figuur, x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, kleur</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md5"></a>
+Built With</h1>
+<ul>
+<li><a href="https://www.st.com/en/development-tools/stm32cubeide.html">STM32CubeIDE</a> - IDE</li>
+<li><a href="https://www.st.com/en/evaluation-tools/stm32f4discovery.html">STM32F4DISCOVERY</a> - Development Board</li>
+<li><a href="https://google.github.io/styleguide/cppguide.html#Constant_Names">Google C++ Styleguide</a> - Styleguide</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md6"></a>
+Authors</h1>
+<ul>
+<li><b>Niels van der Zijden</b> - <a href="https://github.com/yopocho">Yopocho</a></li>
+<li><b>Ruben Middelman</b> - <a href="https://github.com/rubenmiddelman">rubenmiddelman</a></li>
+<li><b>Sjoerd den Breejen</b> - <a href="https://github.com/Sjoerddbb">Sjoerddbb</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md7"></a>
+License</h1>
+<p>This project is licensed under the MIT License</p>
+<h1><a class="anchor" id="autotoc_md8"></a>
+List of commands</h1>
+<ul>
+<li>clearscherm,</li>
+<li>lijn,</li>
+<li>rechthoek,</li>
+<li>wacht,</li>
+<li>tekst,</li>
+<li>bitmap,</li>
+<li>cirkel,</li>
+<li>figuur,</li>
+<li>herhaal,</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md9"></a>
+known bugs and errors</h1>
+<ul>
+<li>[x] command ,<ul>
+<li>(example: clearscherm ,) if there is a space on any other spot there is no problem but when it is a comma richt after the space it will give an unkown command error. This is because it doesnt recoginze the command with a space at the end.</li>
+</ul>
+</li>
+<li>[x] herhaal, doesnt seem to work</li>
+<li>[x] too many functions don't return an error</li>
+<li>[x] wacht doesn't wait</li>
+<li>[ ] negative values in thickness</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md10"></a>
+posible new features</h1>
+<ul>
+<li>[ ] parser filter on <br  />
+: so we can send multiple commands at the same</li>
+<li>[ ] random numbers: to auto generate input</li>
+<li>[ ] history command that shows the named commands and arguments but doesn't run them </li>
+</ul>
+</div></div><!-- PageDoc -->
+=======
+  <div class="headertitle"><div class="title">package templates </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"></div></div><!-- PageDoc -->
+>>>>>>> Stashed changes
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
