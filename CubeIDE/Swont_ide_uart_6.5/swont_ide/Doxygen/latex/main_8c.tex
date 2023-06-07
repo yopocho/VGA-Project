@@ -6,15 +6,21 @@
 
 
 {\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Commands.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}dma.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}errorhandling.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}fatfs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}gpio.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}spi.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}tim.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}usart.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}gpio.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}Parser.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{main_8c_a6bac225908d39cd36055eb038aa79c0b}{USART\+\_\+\+PRINTF}}~int fputc(int \mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}}, FILE $\ast$f)
+\#define \mbox{\hyperlink{main_8c_a6bac225908d39cd36055eb038aa79c0b}{USART\+\_\+\+PRINTF}}~  int fputc(int \mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}}, FILE $\ast$f)
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -57,7 +63,7 @@ This software component is licensed by ST under BSD 3-\/Clause license, the \cha
 \index{main.c@{main.c}!USART\_PRINTF@{USART\_PRINTF}}
 \index{USART\_PRINTF@{USART\_PRINTF}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{USART\_PRINTF}{USART\_PRINTF}}
-{\footnotesize\ttfamily \#define USART\+\_\+\+PRINTF~int fputc(int \mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}}, FILE $\ast$f)}
+{\footnotesize\ttfamily \#define USART\+\_\+\+PRINTF~  int fputc(int \mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}}, FILE $\ast$f)}
 
 
 
@@ -153,6 +159,7 @@ Initializes the CPU, AHB and APB buses clocks
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga210329848c1873957034e129ccf8944e}{HAL\_UART\_Transmit}}(\&\mbox{\hyperlink{usart_8h_aa9479c261d65eecedd3d9582f7f0f89c}{huart2}},\ (uint8\_t\ *)\&\mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}},\ 1,\ 0xFFFF)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga210329848c1873957034e129ccf8944e}{HAL\_UART\_Transmit}}(\&\mbox{\hyperlink{usart_8h_aa9479c261d65eecedd3d9582f7f0f89c}{huart2}},\ (uint8\_t\ *)\&\mbox{\hyperlink{main_8c_a0523c05685d59544dca911cb6a3db77d}{ch}},\ 1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xFFFF)}
 
 \end{DoxyCode}

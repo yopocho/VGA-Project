@@ -68,7 +68,9 @@ This project is licensed under the MIT License
 - [x] herhaal, doesnt seem to work
 - [x] too many functions don't return an error
 - [x] wacht doesn't wait
-- [ ] negative values in thickness
+- [x] negative values in thickness
+- [x] too many arguments
+- [x] too little arguments is no error
 
 
 ## posible new features

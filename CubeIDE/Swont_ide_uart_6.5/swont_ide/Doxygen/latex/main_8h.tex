@@ -10,7 +10,10 @@
 {\ttfamily \#include \char`\"{}stdio.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}string.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}stm32\+\_\+ub\+\_\+vga\+\_\+screen.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}error\+Handling.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}drawshapes.\+h\char`\"{}}\newline
 \doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
@@ -18,6 +21,10 @@ struct \mbox{\hyperlink{structinput__vars}{input\+\_\+vars}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8h_a586124d2402f5d3f4f61365555ae6087}{SPI1\+\_\+\+CS\+\_\+\+Pin}}~\mbox{\hyperlink{group___g_p_i_o__pins__define_ga6c35af4e75c3cb57bb650feaa7a136b5}{GPIO\+\_\+\+PIN\+\_\+1}}
+\item 
+\#define \mbox{\hyperlink{main_8h_ad2cec6eedba5acb3a3a4b97b8adfcb39}{SPI1\+\_\+\+CS\+\_\+\+GPIO\+\_\+\+Port}}~\mbox{\hyperlink{group___peripheral__declaration_gac485358099728ddae050db37924dd6b7}{GPIOA}}
 \item 
 \#define \mbox{\hyperlink{main_8h_afce59ab8a15e4e45d9cedeb5dc55b011}{VGA\+\_\+\+BLUE0\+\_\+\+Pin}}~\mbox{\hyperlink{group___g_p_i_o__pins__define_gaf5eb6a42a4428e236bd4fd08ade71e7a}{GPIO\+\_\+\+PIN\+\_\+8}}
 \item 
@@ -58,6 +65,12 @@ struct \mbox{\hyperlink{structinput__vars}{input\+\_\+vars}}
 \#define \mbox{\hyperlink{main_8h_ac91699501dec0d81f250f5a5a7a94d1a}{VGA\+\_\+\+VSYNC\+\_\+\+Pin}}~\mbox{\hyperlink{group___g_p_i_o__pins__define_ga95f9ce5911fa8b209defb969db93ced3}{GPIO\+\_\+\+PIN\+\_\+12}}
 \item 
 \#define \mbox{\hyperlink{main_8h_ab677279ccb99792d911b6ce225340fce}{VGA\+\_\+\+VSYNC\+\_\+\+GPIO\+\_\+\+Port}}~\mbox{\hyperlink{group___peripheral__declaration_ga68b66ac73be4c836db878a42e1fea3cd}{GPIOB}}
+\item 
+\#define \mbox{\hyperlink{main_8h_a6cbeeb2c3a97ff142bb66798eeda14d2}{SD\+\_\+\+CS\+\_\+\+Pin}}~\mbox{\hyperlink{group___g_p_i_o__pins__define_gadcaf899c018a0dde572b5af783565c62}{GPIO\+\_\+\+PIN\+\_\+3}}
+\item 
+\#define \mbox{\hyperlink{main_8h_a5ea1ab41fa8054fb848670f3ba059bbd}{SD\+\_\+\+CS\+\_\+\+GPIO\+\_\+\+Port}}~\mbox{\hyperlink{group___peripheral__declaration_ga68b66ac73be4c836db878a42e1fea3cd}{GPIOB}}
+\item 
+\#define \mbox{\hyperlink{main_8h_ab626d49012c66f57c7ff4e721f5fd593}{SD\+\_\+\+SPI\+\_\+\+HANDLE}}~\mbox{\hyperlink{spi_8h_a9c6222bae4d0328dd843ae099623b40b}{hspi1}}
 \item 
 \#define \mbox{\hyperlink{main_8h_a0e3eff829ed19518d75bb7d21a0ca3f6}{BYTE\+\_\+\+BUFLEN}}~1
 \item 
@@ -129,6 +142,36 @@ This software component is licensed by ST under BSD 3-\/Clause license, the \cha
 \index{LINE\_FEED@{LINE\_FEED}!main.h@{main.h}}
 \doxysubsubsection{\texorpdfstring{LINE\_FEED}{LINE\_FEED}}
 {\footnotesize\ttfamily \#define LINE\+\_\+\+FEED~10 /$\ast$ linefeed char \textbackslash{}n     $\ast$/}
+
+\mbox{\Hypertarget{main_8h_a5ea1ab41fa8054fb848670f3ba059bbd}\label{main_8h_a5ea1ab41fa8054fb848670f3ba059bbd}} 
+\index{main.h@{main.h}!SD\_CS\_GPIO\_Port@{SD\_CS\_GPIO\_Port}}
+\index{SD\_CS\_GPIO\_Port@{SD\_CS\_GPIO\_Port}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{SD\_CS\_GPIO\_Port}{SD\_CS\_GPIO\_Port}}
+{\footnotesize\ttfamily \#define SD\+\_\+\+CS\+\_\+\+GPIO\+\_\+\+Port~\mbox{\hyperlink{group___peripheral__declaration_ga68b66ac73be4c836db878a42e1fea3cd}{GPIOB}}}
+
+\mbox{\Hypertarget{main_8h_a6cbeeb2c3a97ff142bb66798eeda14d2}\label{main_8h_a6cbeeb2c3a97ff142bb66798eeda14d2}} 
+\index{main.h@{main.h}!SD\_CS\_Pin@{SD\_CS\_Pin}}
+\index{SD\_CS\_Pin@{SD\_CS\_Pin}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{SD\_CS\_Pin}{SD\_CS\_Pin}}
+{\footnotesize\ttfamily \#define SD\+\_\+\+CS\+\_\+\+Pin~\mbox{\hyperlink{group___g_p_i_o__pins__define_gadcaf899c018a0dde572b5af783565c62}{GPIO\+\_\+\+PIN\+\_\+3}}}
+
+\mbox{\Hypertarget{main_8h_ab626d49012c66f57c7ff4e721f5fd593}\label{main_8h_ab626d49012c66f57c7ff4e721f5fd593}} 
+\index{main.h@{main.h}!SD\_SPI\_HANDLE@{SD\_SPI\_HANDLE}}
+\index{SD\_SPI\_HANDLE@{SD\_SPI\_HANDLE}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{SD\_SPI\_HANDLE}{SD\_SPI\_HANDLE}}
+{\footnotesize\ttfamily \#define SD\+\_\+\+SPI\+\_\+\+HANDLE~\mbox{\hyperlink{spi_8h_a9c6222bae4d0328dd843ae099623b40b}{hspi1}}}
+
+\mbox{\Hypertarget{main_8h_ad2cec6eedba5acb3a3a4b97b8adfcb39}\label{main_8h_ad2cec6eedba5acb3a3a4b97b8adfcb39}} 
+\index{main.h@{main.h}!SPI1\_CS\_GPIO\_Port@{SPI1\_CS\_GPIO\_Port}}
+\index{SPI1\_CS\_GPIO\_Port@{SPI1\_CS\_GPIO\_Port}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{SPI1\_CS\_GPIO\_Port}{SPI1\_CS\_GPIO\_Port}}
+{\footnotesize\ttfamily \#define SPI1\+\_\+\+CS\+\_\+\+GPIO\+\_\+\+Port~\mbox{\hyperlink{group___peripheral__declaration_gac485358099728ddae050db37924dd6b7}{GPIOA}}}
+
+\mbox{\Hypertarget{main_8h_a586124d2402f5d3f4f61365555ae6087}\label{main_8h_a586124d2402f5d3f4f61365555ae6087}} 
+\index{main.h@{main.h}!SPI1\_CS\_Pin@{SPI1\_CS\_Pin}}
+\index{SPI1\_CS\_Pin@{SPI1\_CS\_Pin}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{SPI1\_CS\_Pin}{SPI1\_CS\_Pin}}
+{\footnotesize\ttfamily \#define SPI1\+\_\+\+CS\+\_\+\+Pin~\mbox{\hyperlink{group___g_p_i_o__pins__define_ga6c35af4e75c3cb57bb650feaa7a136b5}{GPIO\+\_\+\+PIN\+\_\+1}}}
 
 \mbox{\Hypertarget{main_8h_aa8cecfc5c5c054d2875c03e77b7be15d}\label{main_8h_aa8cecfc5c5c054d2875c03e77b7be15d}} 
 \index{main.h@{main.h}!TRUE@{TRUE}}
