@@ -59,6 +59,8 @@ This project is licensed under the MIT License
         - (example: clearscherm ,) if there is a space on any other spot there is no problem but when it is a comma richt after the space it will give an unkown command error. This is because it doesnt recoginze the command with a space at the end.
 - [ ] herhaal, 
 - [ ] errors are broad and not added everywhere
+- [ ] too many arguments doesn't return an error
+- [x] wacht doesn't wait
 
 
 ## posible new features

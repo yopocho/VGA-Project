@@ -60,11 +60,23 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 			placeInBuf++;
 			if (commaCounter == neededArgument) {
 				if (convertColor)
-					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
+				{
+					err = CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
+					if (err != ERR_NONE) {
+											return err;
+										}
+				}
 				if (convertToNumber)
 					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
 				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
-				if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
+				if (getStyle)
+				{
+					strcpy(CmdBuf->textStyle, incommingMessage);
+					if(strcmp(incommingMessage, "normaal" ) != 0 && strcmp(incommingMessage, "vet" ) != 0 && strcmp(incommingMessage, "cursief" ) != 0)
+					{
+						return ERR_INVALID_ARG;
+					}
+				}
 				if (getFont) strcpy(CmdBuf->textFont, incommingMessage);
 			}
 			break;
@@ -72,9 +84,6 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 		if (inputStruct.line_rx_buffer[j] == ',') {
 			incommingMessage[j] = 0;
 			placeInBuf = 0;
-#ifdef FRONT_LAYER_DEBUG
-			OutputDebug(debugMessageParse, sizeof(debugMessageParse), &huart2);
-#endif
 			if (commaCounter == neededArgument) {
 				if (!commaCounter) {
 					err =
@@ -120,14 +129,11 @@ Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
 	for (uint8_t i = 0; i < AMOUNT_OF_COMMANDS; i++) {
 		if (strcmp(incommingCommand, possibleCommands[i]) == 0) {
 			CmdBuf->commandNummer = i;
-#ifdef FRONT_LAYER_DEBUG
-			OutputDebug(debugMessageCommand, sizeof(debugMessageCommand),
-						&huart2);
-#endif
 			Error err = DoOnCommand(CmdBuf, inputStruct);
 			if (err != ERR_NONE) {
 				return err;
 			}
+
 			return ERR_NONE;
 		}
 	}
@@ -147,9 +153,6 @@ Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
 	for (uint8_t i = 0; i < AMOUNT_OF_COLORS; i++) {
 		if (strcmp(incommingColor, possibleColors[i]) == 0) {
 			CmdBuf->argBuf[argPlace] = colorCodes[i];
-#ifdef FRONT_LAYER_DEBUG
-			OutputDebug(debugMessageColor, sizeof(debugMessageColor), &huart2);
-#endif
 			return ERR_NONE;
 		}
 	}

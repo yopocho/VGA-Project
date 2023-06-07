@@ -36,7 +36,7 @@ typedef enum {
   ERR_INVALID_COL,
   ERR_TEXT_OOB,
   ERR_INVALID_CHAR,
-  ERR_UNKNOWN_COL
+  ERR_UNKNOWN_COL,
 } Error;
 
 /**
