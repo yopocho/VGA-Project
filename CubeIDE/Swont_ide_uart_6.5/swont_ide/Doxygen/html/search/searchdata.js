@@ -10,7 +10,11 @@ var indexSectionsWithContent =
   7: "abcdefghilmnoprstuw",
   8: "_abcdefghilmnprstuvx",
   9: "acdefghilmnoprstu",
+<<<<<<< Updated upstream
   10: "cdm"
+=======
+  10: "cdmp"
+>>>>>>> Stashed changes
 };
 
 var indexSectionNames =

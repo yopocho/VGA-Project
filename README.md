@@ -71,6 +71,9 @@ This project is licensed under the MIT License
 - [x] negative values in thickness
 - [x] too many arguments
 - [x] too little arguments is no error
+- [ ] extra arguments: (example clearscherm, wit, wit) wordt gewoon uitgevoerd
+- [ ] commands without arguments but with, get pushed to VGA
+
 
 
 ## posible new features
