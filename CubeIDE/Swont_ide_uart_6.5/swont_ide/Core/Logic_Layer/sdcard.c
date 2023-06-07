@@ -34,10 +34,12 @@ Error SDCardInit() {
   total_sectors = (getFreeFs->n_fatent - 2) * getFreeFs->csize;
   free_sectors = free_clusters * getFreeFs->csize;
   used_sectors = total_sectors - free_sectors;
+#ifdef DEBUG
   printf(
       "SD card stats:\r\n%10lu KiB total drive space.\r\n%10lu KiB "
       "available.\r\n%10lu KiB used.\r\n",
       total_sectors / 2, free_sectors / 2, used_sectors / 2);
+#endif
   return ERR_NONE;
 }
 
@@ -88,7 +90,9 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector) {
   // Read preamble of bitmap file
   fres = f_read(&fil, (void*)preambleBuf, 9, (UINT*)&bufLen);
   if (bufLen != 0 && fres == FR_OK) {
+#ifdef DEBUG
     printf("Read string from '%s' contents: %s\n\r", filename, preambleBuf);
+#endif
   } else if (preambleBuf[3] != 'x')
     return ERR_BITMAP_FORMAT;
   else
