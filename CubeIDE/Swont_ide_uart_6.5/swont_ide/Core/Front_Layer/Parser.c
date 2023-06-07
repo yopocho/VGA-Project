@@ -7,6 +7,21 @@
 
 #include "Parser.h"
 
+const char *possibleCommands[] = {"lijn",	  "clearscherm", "rechthoek",
+							"wacht",  "tekst",		 "bitmap",
+							"cirkel", "figuur",		 "herhaal"};
+
+const char *possibleColors[] = {"zwart",		"blauw",   "lichtblauw",	"groen",
+						  "lichtgroen", "cyaan",   "lichtcyaan",	"rood",
+						  "lichtrood",	"magenta", " lichtmagenta", "bruin",
+						  "geel",		"grijs",   "wit",			"roze"};
+
+const uint8_t colorCodes[] = {
+	VGA_COL_BLACK,		VGA_COL_BLUE,	 VGA_COL_LIGHTBLUE,	   VGA_COL_GREEN,
+	VGA_COL_LIGHTGREEN, VGA_COL_CYAN,	 VGA_COL_LIGHTCYAN,	   VGA_COL_RED,
+	VGA_COL_LIGHTRED,	VGA_COL_MAGENTA, VGA_COL_LIGHTMAGENTA, VGA_COL_BROWN,
+	VGA_COL_YELLOW,		VGA_COL_GRAY,	 VGA_COL_WHITE,		   VGA_COL_PINK};
+
 /**
  * @fn Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
  * uint8_t convertToNumber, int convertColor, uint8_t getText, uint8_t getFont,

@@ -6,12 +6,18 @@
  */
 
 #include "Commands.h"
+#include "drawshapes.h"
+#include "sdcard.h"
+#include "drawtext.h"
+#include "Parser.h"
 
 #include "errorHandling.h"
 
 CircularBuffer circBuf;
 CircularBuffer *pCircBuf;
 Error err;
+
+//Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector);
 
 /**
  * @fn void CircBufInit(void)
@@ -151,7 +157,7 @@ Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
 				return err;
 			}
 		} else if (i == 3) {
-			ParseOnKomma(inputStruct, neededArg, 0, 0, 1, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 0, 1, 0, 0, CmdBuf);
 		} else if (i == 4) {
 			err = ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 1, 0, *CmdBuf);
 			if (err != ERR_NONE) {

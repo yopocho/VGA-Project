@@ -9,7 +9,6 @@
 #define FRONT_LAYER_COMMANDS_H_
 
 #include "errorHandling.h"
-// #include "main.h"
 
 // size of the circulair buffer (which is also the max amount for the herhaal
 // command)
@@ -47,16 +46,16 @@ typedef struct CircularBuffer {
 extern CircularBuffer circBuf;
 extern CircularBuffer *pCircBuf;
 
-Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct);
-Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct);
-Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct);
-Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct);
-Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct);
-Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct);
-Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct);
-Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct);
-Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct);
-Error callCommand(CmdStruct *arg_struct);
+extern Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct);
+extern Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct);
+extern Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct);
+extern Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct);
+extern Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct);
+extern Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct);
+extern Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct);
+extern Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct);
+extern Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct);
+extern Error callCommand(CmdStruct *arg_struct);
 void CircBufInit(void);
 Error CircBufPush(CmdStruct *CmdBuf);
 CmdStruct *CircBufPop(void);

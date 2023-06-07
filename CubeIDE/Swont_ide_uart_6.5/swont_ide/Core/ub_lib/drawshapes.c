@@ -7,6 +7,7 @@
  */
 
 #include "drawshapes.h"
+#include "errorHandling.h"
 
 #include <math.h>
 
