@@ -213,39 +213,39 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
 	switch (CmdBuf->commandNummer) {
 		case 0:
 			// lijn
-			err = RecieveCommandLijn((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandLijn(CmdBuf, inputStruct);
 			break;
 		case 1:
 			// clearscherm
-			err = RecieveCommandClear((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandClear(CmdBuf, inputStruct);
 			break;
 		case 2:
 			// rechthoek
-			err = RecieveCommandRechthoek((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandRechthoek(CmdBuf, inputStruct);
 			break;
 		case 3:
 			// wacht
-			err = RecieveCommandWacht((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandWacht(CmdBuf, inputStruct);
 			break;
 		case 4:
 			// tekst
-			err = RecieveCommandTekst((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandTekst(CmdBuf, inputStruct);
 			break;
 		case 5:
 			// bitmap
-			err = RecieveCommandBitmap((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandBitmap(CmdBuf, inputStruct);
 			break;
 		case 6:
 			// cirkel
-			err = RecieveCommandCirkel((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandCirkel(CmdBuf, inputStruct);
 			break;
 		case 7:
 			// figuur
-			err = RecieveCommandFiguur((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandFiguur(CmdBuf, inputStruct);
 			break;
 		case 8:
 			// herhaal
-			err = RecieveCommandHerhaal((CmdStruct *)&CmdBuf, inputStruct);
+			err = RecieveCommandHerhaal(CmdBuf, inputStruct);
 			break;
 		default:
 			return ERR_INVALID_CMD;
