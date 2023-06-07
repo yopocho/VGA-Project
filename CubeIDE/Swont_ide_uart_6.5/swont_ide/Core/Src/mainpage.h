@@ -12,12 +12,13 @@
 * @brief Definition of class Template
 */
 
-/** @mainpage package templates
-* \mainpage VGA project Software ontwikkeling
+/** @mainpage VGA project Software ontwikkeling
+*
 * @authors Ruben Middelman, Niels van der Zijden & Sjoerd den Breejen
 *
 * @section Functional design of the project:
-*  \image html Functioneel_Schema.png
+*   IMAGE_PATH     = C:/Users/Sjoerd/Documents/HU_EE/Jaar_3/Periode_D/Software_Ontwerpen/VGA_groep4/images/
+*  @image html Functioneel_Schema.png
 */
 
 
