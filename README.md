@@ -57,13 +57,13 @@ This project is licensed under the MIT License
 ## known bugs and errors
 - [x] command , 
         - (example: clearscherm ,) if there is a space on any other spot there is no problem but when it is a comma richt after the space it will give an unkown command error. This is because it doesnt recoginze the command with a space at the end.
-- [] herhaal, 
-- [] errors are broad and not added everywhere
+- [ ] herhaal, 
+- [ ] errors are broad and not added everywhere
 
 
 ## posible new features
-- [] parser filter on \n: so we can send multiple commands at the same 
-- [] random numbers, to auto generate input
+- [ ] parser filter on \n: so we can send multiple commands at the same 
+- [ ] random numbers, to auto generate input
 
 
 
