@@ -9,6 +9,9 @@
 #define UB_LIB_DRAWTEXT_H_
 
 #define STANDARD_FONT_SIZE 16
+#define SPACESIZE 4
+#define PIXELBETWEENGLYPHS 2
+
 
 #include <stdio.h>
 #include <stdlib.h>
