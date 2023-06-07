@@ -111,7 +111,6 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 		if (inputStruct.line_rx_buffer[j] == ',') {
 			incommingMessage[j] = 0;
 			placeInBuf = 0;
-			// check if it is also the right argument or not
 			if (commaCounter == neededArgument) {
 				// if comma counter is 0 then we need the command
 				if (!commaCounter) {
@@ -254,19 +253,3 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
 	return err;
 }
 
-/**
- * @fn void OutputDebug(char[], size_t, UART_HandleTypeDef*)
- * @brief simple debugging func
- *
- * @param message
- * @param messageLength
- * @param uartHandle
- */
-Error OutputDebug(char message[], size_t messageLength,
-				  UART_HandleTypeDef *uartHandle) {
-	if (HAL_UART_Transmit(uartHandle, (uint8_t *)message, messageLength, 10) !=
-		HAL_OK) {
-		return ERR_UART_FAIL;
-	}
-	return ERR_NONE;
-}

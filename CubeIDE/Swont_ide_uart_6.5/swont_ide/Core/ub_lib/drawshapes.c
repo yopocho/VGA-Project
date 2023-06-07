@@ -179,7 +179,7 @@ Error DrawFigure(uint16_t xp1, uint16_t yp1, uint16_t xp2, uint16_t yp2,
  * @return Error
  */
 Error Wait(uint32_t delayMs) {
-printf("waiting :)\r\n");
+  printf("Waiting for %lu ms\r\n", delayMs);
   HAL_Delay(delayMs);
   printf("Done waiting\r\n");
   return ERR_NONE;
@@ -210,7 +210,9 @@ Error RepeatCommands(uint8_t repeatDepth, uint8_t repeatCount) {
     CmdStruct* poppedCmd = CircBufPop();
     for (uint8_t j = 0; j < repeatCount; j++) {
       Error err = callCommand(poppedCmd);
+#ifdef DEBUG
       printf("Repeating cmd %d \r\n", poppedCmd->commandNummer);
+#endif
       if (err != ERR_NONE) {
         return err;
       }

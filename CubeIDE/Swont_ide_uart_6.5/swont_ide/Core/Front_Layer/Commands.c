@@ -42,19 +42,25 @@ void CircBufInit(void) {
  * @return Error
  */
 Error CircBufPush(CmdStruct *CmdBuf) {
+#ifdef DEBUG
 	printf("%lu\r\n", (uint32_t)pCircBuf->pHead);
+#endif
 	pCircBuf->pHead->commandNummer = CmdBuf->commandNummer;
 	memcpy(pCircBuf->pHead->argBuf, CmdBuf->argBuf,
 		   sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
 	memcpy(pCircBuf->pHead->textSentence, CmdBuf->textSentence,
 		   sizeof(CmdBuf->textSentence[0]) * MAX_CMD_CHARS);
+#ifdef DEBUG
 	printf("Pushed %d\n\r", CmdBuf->commandNummer);
 	printf("Pushed %d\n\r", pCircBuf->pHead->commandNummer);
+#endif
 	// Check if the buffer pointer has reached the end and if so, loop back to
 	// start
 	if (pCircBuf->pHead == &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1]) {
 		pCircBuf->pHead = &pCircBuf->CmdBuf[0];
+#ifdef DEBUG
 		printf("At buffers end w/ pushing, looping back around!\r\n");
+#endif
 		return ERR_NONE;
 	}
 	if (pCircBuf->CmdBufLen != CMD_BUFF_SIZE - 1) {
@@ -73,7 +79,9 @@ Error CircBufPush(CmdStruct *CmdBuf) {
 CmdStruct *CircBufPop(void) {
 	if (pCircBuf->pRepeat == &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1]) {
 		pCircBuf->pRepeat = &pCircBuf->CmdBuf[0];
+#ifdef DEBUG
 		printf("At buffers end w/ pushing, looping back around!\r\n");
+#endif
 	}
 
 	return pCircBuf->pRepeat++;
@@ -198,7 +206,6 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	return ERR_NONE;
 }
 
-// TODO: waarschuwing wanneer wacht klaar is?
 /**
  * @fn Error RecieveCommandWacht(CmdStruct*, input_vars)
  * @brief
@@ -215,7 +222,6 @@ Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
 	return ERR_NONE;
 }
 
-// TODO: Integrate command Herhaal into parser
 /**
  * @fn void RecieveCommandHerhaal(command, input_vars)
  * @brief
@@ -241,7 +247,7 @@ Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
  *
  * @param CmdBuf
  * @param inputStruct
- * @return
+ * @return Error
  */
 Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
@@ -339,7 +345,6 @@ Error callCommand(CmdStruct *arg_struct) {
 						   arg_struct->textStyle);
 			break;
 		case HERHAAL:
-			//			err = RepeatCommands(2, 1);
 			err = RepeatCommands(arg_struct->argBuf[1], arg_struct->argBuf[2]);
 			break;
 		default:
