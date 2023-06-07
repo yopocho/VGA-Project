@@ -88,8 +88,8 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 		if (i == 4) {
 			err = ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
 			if (err != ERR_NONE) {
-									return err;
-								}
+				return err;
+			}
 		} else {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
 		}
@@ -107,8 +107,8 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct) {
 	err = ParseOnKomma(inputStruct, 1, 0, 1, 0, 0, 0, *CmdBuf);
 	if (err != ERR_NONE) {
-							return err;
-						}
+		return err;
+	}
 	return ERR_NONE;
 }
 
@@ -142,12 +142,15 @@ Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
 		} else if (i == 3) {
 			ParseOnKomma(inputStruct, neededArg, 0, 0, 1, 0, 0, *CmdBuf);
 		} else if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 1, 0, *CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 1, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		} else if (i == 6) {
 			err = ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 0, 1, *CmdBuf);
 			if (err != ERR_NONE) {
-										return err;
-									}
+				return err;
+			}
 		} else {
 			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
 		}
@@ -213,7 +216,7 @@ Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
  */
 Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
-	 for (uint8_t i = 0; i < 12; i++) {
+	for (uint8_t i = 0; i < 12; i++) {
 		neededArg = i + 1;
 		if (i == 10) {
 			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);

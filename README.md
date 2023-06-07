@@ -24,7 +24,15 @@ Nullam ac nulla sit amet metus condimentum lobortis non sit amet neque. Nam euis
 
 ## Use
 
-Mauris maximus, diam eget commodo pretium, metus est sollicitudin urna, eget condimentum arcu velit a diam. Aliquam dui quam, vulputate vitae gravida imperdiet, faucibus non lacus. Suspendisse potenti. Ut blandit quam a lacinia tincidunt. Nunc convallis lectus ut vulputate ornare. Donec risus turpis, scelerisque sed blandit id, tristique et neque. Vestibulum et consequat lorem. Pellentesque vel elit eu lacus fermentum iaculis. Curabitur pretium auctor augue, egestas commodo magna lacinia non. Vivamus pharetra est ut placerat consectetur. Pellentesque vel interdum tellus. In vestibulum sit amet turpis nec elementum.
+- lijn, x, y, x’, y’, kleur, dikte
+- rechthoek, x_lup, y_lup, breedte, hoogte, kleur, gevuld (1,0) [als 1: rand (1px) met kleur]
+- tekst, x, y, kleur, tekst, fontnaam (arial, consolas), fontgrootte (1,2), fontstijl (normaal, vet, cursief)
+- bitmap, nr, x-lup, y-lup  [tenminste: pijl (in 4 richtingen), smiley (boos, blij)]
+- clearscherm, kleur
+- wacht, msecs
+- herhaal, aantal (laatst uitgevoerde commando’s), hoevaak (herhalen)
+- cirkel, x, y, radius, kleur
+- figuur, x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, kleur
 
 
 ## Built With
@@ -57,15 +65,17 @@ This project is licensed under the MIT License
 ## known bugs and errors
 - [x] command , 
         - (example: clearscherm ,) if there is a space on any other spot there is no problem but when it is a comma richt after the space it will give an unkown command error. This is because it doesnt recoginze the command with a space at the end.
-- [ ] herhaal, 
-- [ ] errors are broad and not added everywhere
-- [ ] too many arguments doesn't return an error
+- [x] herhaal, doesnt seem to work
+- [x] too many functions don't return an error
 - [x] wacht doesn't wait
+- [ ] negative values in thickness
 
 
 ## posible new features
 - [ ] parser filter on \n: so we can send multiple commands at the same 
-- [ ] random numbers, to auto generate input
+- [ ] random numbers: to auto generate input
+- [ ] history command that shows the named commands and arguments but doesn't run them
+
 
 
 
