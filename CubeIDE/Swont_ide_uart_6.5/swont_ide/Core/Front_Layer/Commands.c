@@ -204,7 +204,7 @@ Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
  */
 Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
-	z for (uint8_t i = 0; i < 12; i++) {
+	 for (uint8_t i = 0; i < 12; i++) {
 		neededArg = i + 1;
 		if (i == 10) {
 			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
@@ -227,6 +227,7 @@ Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {
 	}
 	return ERR_NONE;
 }
+
 
 Error callCommand(CmdStruct *arg_struct) {
 	Error err;
