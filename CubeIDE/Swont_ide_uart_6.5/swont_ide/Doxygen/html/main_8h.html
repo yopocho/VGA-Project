@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>VGA_Project: /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Inc/main.h File Reference</title>
+<title>VGA: /Users/r_middelman/Software_Ontwikkeling/VGA-Project/CubeIDE/Swont_ide_uart_6.5/swont_ide/Core/Inc/main.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">VGA_Project<span id="projectnumber">&#160;0.1</span>
+   <div id="projectname">VGA
    </div>
   </td>
  </tr>
@@ -89,7 +89,10 @@ $(function() {
 <code>#include &quot;stdio.h&quot;</code><br />
 <code>#include &quot;string.h&quot;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;stdarg.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="stm32__ub__vga__screen_8h_source.html">stm32_ub_vga_screen.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="error_handling_8h_source.html">errorHandling.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="drawshapes_8h_source.html">drawshapes.h</a>&quot;</code><br />
 </div>
 <p><a href="main_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -100,6 +103,10 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a586124d2402f5d3f4f61365555ae6087"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8h.html#a586124d2402f5d3f4f61365555ae6087">SPI1_CS_Pin</a>&#160;&#160;&#160;<a class="el" href="group___g_p_i_o__pins__define.html#ga6c35af4e75c3cb57bb650feaa7a136b5">GPIO_PIN_1</a></td></tr>
+<tr class="separator:a586124d2402f5d3f4f61365555ae6087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2cec6eedba5acb3a3a4b97b8adfcb39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8h.html#ad2cec6eedba5acb3a3a4b97b8adfcb39">SPI1_CS_GPIO_Port</a>&#160;&#160;&#160;<a class="el" href="group___peripheral__declaration.html#gac485358099728ddae050db37924dd6b7">GPIOA</a></td></tr>
+<tr class="separator:ad2cec6eedba5acb3a3a4b97b8adfcb39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afce59ab8a15e4e45d9cedeb5dc55b011"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8h.html#afce59ab8a15e4e45d9cedeb5dc55b011">VGA_BLUE0_Pin</a>&#160;&#160;&#160;<a class="el" href="group___g_p_i_o__pins__define.html#gaf5eb6a42a4428e236bd4fd08ade71e7a">GPIO_PIN_8</a></td></tr>
 <tr class="separator:afce59ab8a15e4e45d9cedeb5dc55b011"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2722cd50a9fc0395b9bd2a9c0a63616d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8h.html#a2722cd50a9fc0395b9bd2a9c0a63616d">VGA_BLUE0_GPIO_Port</a>&#160;&#160;&#160;<a class="el" href="group___peripheral__declaration.html#gae04bdb5e8acc47cab1d0532e6b0d0763">GPIOE</a></td></tr>
@@ -140,6 +147,12 @@ Macros</h2></td></tr>
 <tr class="separator:ac91699501dec0d81f250f5a5a7a94d1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab677279ccb99792d911b6ce225340fce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8h.html#ab677279ccb99792d911b6ce225340fce">VGA_VSYNC_GPIO_Port</a>&#160;&#160;&#160;<a class="el" href="group___peripheral__declaration.html#ga68b66ac73be4c836db878a42e1fea3cd">GPIOB</a></td></tr>
 <tr class="separator:ab677279ccb99792d911b6ce225340fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cbeeb2c3a97ff142bb66798eeda14d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8h.html#a6cbeeb2c3a97ff142bb66798eeda14d2">SD_CS_Pin</a>&#160;&#160;&#160;<a class="el" href="group___g_p_i_o__pins__define.html#gadcaf899c018a0dde572b5af783565c62">GPIO_PIN_3</a></td></tr>
+<tr class="separator:a6cbeeb2c3a97ff142bb66798eeda14d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ea1ab41fa8054fb848670f3ba059bbd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8h.html#a5ea1ab41fa8054fb848670f3ba059bbd">SD_CS_GPIO_Port</a>&#160;&#160;&#160;<a class="el" href="group___peripheral__declaration.html#ga68b66ac73be4c836db878a42e1fea3cd">GPIOB</a></td></tr>
+<tr class="separator:a5ea1ab41fa8054fb848670f3ba059bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab626d49012c66f57c7ff4e721f5fd593"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8h.html#ab626d49012c66f57c7ff4e721f5fd593">SD_SPI_HANDLE</a>&#160;&#160;&#160;<a class="el" href="spi_8h.html#a9c6222bae4d0328dd843ae099623b40b">hspi1</a></td></tr>
+<tr class="separator:ab626d49012c66f57c7ff4e721f5fd593"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e3eff829ed19518d75bb7d21a0ca3f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8h.html#a0e3eff829ed19518d75bb7d21a0ca3f6">BYTE_BUFLEN</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:a0e3eff829ed19518d75bb7d21a0ca3f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1cc016cd2d60fbb1dd56e7e09ecc00c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8h.html#ad1cc016cd2d60fbb1dd56e7e09ecc00c">LINE_BUFLEN</a>&#160;&#160;&#160;1024</td></tr>
@@ -240,6 +253,76 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define LINE_FEED&#160;&#160;&#160;10 /* linefeed char \n		   */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5ea1ab41fa8054fb848670f3ba059bbd" name="a5ea1ab41fa8054fb848670f3ba059bbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ea1ab41fa8054fb848670f3ba059bbd">&#9670;&#160;</a></span>SD_CS_GPIO_Port</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SD_CS_GPIO_Port&#160;&#160;&#160;<a class="el" href="group___peripheral__declaration.html#ga68b66ac73be4c836db878a42e1fea3cd">GPIOB</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6cbeeb2c3a97ff142bb66798eeda14d2" name="a6cbeeb2c3a97ff142bb66798eeda14d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cbeeb2c3a97ff142bb66798eeda14d2">&#9670;&#160;</a></span>SD_CS_Pin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SD_CS_Pin&#160;&#160;&#160;<a class="el" href="group___g_p_i_o__pins__define.html#gadcaf899c018a0dde572b5af783565c62">GPIO_PIN_3</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab626d49012c66f57c7ff4e721f5fd593" name="ab626d49012c66f57c7ff4e721f5fd593"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab626d49012c66f57c7ff4e721f5fd593">&#9670;&#160;</a></span>SD_SPI_HANDLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SD_SPI_HANDLE&#160;&#160;&#160;<a class="el" href="spi_8h.html#a9c6222bae4d0328dd843ae099623b40b">hspi1</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad2cec6eedba5acb3a3a4b97b8adfcb39" name="ad2cec6eedba5acb3a3a4b97b8adfcb39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2cec6eedba5acb3a3a4b97b8adfcb39">&#9670;&#160;</a></span>SPI1_CS_GPIO_Port</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPI1_CS_GPIO_Port&#160;&#160;&#160;<a class="el" href="group___peripheral__declaration.html#gac485358099728ddae050db37924dd6b7">GPIOA</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a586124d2402f5d3f4f61365555ae6087" name="a586124d2402f5d3f4f61365555ae6087"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a586124d2402f5d3f4f61365555ae6087">&#9670;&#160;</a></span>SPI1_CS_Pin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPI1_CS_Pin&#160;&#160;&#160;<a class="el" href="group___g_p_i_o__pins__define.html#ga6c35af4e75c3cb57bb650feaa7a136b5">GPIO_PIN_1</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

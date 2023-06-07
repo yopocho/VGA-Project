@@ -58,9 +58,14 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 
 	// Parse incoming message on comma
 	char incommingMessage[inputStruct.msglen];
+	memset(incommingMessage, 0, sizeof(incommingMessage));
+	// loop through incomming characters
 	for (int j = 0; j <= inputStruct.msglen; j++) {
+		if (inputStruct.line_rx_buffer[j] == '-') return ERR_INVALID_ARG;
+		// check for commas, 0 & spaces to delete them of seperate message
 		if (inputStruct.line_rx_buffer[j] != 0 &&
 			inputStruct.line_rx_buffer[j] != ',') {
+			// if its for the text command don't delete the spaces
 			if (getText) {
 				incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
 				placeInBuf++;
@@ -69,27 +74,46 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				placeInBuf++;
 			}
 		}
+		// if its the final letter check incomming message
 		if (j == inputStruct.msglen) {
 			incommingMessage[placeInBuf] = inputStruct.line_rx_buffer[j];
 			placeInBuf++;
 			if (commaCounter == neededArgument) {
-				if (convertColor)
-					CheckWhatColor(incommingMessage, CmdBuf, neededArgument);
+				if (convertColor) {
+					err = CheckWhatColor(incommingMessage, CmdBuf,
+										 neededArgument);
+					if (err != ERR_NONE) {
+						return err;
+					}
+				}
 				if (convertToNumber)
 					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
 				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
-				if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
-				if (getFont) strcpy(CmdBuf->textFont, incommingMessage);
+				if (getStyle) {
+					if (strcmp(incommingMessage, "normaal") != 0 &&
+						strcmp(incommingMessage, "vet") != 0 &&
+						strcmp(incommingMessage, "cursief") != 0) {
+						return ERR_INVALID_ARG;
+					} else
+						strcpy(CmdBuf->textStyle, incommingMessage);
+				}
+				if (getFont) {
+					if (strcmp(incommingMessage, "consolas") != 0 &&
+						strcmp(incommingMessage, "arial") != 0) {
+						return ERR_INVALID_ARG;
+					} else
+						strcpy(CmdBuf->textFont, incommingMessage);
+				}
 			}
 			break;
 		}
+		// actual comma parse (check for comma)
 		if (inputStruct.line_rx_buffer[j] == ',') {
 			incommingMessage[j] = 0;
 			placeInBuf = 0;
-#ifdef FRONT_LAYER_DEBUG
-			OutputDebug(debugMessageParse, sizeof(debugMessageParse), &huart2);
-#endif
+			// check if it is also the right argument or not
 			if (commaCounter == neededArgument) {
+				// if comma counter is 0 then we need the command
 				if (!commaCounter) {
 					err =
 						CheckWhatCommand(incommingMessage, CmdBuf, inputStruct);
@@ -108,8 +132,21 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 				if (convertToNumber)
 					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
 				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
-				if (getStyle) strcpy(CmdBuf->textStyle, incommingMessage);
-				if (getFont) strcpy(CmdBuf->textFont, incommingMessage);
+				if (getStyle) {
+					if (strcmp(incommingMessage, "normaal") != 0 &&
+						strcmp(incommingMessage, "vet") != 0 &&
+						strcmp(incommingMessage, "cursief") != 0) {
+						return ERR_INVALID_ARG;
+					} else
+						strcpy(CmdBuf->textStyle, incommingMessage);
+				}
+				if (getFont) {
+					if (strcmp(incommingMessage, "consolas") != 0 &&
+						strcmp(incommingMessage, "arial") != 0) {
+						return ERR_INVALID_ARG;
+					} else
+						strcpy(CmdBuf->textFont, incommingMessage);
+				}
 				break;
 			}
 			commaCounter++;
@@ -134,14 +171,11 @@ Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
 	for (uint8_t i = 0; i < AMOUNT_OF_COMMANDS; i++) {
 		if (strcmp(incommingCommand, possibleCommands[i]) == 0) {
 			CmdBuf->commandNummer = i;
-#ifdef FRONT_LAYER_DEBUG
-			OutputDebug(debugMessageCommand, sizeof(debugMessageCommand),
-						&huart2);
-#endif
 			Error err = DoOnCommand(CmdBuf, inputStruct);
 			if (err != ERR_NONE) {
 				return err;
 			}
+
 			return ERR_NONE;
 		}
 	}
@@ -161,9 +195,6 @@ Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
 	for (uint8_t i = 0; i < AMOUNT_OF_COLORS; i++) {
 		if (strcmp(incommingColor, possibleColors[i]) == 0) {
 			CmdBuf->argBuf[argPlace] = colorCodes[i];
-#ifdef FRONT_LAYER_DEBUG
-			OutputDebug(debugMessageColor, sizeof(debugMessageColor), &huart2);
-#endif
 			return ERR_NONE;
 		}
 	}
@@ -233,7 +264,8 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
  */
 Error OutputDebug(char message[], size_t messageLength,
 				  UART_HandleTypeDef *uartHandle) {
-	if(HAL_UART_Transmit(uartHandle, (uint8_t *) message, messageLength, 10) != HAL_OK) {
+	if (HAL_UART_Transmit(uartHandle, (uint8_t *)message, messageLength, 10) !=
+		HAL_OK) {
 		return ERR_UART_FAIL;
 	}
 	return ERR_NONE;

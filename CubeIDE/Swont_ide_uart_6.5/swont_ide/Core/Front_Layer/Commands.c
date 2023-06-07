@@ -15,6 +15,7 @@
 
 CircularBuffer circBuf;
 CircularBuffer *pCircBuf;
+Error err;
 
 //Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector);
 
@@ -70,14 +71,6 @@ Error CircBufPush(CmdStruct *CmdBuf) {
  * @return CmdStruct
  */
 CmdStruct *CircBufPop(void) {
-	//	if(pCircBuf->pRepeat == &pCircBuf->CmdBuf[0]) {
-	//		pCircBuf->pRepeat = &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1];
-	//		printf("At buffers end w/ popping, looping back around!\r\n");
-	//	}
-	//	else {
-	//		--pCircBuf->pRepeat;
-	//	}
-	//	return pCircBuf->pRepeat;
 	if (pCircBuf->pRepeat == &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1]) {
 		pCircBuf->pRepeat = &pCircBuf->CmdBuf[0];
 		printf("At buffers end w/ pushing, looping back around!\r\n");
@@ -99,9 +92,15 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
 		if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		}
 	}
 	return ERR_NONE;
@@ -115,7 +114,10 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
  * @param inputStruct
  */
 Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct) {
-	ParseOnKomma(inputStruct, 1, 0, 1, 0, 0, 0, CmdBuf);
+	err = ParseOnKomma(inputStruct, 1, 0, 1, 0, 0, 0, *CmdBuf);
+	if (err != ERR_NONE) {
+		return err;
+	}
 	return ERR_NONE;
 }
 
@@ -131,39 +133,67 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
 		if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		}
 	}
 	return ERR_NONE;
 }
 
-// TODO: Integrate command tekst into parser
 Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
 		if (i == 2) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		} else if (i == 3) {
 			ParseOnKomma(inputStruct, neededArg, 0, 0, 1, 0, 0, CmdBuf);
 		} else if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 1, 0, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 1, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		} else if (i == 6) {
-			ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 0, 1, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 0, 1, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		}
 	}
 	return ERR_NONE;
 }
 
+/**
+ * @fn Error RecieveCommandBitmap(CmdStruct*, input_vars)
+ * @brief
+ *
+ * @param CmdBuf
+ * @param inputStruct
+ * @return
+ */
 Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 3; i++) {
 		neededArg = i + 1;
-		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
+		err = ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+		if (err != ERR_NONE) {
+			return err;
+		}
 	}
 	return ERR_NONE;
 }
@@ -178,7 +208,10 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
  * @return
  */
 Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
-	ParseOnKomma(inputStruct, 1, 0, 0, 0, 0, 0, CmdBuf);
+	err = ParseOnKomma(inputStruct, 1, 1, 0, 0, 0, 0, *CmdBuf);
+	if (err != ERR_NONE) {
+		return err;
+	}
 	return ERR_NONE;
 }
 
@@ -194,7 +227,10 @@ Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 2; i++) {
 		neededArg = i + 1;
-		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
+		err = ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+		if (err != ERR_NONE) {
+			return err;
+		}
 	}
 	return ERR_NONE;
 }
@@ -212,27 +248,54 @@ Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {
 	for (uint8_t i = 0; i < 12; i++) {
 		neededArg = i + 1;
 		if (i == 10) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		}
 	}
 	return ERR_NONE;
 }
 
+/**
+ * @fn Error RecieveCommandCirkel(CmdStruct*, input_vars)
+ * @brief
+ *
+ * @param CmdBuf
+ * @param inputStruct
+ * @return
+ */
 Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 5; i++) {
 		neededArg = i + 1;
 		if (i == 3) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
+			err = ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+			if (err != ERR_NONE) {
+				return err;
+			}
 		}
 	}
 	return ERR_NONE;
 }
 
+/**
+ * AA@fn Error callCommand(CmdStruct*)
+ * @brief
+ *
+ * @param arg_struct
+ * @return
+ */
 Error callCommand(CmdStruct *arg_struct) {
 	Error err;
 	switch (arg_struct->commandNummer) {

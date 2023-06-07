@@ -12,6 +12,7 @@
 #include <math.h>
 
 #include "Commands.h"
+#include "main.h"
 
 /**
  * @fn Error DrawLine(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
@@ -178,8 +179,9 @@ Error DrawFigure(uint16_t xp1, uint16_t yp1, uint16_t xp2, uint16_t yp2,
  * @return Error
  */
 Error Wait(uint32_t delayMs) {
+printf("waiting :)\r\n");
   HAL_Delay(delayMs);
-  printf("waiting :)");
+  printf("Done waiting\r\n");
   return ERR_NONE;
 }
 
