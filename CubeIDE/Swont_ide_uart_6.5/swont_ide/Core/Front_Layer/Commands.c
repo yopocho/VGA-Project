@@ -35,7 +35,7 @@ void CircBufInit(void) {
  * @return Error
  */
 Error CircBufPush(CmdStruct *CmdBuf) {
-	printf("%lu\r\n", pCircBuf->pHead);
+	printf("%lu\r\n", (uint32_t)pCircBuf->pHead);
 	pCircBuf->pHead->commandNummer = CmdBuf->commandNummer;
 	memcpy(pCircBuf->pHead->argBuf, CmdBuf->argBuf,
 		   sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
@@ -75,7 +75,6 @@ CmdStruct *CircBufPop(void) {
 	if (pCircBuf->pRepeat == &pCircBuf->CmdBuf[CMD_BUFF_SIZE - 1]) {
 		pCircBuf->pRepeat = &pCircBuf->CmdBuf[0];
 		printf("At buffers end w/ pushing, looping back around!\r\n");
-		return ERR_NONE;
 	}
 
 	return pCircBuf->pRepeat++;

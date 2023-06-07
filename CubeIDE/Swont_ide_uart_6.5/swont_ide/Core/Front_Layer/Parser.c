@@ -167,39 +167,42 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
 	switch (CmdBuf->commandNummer) {
 		case 0:
 			// lijn
-			err = RecieveCommandLijn(&CmdBuf, inputStruct);
+			err = RecieveCommandLijn((CmdStruct *)&CmdBuf, inputStruct);
 			break;
 		case 1:
 			// clearscherm
-			err = RecieveCommandClear(&CmdBuf, inputStruct);
+			err = RecieveCommandClear((CmdStruct *)&CmdBuf, inputStruct);
 			break;
 		case 2:
 			// rechthoek
-			err = RecieveCommandRechthoek(&CmdBuf, inputStruct);
+			err = RecieveCommandRechthoek((CmdStruct *)&CmdBuf, inputStruct);
 			break;
 		case 3:
 			// wacht
-			err = RecieveCommandWacht(&CmdBuf, inputStruct);
+			err = RecieveCommandWacht((CmdStruct *)&CmdBuf, inputStruct);
 			break;
 		case 4:
 			// tekst
-			err = RecieveCommandTekst(&CmdBuf, inputStruct);
+			err = RecieveCommandTekst((CmdStruct *)&CmdBuf, inputStruct);
 			break;
 		case 5:
 			// bitmap
-			err = RecieveCommandBitmap(&CmdBuf, inputStruct);
+			err = RecieveCommandBitmap((CmdStruct *)&CmdBuf, inputStruct);
 			break;
 		case 6:
 			// cirkel
-			err = RecieveCommandCirkel(&CmdBuf, inputStruct);
+			err = RecieveCommandCirkel((CmdStruct *)&CmdBuf, inputStruct);
 			break;
 		case 7:
 			// figuur
-			err = RecieveCommandFiguur(&CmdBuf, inputStruct);
+			err = RecieveCommandFiguur((CmdStruct *)&CmdBuf, inputStruct);
 			break;
 		case 8:
 			// herhaal
-			err = RecieveCommandHerhaal(&CmdBuf, inputStruct);
+			err = RecieveCommandHerhaal((CmdStruct *)&CmdBuf, inputStruct);
+			break;
+		default:
+			return ERR_INVALID_CMD;
 			break;
 	}
 	return err;
@@ -215,7 +218,7 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
  */
 Error OutputDebug(char message[], size_t messageLength,
 				  UART_HandleTypeDef *uartHandle) {
-	if (HAL_UART_Transmit(uartHandle, message, messageLength, 10) != HAL_OK) {
+	if(HAL_UART_Transmit(uartHandle, (uint8_t *) message, messageLength, 10) != HAL_OK) {
 		return ERR_UART_FAIL;
 	}
 	return ERR_NONE;

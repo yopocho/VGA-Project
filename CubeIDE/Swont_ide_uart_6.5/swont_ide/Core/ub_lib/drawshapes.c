@@ -24,7 +24,7 @@
  * @param thickness
  * @return Error
  */
-Error DrawLine(uint8_t xp1, uint8_t yp1, uint8_t xp2, uint8_t yp2,
+Error DrawLine(uint16_t xp1, uint16_t yp1, uint16_t xp2, uint16_t yp2,
                uint8_t color, uint8_t thickness) {
   // Error checks
   if (xp1 > VGA_DISPLAY_X) return ERR_ARG_OOB;
@@ -68,7 +68,7 @@ Error DrawLine(uint8_t xp1, uint8_t yp1, uint8_t xp2, uint8_t yp2,
  * @param lined
  * @return Error
  */
-Error DrawRectangle(uint8_t xp, uint8_t yp, uint8_t Width, uint8_t Heigth,
+Error DrawRectangle(uint16_t xp, uint16_t yp, uint16_t Width, uint16_t Heigth,
                     uint8_t color, uint8_t lined) {
   // Error checks
   if (xp > VGA_DISPLAY_X) return ERR_ARG_OOB;
@@ -169,7 +169,6 @@ Error DrawFigure(uint16_t xp1, uint16_t yp1, uint16_t xp2, uint16_t yp2,
   return ERR_NONE;
 }
 
-// TODO: Implement command Wacht
 /**
  * @fn Error Wait(uint32_t delayMs)
  * @brief Delays drawing for delayMs amont of milliseconds.
