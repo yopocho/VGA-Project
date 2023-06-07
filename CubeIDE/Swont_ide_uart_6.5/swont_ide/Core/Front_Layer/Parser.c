@@ -71,9 +71,6 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 		if (inputStruct.line_rx_buffer[j] == ',') {
 			incommingMessage[j] = 0;
 			placeInBuf = 0;
-#ifdef FRONT_LAYER_DEBUG
-			OutputDebug(debugMessageParse, sizeof(debugMessageParse), &huart2);
-#endif
 			if (commaCounter == neededArgument) {
 				if (!commaCounter) {
 					err =
@@ -119,10 +116,6 @@ Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
 	for (uint8_t i = 0; i < AMOUNT_OF_COMMANDS; i++) {
 		if (strcmp(incommingCommand, possibleCommands[i]) == 0) {
 			CmdBuf->commandNummer = i;
-#ifdef FRONT_LAYER_DEBUG
-			OutputDebug(debugMessageCommand, sizeof(debugMessageCommand),
-						&huart2);
-#endif
 			Error err = DoOnCommand(CmdBuf, inputStruct);
 			if (err != ERR_NONE) {
 				return err;
@@ -146,9 +139,6 @@ Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
 	for (uint8_t i = 0; i < AMOUNT_OF_COLORS; i++) {
 		if (strcmp(incommingColor, possibleColors[i]) == 0) {
 			CmdBuf->argBuf[argPlace] = colorCodes[i];
-#ifdef FRONT_LAYER_DEBUG
-			OutputDebug(debugMessageColor, sizeof(debugMessageColor), &huart2);
-#endif
 			return ERR_NONE;
 		}
 	}
@@ -206,20 +196,4 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
 			break;
 	}
 	return err;
-}
-
-/**
- * @fn void OutputDebug(char[], size_t, UART_HandleTypeDef*)
- * @brief simple debugging func
- *
- * @param message
- * @param messageLength
- * @param uartHandle
- */
-Error OutputDebug(char message[], size_t messageLength,
-				  UART_HandleTypeDef *uartHandle) {
-	if(HAL_UART_Transmit(uartHandle, (uint8_t *) message, messageLength, 10) != HAL_OK) {
-		return ERR_UART_FAIL;
-	}
-	return ERR_NONE;
 }
