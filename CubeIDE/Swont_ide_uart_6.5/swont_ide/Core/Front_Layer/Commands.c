@@ -6,11 +6,17 @@
  */
 
 #include "Commands.h"
+#include "drawshapes.h"
+#include "sdcard.h"
+#include "drawtext.h"
+#include "Parser.h"
 
 #include "errorHandling.h"
 
 CircularBuffer circBuf;
 CircularBuffer *pCircBuf;
+
+//Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector);
 
 /**
  * @fn void CircBufInit(void)
@@ -93,9 +99,9 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
 		if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, CmdBuf);
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
 		}
 	}
 	return ERR_NONE;
@@ -109,7 +115,7 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
  * @param inputStruct
  */
 Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct) {
-	ParseOnKomma(inputStruct, 1, 0, 1, 0, 0, 0, *CmdBuf);
+	ParseOnKomma(inputStruct, 1, 0, 1, 0, 0, 0, CmdBuf);
 	return ERR_NONE;
 }
 
@@ -125,9 +131,9 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
 		if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, CmdBuf);
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
 		}
 	}
 	return ERR_NONE;
@@ -139,15 +145,15 @@ Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
 	for (uint8_t i = 0; i < 7; i++) {
 		neededArg = i + 1;
 		if (i == 2) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, CmdBuf);
 		} else if (i == 3) {
-			ParseOnKomma(inputStruct, neededArg, 0, 0, 1, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 0, 1, 0, 0, CmdBuf);
 		} else if (i == 4) {
-			ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 1, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 1, 0, CmdBuf);
 		} else if (i == 6) {
-			ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 0, 1, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 0, 0, 0, 1, CmdBuf);
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
 		}
 	}
 	return ERR_NONE;
@@ -157,7 +163,7 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 3; i++) {
 		neededArg = i + 1;
-		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
 	}
 	return ERR_NONE;
 }
@@ -172,7 +178,7 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
  * @return
  */
 Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
-	ParseOnKomma(inputStruct, 1, 0, 0, 0, 0, 0, *CmdBuf);
+	ParseOnKomma(inputStruct, 1, 0, 0, 0, 0, 0, CmdBuf);
 	return ERR_NONE;
 }
 
@@ -188,7 +194,7 @@ Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 2; i++) {
 		neededArg = i + 1;
-		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+		ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
 	}
 	return ERR_NONE;
 }
@@ -206,9 +212,9 @@ Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {
 	for (uint8_t i = 0; i < 12; i++) {
 		neededArg = i + 1;
 		if (i == 10) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, CmdBuf);
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
 		}
 	}
 	return ERR_NONE;
@@ -219,9 +225,9 @@ Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {
 	for (uint8_t i = 0; i < 5; i++) {
 		neededArg = i + 1;
 		if (i == 3) {
-			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 0, 1, 0, 0, 0, CmdBuf);
 		} else {
-			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, *CmdBuf);
+			ParseOnKomma(inputStruct, neededArg, 1, 0, 0, 0, 0, CmdBuf);
 		}
 	}
 	return ERR_NONE;
