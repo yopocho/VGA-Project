@@ -2,7 +2,7 @@ var searchData=
 [
   ['w_0',['w',['../group___c_m_s_i_s___core___sys_tick_functions.html#gae4c2ef8c9430d7b7bef5cbfbbaed3a94',1,'APSR_Type::w()'],['../group___c_m_s_i_s___core___sys_tick_functions.html#ga4adca999d3a0bc1ae682d73ea7cfa879',1,'IPSR_Type::w()'],['../group___c_m_s_i_s___core___sys_tick_functions.html#ga1a47176768f45f79076c4f5b1b534bc2',1,'xPSR_Type::w()'],['../group___c_m_s_i_s___core___sys_tick_functions.html#ga6b642cca3d96da660b1198c133ca2a1f',1,'CONTROL_Type::w()']]],
   ['wacht_1',['WACHT',['../_commands_8h.html#a2afce0a47a93eee73a314d53e4890153a4b65f01086a75e90fabd276d38984197',1,'Commands.h']]],
-  ['wait_2',['Wait',['../drawshapes_8c.html#a07b76ac555f7c8cb69bf70e9d122353f',1,'drawshapes.c']]],
+  ['wait_2',['Wait',['../drawshapes_8c.html#a07b76ac555f7c8cb69bf70e9d122353f',1,'Wait(uint32_t delayMs):&#160;drawshapes.c'],['../sdcard_8h.html#a07b76ac555f7c8cb69bf70e9d122353f',1,'Wait(uint32_t delayMs):&#160;drawshapes.c']]],
   ['wchar_3',['WCHAR',['../integer_8h.html#a570001c92f314285ad3e7139d8c58cf7',1,'integer.h']]],
   ['wflag_4',['wflag',['../struct_f_a_t_f_s.html#a647e43c9ccae94b7274793d1909897de',1,'FATFS']]],
   ['width_5fpx_5',['width_px',['../struct__font__glyph__desc.html#a88ec5b3d48512904c2989f3494ccd732',1,'_font_glyph_desc']]],

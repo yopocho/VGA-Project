@@ -2,7 +2,7 @@ var indexSectionsWithContent =
 {
   0: "_abcdefghijklmnopqrstuvwxz",
   1: "_acdefginprstuvwx",
-  2: "abcdefgilmpstu",
+  2: "acdefgilmpstu",
   3: "_abcdefghimnoprstuw",
   4: "_abcdefghijklmnopqrstuvwxz",
   5: "bcdefilqstuw",
@@ -10,11 +10,7 @@ var indexSectionsWithContent =
   7: "abcdefghilmnoprstuw",
   8: "_abcdefghilmnprstuvx",
   9: "acdefghilmnoprstu",
-<<<<<<< Updated upstream
   10: "cdm"
-=======
-  10: "cdmp"
->>>>>>> Stashed changes
 };
 
 var indexSectionNames =

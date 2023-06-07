@@ -12,7 +12,7 @@
 
 /**
  * @enum Error
- * @brief Enum for all API error codes
+ * @brief enum for all API error codes
  *
  */
 typedef enum {
@@ -33,10 +33,10 @@ typedef enum {
   ERR_BITMAP_FORMAT,      /**< ERR_BITMAP_FORMAT */
   ERR_SDCARD_CLOSE,       /**< ERR_SDCARD_CLOSE */
   ERR_SDCARD_LSEEK,       /**< ERR_SDCARD_LSEEK */
-  ERR_INVALID_COL,
-  ERR_TEXT_OOB,
-  ERR_INVALID_CHAR,
-  ERR_UNKNOWN_COL,
+  ERR_INVALID_COL,        /**< ERR_INVALID_COL */
+  ERR_TEXT_OOB,           /**< ERR_TEXT_OOB */
+  ERR_INVALID_CHAR,       /**< ERR_INVALID_CHAR */
+  ERR_UNKNOWN_COL,        /**< ERR_UNKNOWN_COL */
 } Error;
 
 /**

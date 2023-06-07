@@ -6,5 +6,5 @@ var searchData=
   ['circbufinit_3',['CircBufInit',['../_commands_8c.html#a19dec8a24b0a90e4c2c6ef6c0003428a',1,'CircBufInit(void):&#160;Commands.c'],['../_commands_8h.html#a19dec8a24b0a90e4c2c6ef6c0003428a',1,'CircBufInit(void):&#160;Commands.c']]],
   ['circbufpop_4',['CircBufPop',['../_commands_8c.html#a308e38b303b6f7289073e16019b5dc43',1,'CircBufPop(void):&#160;Commands.c'],['../_commands_8h.html#a8798f632721f333d35a96f44a8dcb611',1,'CircBufPop(void):&#160;Commands.c']]],
   ['circbufpush_5',['CircBufPush',['../_commands_8c.html#af8139700541c61cd68c5a4c158ee1322',1,'CircBufPush(CmdStruct *CmdBuf):&#160;Commands.c'],['../_commands_8h.html#af8139700541c61cd68c5a4c158ee1322',1,'CircBufPush(CmdStruct *CmdBuf):&#160;Commands.c']]],
-  ['clearscreen_6',['ClearScreen',['../drawshapes_8c.html#a5303023b04ef4eb95f374ed44a494561',1,'drawshapes.c']]]
+  ['clearscreen_6',['ClearScreen',['../sdcard_8h.html#a5303023b04ef4eb95f374ed44a494561',1,'ClearScreen(uint8_t color):&#160;drawshapes.c'],['../drawshapes_8c.html#a5303023b04ef4eb95f374ed44a494561',1,'ClearScreen(uint8_t color):&#160;drawshapes.c']]]
 ];

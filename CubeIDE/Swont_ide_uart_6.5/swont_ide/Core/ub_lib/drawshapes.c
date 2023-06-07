@@ -7,19 +7,19 @@
  */
 
 #include "drawshapes.h"
-#include "errorHandling.h"
 
 #include <math.h>
 
 #include "Commands.h"
+#include "errorHandling.h"
 #include "main.h"
 
 /**
- * @fn Error DrawLine(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
+ * @fn Error DrawLine(uint16_t, uint16_t, uint16_t, uint16_t, uint8_t, uint8_t)
  * @brief Draws a line in between the specified points with color and thickness
  *
- * @param xp
- * @param yp
+ * @param xp1
+ * @param yp1
  * @param xp2
  * @param yp2
  * @param color
@@ -58,7 +58,8 @@ Error DrawLine(uint16_t xp1, uint16_t yp1, uint16_t xp2, uint16_t yp2,
 }
 
 /**
- * @fn Error DrawRectangle(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)
+ * @fn Error DrawRectangle(uint16_t, uint16_t, uint16_t, uint16_t, uint8_t,
+ * uint8_t)
  * @brief Draws a rectangle with the specified color within the x & y
  * coordinates
  *
@@ -173,7 +174,7 @@ Error DrawFigure(uint16_t xp1, uint16_t yp1, uint16_t xp2, uint16_t yp2,
 
 /**
  * @fn Error Wait(uint32_t delayMs)
- * @brief Delays drawing for delayMs amont of milliseconds.
+ * @brief Delays drawing for delayMs amount of milliseconds.
  *
  * @param delayMs
  * @return Error

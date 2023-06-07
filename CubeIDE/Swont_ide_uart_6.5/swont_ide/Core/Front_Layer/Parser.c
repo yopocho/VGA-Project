@@ -7,14 +7,14 @@
 
 #include "Parser.h"
 
-const char *possibleCommands[] = {"lijn",	  "clearscherm", "rechthoek",
-							"wacht",  "tekst",		 "bitmap",
-							"cirkel", "figuur",		 "herhaal"};
+const char *possibleCommands[] = {"lijn",	"clearscherm", "rechthoek",
+								  "wacht",	"tekst",	   "bitmap",
+								  "cirkel", "figuur",	   "herhaal"};
 
-const char *possibleColors[] = {"zwart",		"blauw",   "lichtblauw",	"groen",
-						  "lichtgroen", "cyaan",   "lichtcyaan",	"rood",
-						  "lichtrood",	"magenta", " lichtmagenta", "bruin",
-						  "geel",		"grijs",   "wit",			"roze"};
+const char *possibleColors[] = {
+	"zwart",	  "blauw", "lichtblauw", "groen",	"lichtgroen",	 "cyaan",
+	"lichtcyaan", "rood",  "lichtrood",	 "magenta", " lichtmagenta", "bruin",
+	"geel",		  "grijs", "wit",		 "roze"};
 
 const uint8_t colorCodes[] = {
 	VGA_COL_BLACK,		VGA_COL_BLUE,	 VGA_COL_LIGHTBLUE,	   VGA_COL_GREEN,
@@ -157,13 +157,14 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 }
 
 /**
- * @fn void CheckWhatCommand(char[], command, input_vars)
+ * @fn Error CheckWhatCommand(char[], CmdStruct*, input_vars)
  * @brief checks what command is being called,
  * compares the incomming string with a list of strings
  *
  * @param incommingCommand
- * @param commandArray
+ * @param CmdBuf
  * @param inputStruct
+ * @return Error
  */
 Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
 					   input_vars inputStruct) {
@@ -181,13 +182,14 @@ Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
 	return ERR_INVALID_CMD;
 }
 /**
- * @fn void CheckWhatColor(char[], command, uint8_t)
+ * @fn Error CheckWhatColor(char[], CmdStruct*, uint8_t)
  * @brief checks what color is being called and asignes a numerical value in an
  * array
  *
  * @param incommingColor
- * @param commandArray
+ * @param CmdBuf
  * @param argPlace
+ * @return Error
  */
 Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
 					 uint8_t argPlace) {
@@ -200,12 +202,13 @@ Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
 	return ERR_UNKNOWN_COL;
 }
 /**
- * @fn void DoOnCommand(command, input_vars)
+ * @fn Error DoOnCommand(CmdStruct*, input_vars)
  * @brief checks which command is given and takes futher actions to add the rest
  * of the args
  *
- * @param commandArray
+ * @param CmdBuf
  * @param inputStruct
+ * @return Error
  */
 Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
 	Error err;
@@ -252,4 +255,3 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
 	}
 	return err;
 }
-

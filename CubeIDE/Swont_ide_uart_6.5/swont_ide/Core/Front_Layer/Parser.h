@@ -23,12 +23,13 @@ extern const char *possibleColors[];
 extern const uint8_t colorCodes[];
 
 extern Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
-		   uint8_t convertToNumber, int convertColor, uint8_t getText,
-		   uint8_t getFont, uint8_t getStyle, CmdStruct *CmdBuf);
+						  uint8_t convertToNumber, int convertColor,
+						  uint8_t getText, uint8_t getFont, uint8_t getStyle,
+						  CmdStruct *CmdBuf);
 extern Error CheckWhatCommand(char incommingCommand[], CmdStruct *CmdBuf,
-			   input_vars inputStruct);
+							  input_vars inputStruct);
 extern Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
-			 uint8_t argPlace);
+							uint8_t argPlace);
 extern Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct);
 
 #endif /* FRONT_LAYER_PARSER_H_ */

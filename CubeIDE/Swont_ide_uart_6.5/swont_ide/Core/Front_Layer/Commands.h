@@ -16,18 +16,28 @@
 #define MAX_CMD_ARGS 12
 #define MAX_CMD_CHARS 128
 
+/**
+ * @enum Command
+ * @brief enum for all the commands
+ *
+ */
 typedef enum {
-	LIJN,
-	CLEARSCHERM,
-	RECHTHOEK,
-	WACHT,
-	TEKST,
-	BITMAP,
-	CIRKEL,
-	FIGUUR,
-	HERHAAL
+	LIJN,		 /**< LIJN */
+	CLEARSCHERM, /**< CLEARSCHERM */
+	RECHTHOEK,	 /**< RECHTHOEK */
+	WACHT,		 /**< WACHT */
+	TEKST,		 /**< TEKST */
+	BITMAP,		 /**< BITMAP */
+	CIRKEL,		 /**< CIRKEL */
+	FIGUUR,		 /**< FIGUUR */
+	HERHAAL		 /**< HERHAAL */
 } Command;
 
+/**
+ * @struct CmdStruct
+ * @brief keeps all the arguments for the things
+ *
+ */
 typedef struct CmdStruct {
 	int commandNummer;
 	uint16_t argBuf[MAX_CMD_ARGS];
@@ -36,6 +46,11 @@ typedef struct CmdStruct {
 	char textStyle[30];
 } CmdStruct;
 
+/**
+ * @struct CircularBuffer
+ * @brief circ buffer struct
+ *
+ */
 typedef struct CircularBuffer {
 	CmdStruct CmdBuf[CMD_BUFF_SIZE];
 	CmdStruct *pHead;

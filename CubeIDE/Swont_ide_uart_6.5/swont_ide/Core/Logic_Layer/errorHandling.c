@@ -23,7 +23,7 @@ Error TransmitError(Error ErrorCode) {
 }
 
 /**
- * @fn ErrorHandle GetError*(Error)
+ * @fn ErrorHandle GetError(Error)
  * @brief Loops through ErrorList to find the ErrorHandle struct with the
  * requested error name
  *

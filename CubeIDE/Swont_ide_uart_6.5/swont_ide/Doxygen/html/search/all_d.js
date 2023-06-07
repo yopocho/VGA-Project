@@ -36,11 +36,7 @@ var searchData=
   ['main_2ec_33',['main.c',['../main_8c.html',1,'']]],
   ['main_2ed_34',['main.d',['../main_8d.html',1,'']]],
   ['main_2eh_35',['main.h',['../main_8h.html',1,'']]],
-<<<<<<< Updated upstream
   ['mainpage_2emd_36',['mainpage.md',['../mainpage_8md.html',1,'']]],
-=======
-  ['mainpage_2eh_36',['mainpage.h',['../mainpage_8h.html',1,'']]],
->>>>>>> Stashed changes
   ['mask_37',['MASK',['../struct_s_d_i_o___type_def.html#a9a08e405ab985c60ff9031025ab37d31',1,'SDIO_TypeDef']]],
   ['mask0_38',['MASK0',['../group___c_m_s_i_s__core___debug_functions.html#ga821eb5e71f340ec077efc064cfc567db',1,'DWT_Type']]],
   ['mask1_39',['MASK1',['../group___c_m_s_i_s__core___debug_functions.html#gaabf94936c9340e62fed836dcfb152405',1,'DWT_Type']]],

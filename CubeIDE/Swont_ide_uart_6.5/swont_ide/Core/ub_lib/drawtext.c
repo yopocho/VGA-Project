@@ -14,7 +14,7 @@
  * @brief Finds the glyph in a predifined glyph list
  *
  * @param c
- * @return
+ * @return index or -1
  */
 int8_t FindGlyph(char c) {
   uint8_t index = 0;
@@ -46,7 +46,7 @@ int8_t FindGlyph(char c) {
  * @param fontSize
  * @param fontBitmap
  * @param fontDesc
- * @return
+ * @return Error
  */
 Error DrawGlyph(int8_t index_glyph, int16_t x1, int16_t y1, uint8_t color,
                 uint8_t fontSize, const uint8_t *fontBitmap,
@@ -93,7 +93,7 @@ Error DrawGlyph(int8_t index_glyph, int16_t x1, int16_t y1, uint8_t color,
  * @param fontName
  * @param fontSize
  * @param fontStyle
- * @return
+ * @return Error
  */
 Error DrawText(uint16_t x1, uint16_t y1, uint8_t color, char *textString,
                char *fontName, uint8_t fontSize, char *fontStyle) {

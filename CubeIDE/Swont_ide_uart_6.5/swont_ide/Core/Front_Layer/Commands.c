@@ -6,18 +6,18 @@
  */
 
 #include "Commands.h"
-#include "drawshapes.h"
-#include "sdcard.h"
-#include "drawtext.h"
-#include "Parser.h"
 
+#include "Parser.h"
+#include "drawshapes.h"
+#include "drawtext.h"
 #include "errorHandling.h"
+#include "sdcard.h"
 
 CircularBuffer circBuf;
 CircularBuffer *pCircBuf;
 Error err;
 
-//Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector);
+// Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector);
 
 /**
  * @fn void CircBufInit(void)
@@ -88,12 +88,13 @@ CmdStruct *CircBufPop(void) {
 }
 
 /**
- * @fn void RecieveCommandLijn(command, input_vars)
+ * @fn Error RecieveCommandLijn(CmdStruct*, input_vars)
  * @brief when line command is recieved adds the necessary args and adds them to
  * the buffer
  *
- * @param commandArray
+ * @param CmdBuf
  * @param inputStruct
+ * @return Error
  */
 Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
@@ -115,11 +116,12 @@ Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct) {
 }
 
 /**
- * @fn void RecieveCommandClear(command, input_vars)
+ * @fn Error RecieveCommandClear(CmdStruct*, input_vars)
  * @brief
  *
- * @param commandArray
+ * @param CmdBuf
  * @param inputStruct
+ * @return Error
  */
 Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct) {
 	err = ParseOnKomma(inputStruct, 1, 0, 1, 0, 0, 0, CmdBuf);
@@ -130,11 +132,12 @@ Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct) {
 }
 
 /**
- * @fn void RecieveCommandRechthoek(command, input_vars)
+ * @fn Error RecieveCommandRechthoek(CmdStruct*, input_vars)
  * @brief
  *
- * @param commandArray
+ * @param CmdBuf
  * @param inputStruct
+ * @return Error
  */
 Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
@@ -155,6 +158,14 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 	return ERR_NONE;
 }
 
+/**
+ * @fn Error RecieveCommandTekst(CmdStruct*, input_vars)
+ * @brief
+ *
+ * @param CmdBuf
+ * @param inputStruct
+ * @return Error
+ */
 Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 7; i++) {
@@ -192,7 +203,7 @@ Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
  *
  * @param CmdBuf
  * @param inputStruct
- * @return
+ * @return Error
  */
 Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
@@ -212,7 +223,7 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
  *
  * @param CmdBuf
  * @param inputStruct
- * @return
+ * @return Error
  */
 Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
 	err = ParseOnKomma(inputStruct, 1, 1, 0, 0, 0, 0, CmdBuf);
@@ -223,11 +234,12 @@ Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
 }
 
 /**
- * @fn void RecieveCommandHerhaal(command, input_vars)
+ * @fn Error RecieveCommandHerhaal(CmdStruct*, input_vars)
  * @brief
  *
- * @param commandArray
+ * @param CmdBuf
  * @param inputStruct
+ * @return Error
  */
 Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
@@ -274,7 +286,7 @@ Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {
  *
  * @param CmdBuf
  * @param inputStruct
- * @return
+ * @return Error
  */
 Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
@@ -296,11 +308,11 @@ Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {
 }
 
 /**
- * AA@fn Error callCommand(CmdStruct*)
+ * @fn Error callCommand(CmdStruct*)
  * @brief
  *
  * @param arg_struct
- * @return
+ * @return Error
  */
 Error callCommand(CmdStruct *arg_struct) {
 	Error err;

@@ -13,9 +13,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "errorHandling.h"
 
 extern Error DrawText(uint16_t x1, uint16_t y1, uint8_t color, char *textString,
-        char *fontName, uint8_t fontSize, char *fontStyle);
+                      char *fontName, uint8_t fontSize, char *fontStyle);
 
 #endif /* UB_LIB_DRAWTEXT_H_ */
