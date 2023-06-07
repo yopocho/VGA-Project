@@ -43,6 +43,7 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 
 	// Parse incoming message on comma
 	char incommingMessage[inputStruct.msglen];
+	memset(incommingMessage, 0, sizeof(incommingMessage));
 	for (int j = 0; j <= inputStruct.msglen; j++) {
 		if (inputStruct.line_rx_buffer[j] != 0 &&
 			inputStruct.line_rx_buffer[j] != ',') {
