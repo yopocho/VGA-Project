@@ -13,12 +13,12 @@
 */
 
 /** @mainpage package templates
-*
+* \mainpage VGA project Software ontwikkeling
 * @authors Ruben Middelman, Niels van der Zijden & Sjoerd den Breejen
 *
+* @section Functional design of the project:
+*  \image html Functioneel_Schema.png
 */
-/*! Functional design of the project:
-*  \image html images/Functioneel_Schema.png
-*/
+
 
 #endif /* SRC_MAINPAGE_H_ */
