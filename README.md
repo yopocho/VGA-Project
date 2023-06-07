@@ -22,6 +22,15 @@ The IO layer consists of the VGA driver. It has all the functions to draw variou
 
 ## Use
 
+- lijn, x, y, x’, y’, kleur, dikte
+- rechthoek, x_lup, y_lup, breedte, hoogte, kleur, gevuld (1,0) [als 1: rand (1px) met kleur]
+- tekst, x, y, kleur, tekst, fontnaam (arial, consolas), fontgrootte (1,2), fontstijl (normaal, vet, cursief)
+- bitmap, nr, x-lup, y-lup  [tenminste: pijl (in 4 richtingen), smiley (boos, blij)]
+- clearscherm, kleur
+- wacht, msecs
+- herhaal, aantal (laatst uitgevoerde commando’s), hoevaak (herhalen)
+- cirkel, x, y, radius, kleur
+- figuur, x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, kleur
 Ask the authors for the user manual if you want to use the application
 
 
@@ -55,14 +64,19 @@ This project is licensed under the MIT License
 ## known bugs and errors
 - [x] command , 
         - (example: clearscherm ,) if there is a space on any other spot there is no problem but when it is a comma richt after the space it will give an unkown command error. This is because it doesnt recoginze the command with a space at the end.
-- [ ] herhaal, 
-- [ ] errors are broad and not added everywhere
-- [ ] too many arguments doesn't return an error
+- [x] herhaal, doesnt seem to work
+- [x] too many functions don't return an error
 - [x] wacht doesn't wait
-
+- [x] negative values in thickness
+- [x] too many arguments
+- [x] too little arguments is no error
+- [ ] extra arguments: (example clearscherm, wit, wit) wordt gewoon uitgevoerd
+- [ ] commands without arguments but with, get pushed to VGA
+- [x] herhaal, text gets mushed
 
 ## posible new features
 - [ ] parser filter on \n: so we can send multiple commands at the same 
+- [ ] history command that shows the named commands and arguments but doesn't run them
 - [ ] random numbers, to auto generate input
 
 
