@@ -133,7 +133,6 @@ Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct) {
 	return ERR_NONE;
 }
 
-// TODO: Integrate command tekst into parser
 Error RecieveCommandTekst(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
 	for (uint8_t i = 0; i < 7; i++) {
@@ -162,7 +161,6 @@ Error RecieveCommandBitmap(CmdStruct *CmdBuf, input_vars inputStruct) {
 	return ERR_NONE;
 }
 
-// TODO: waarschuwing wanneer wacht klaar is?
 /**
  * @fn Error RecieveCommandWacht(CmdStruct*, input_vars)
  * @brief
@@ -176,7 +174,6 @@ Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct) {
 	return ERR_NONE;
 }
 
-// TODO: Integrate command Herhaal into parser
 /**
  * @fn void RecieveCommandHerhaal(command, input_vars)
  * @brief
@@ -199,7 +196,7 @@ Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct) {
  *
  * @param CmdBuf
  * @param inputStruct
- * @return
+ * @return Error
  */
 Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct) {
 	uint8_t neededArg = 0;
@@ -226,6 +223,7 @@ Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {
 	}
 	return ERR_NONE;
 }
+
 
 Error callCommand(CmdStruct *arg_struct) {
 	Error err;

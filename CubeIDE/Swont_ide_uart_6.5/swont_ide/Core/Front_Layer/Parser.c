@@ -146,9 +146,6 @@ Error CheckWhatColor(char incommingColor[], CmdStruct *CmdBuf,
 	for (uint8_t i = 0; i < AMOUNT_OF_COLORS; i++) {
 		if (strcmp(incommingColor, possibleColors[i]) == 0) {
 			CmdBuf->argBuf[argPlace] = colorCodes[i];
-#ifdef FRONT_LAYER_DEBUG
-			OutputDebug(debugMessageColor, sizeof(debugMessageColor), &huart2);
-#endif
 			return ERR_NONE;
 		}
 	}
