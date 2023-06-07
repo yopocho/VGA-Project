@@ -10,8 +10,6 @@
 
 #include "main.h"
 
-#define DEBUG //Define to enable useful printf's within the API
-
 /**
  * @enum Error
  * @brief Enum for all API error codes
