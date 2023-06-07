@@ -152,7 +152,9 @@ Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector) {
       readBuf[strlen((const char*)readBuf) - 1] = '\0';
       uint8_t pixelColor = (uint8_t)strtol((const char*)readBuf, NULL, 0);
       memset(readBuf, 0, sizeof(readBuf));
-      VGA_RAM1[(y * (VGA_DISPLAY_X + 1)) + x] = pixelColor;
+      if(pixelColor != 0x00) {
+          VGA_RAM1[(y * (VGA_DISPLAY_X + 1)) + x] = pixelColor;
+      }
       ++pixelOverflow;
     }
     // If x is off-screen, offset read/write pointer with remaining pixels on
