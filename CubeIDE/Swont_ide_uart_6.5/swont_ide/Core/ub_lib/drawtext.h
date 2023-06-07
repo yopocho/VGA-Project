@@ -11,7 +11,7 @@
 #define STANDARD_FONT_SIZE 16
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 #endif /* UB_LIB_DRAWTEXT_H_ */

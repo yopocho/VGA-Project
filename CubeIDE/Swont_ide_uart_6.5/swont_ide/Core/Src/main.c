@@ -76,6 +76,7 @@ void SystemClock_Config(void);
 
 /* USER CODE END 0 */
 
+
 /**
  * @brief  The application entry point.
  * @retval int
@@ -146,6 +147,7 @@ int main(void) {
 	while (1) {
 		while(input.command_execute_flag == TRUE) {
 			err = ParseOnKomma(input, 0, 0, 0, 0, 0, 0, &arg_struct);
+			(void*)memset(&input, 0, sizeof(arg_struct));
 			if(err != ERR_NONE) {
 				(void*)memset(&arg_struct, 0, sizeof(arg_struct));
 				input.command_execute_flag = FALSE;

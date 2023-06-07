@@ -37,7 +37,7 @@ typedef struct CmdStruct {
 	char textStyle[30];
 } CmdStruct;
 
-typedef struct CircularBuffer{
+typedef struct CircularBuffer {
 	CmdStruct CmdBuf[CMD_BUFF_SIZE];
 	CmdStruct *pHead;
 	CmdStruct *pRepeat;
@@ -59,6 +59,6 @@ Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct);
 Error callCommand(CmdStruct *arg_struct);
 void CircBufInit(void);
 Error CircBufPush(CmdStruct *CmdBuf);
-CmdStruct* CircBufPop(void);
+CmdStruct *CircBufPop(void);
 
 #endif /* FRONT_LAYER_COMMANDS_H_ */

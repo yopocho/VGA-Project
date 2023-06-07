@@ -8,6 +8,4 @@
 #ifndef LOGIC_LAYER_LOGIC_DEBUG_H_
 #define LOGIC_LAYER_LOGIC_DEBUG_H_
 
-
-
 #endif /* LOGIC_LAYER_LOGIC_DEBUG_H_ */
