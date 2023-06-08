@@ -31,6 +31,7 @@ The IO layer consists of the VGA driver. It has all the functions to draw variou
 - herhaal, aantal (laatst uitgevoerde commando�s), hoevaak (herhalen)
 - cirkel, x, y, radius, kleur
 - figuur, x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, kleur
+- help,
 Ask the authors for the user manual if you want to use the application
 
 
@@ -60,6 +61,7 @@ This project is licensed under the MIT License
 - cirkel,
 - figuur,
 - herhaal,
+- help,
 
 ## known bugs and errors
 - [x] command , 
