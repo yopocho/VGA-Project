@@ -86,8 +86,14 @@ Error ParseOnKomma(input_vars inputStruct, uint8_t neededArgument,
 						return err;
 					}
 				}
-				if (convertToNumber)
+				if (convertToNumber) {
 					CmdBuf->argBuf[neededArgument] = atoi(incommingMessage);
+					if (commaCounter != 6) {
+						if (atoi(incommingMessage) <= 0) {
+							return ERR_INVALID_ARG;
+						}
+					}
+				}
 				if (getText) strcpy(CmdBuf->textSentence, incommingMessage);
 				if (getStyle) {
 					if (strcmp(incommingMessage, "normaal") != 0 &&

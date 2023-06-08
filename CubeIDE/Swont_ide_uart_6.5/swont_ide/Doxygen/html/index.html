@@ -82,10 +82,10 @@ Front Layer</h2>
 <p>The Front Layer is the point of contact between the program and the user. This is where the most errors can occure. The first point of entry is an interupt that takes care of the UART. The recieved messaged is put into an input struct with the command length. When a message is recieved the message is put into the parser to check what command it is. If a command is found the rest of the arguments wil be looked for and added to a new command struct. This command struct is filled with the command number, command arguments, text, font &amp; font style. this struct can be passed on to all the different layers.</p>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Logic Layer</h2>
-<p>Suspendisse commodo consectetur nulla, sit amet eleifend odio mattis sed. Phasellus pretium euismod nibh at feugiat. In vehicula venenatis dolor. Pellentesque et rutrum sem. Vivamus dictum finibus est, nec dictum ligula fringilla vitae. Duis nec risus et dolor egestas sodales et quis orci. Aliquam vel ullamcorper ipsum.</p>
+<p>The logic layer connects the front layer and the IO layer. It consist of a circulair buffer with all commands. When the buffer is read the logic layer will call the functions of the IO layer. This part also contains the errorhandling code. This will catch any errors and will print them via the front layer to the UART. The SD-card is initialized and read in this layer.</p>
 <h2><a class="anchor" id="autotoc_md3"></a>
 IO Layer</h2>
-<p>Nullam ac nulla sit amet metus condimentum lobortis non sit amet neque. Nam euismod metus dolor, in lacinia diam congue ut. Morbi blandit imperdiet eros, eu vehicula purus vestibulum in. In a dolor dolor. Cras quis hendrerit elit. Vivamus nec gravida purus. Duis dapibus mollis risus non feugiat. Donec porta arcu non est interdum egestas. Ut ullamcorper libero convallis, ullamcorper lorem a, volutpat ex. Proin tincidunt nec ante eget sodales. Nunc sed accumsan lacus.</p>
+<p>The IO layer consists of the VGA driver. It has all the functions to draw various shapes on the vga screen. It can also write text in two different fonts(arial and consolas). The bitmaps from the SD card is also drawn on screen here.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Use</h1>
 <ul>
@@ -97,7 +97,7 @@ Use</h1>
 <li>wacht, msecs</li>
 <li>herhaal, aantal (laatst uitgevoerde commando’s), hoevaak (herhalen)</li>
 <li>cirkel, x, y, radius, kleur</li>
-<li>figuur, x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, kleur</li>
+<li>figuur, x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, kleur Ask the authors for the user manual if you want to use the application</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md5"></a>
 Built With</h1>
@@ -143,17 +143,16 @@ known bugs and errors</h1>
 <li>[x] too many arguments</li>
 <li>[x] too little arguments is no error</li>
 <li>[ ] extra arguments: (example clearscherm, wit, wit) wordt gewoon uitgevoerd</li>
-<li>[ ] commands without arguments but with, get pushed to VGA</li>
-<li>[ ] herhaal, text gets mushed</li>
-<li>[ ]</li>
+<li>[x] commands without arguments but with, get pushed to VGA</li>
+<li>[x] herhaal, text gets mushed</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md10"></a>
 posible new features</h1>
 <ul>
 <li>[ ] parser filter on <br  />
 : so we can send multiple commands at the same</li>
-<li>[ ] random numbers: to auto generate input</li>
-<li>[ ] history command that shows the named commands and arguments but doesn't run them </li>
+<li>[ ] history command that shows the named commands and arguments but doesn't run them</li>
+<li>[ ] random numbers, to auto generate input </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
