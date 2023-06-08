@@ -30,7 +30,8 @@ typedef enum {
 	BITMAP,		 /**< BITMAP */
 	CIRKEL,		 /**< CIRKEL */
 	FIGUUR,		 /**< FIGUUR */
-	HERHAAL		 /**< HERHAAL */
+	HERHAAL,		 /**< HERHAAL */
+	HELP
 } Command;
 
 /**
@@ -61,6 +62,8 @@ typedef struct CircularBuffer {
 extern CircularBuffer circBuf;
 extern CircularBuffer *pCircBuf;
 
+extern const char* helpMessage;
+
 extern Error RecieveCommandLijn(CmdStruct *CmdBuf, input_vars inputStruct);
 extern Error RecieveCommandClear(CmdStruct *CmdBuf, input_vars inputStruct);
 extern Error RecieveCommandRechthoek(CmdStruct *CmdBuf, input_vars inputStruct);
@@ -70,6 +73,7 @@ extern Error RecieveCommandWacht(CmdStruct *CmdBuf, input_vars inputStruct);
 extern Error RecieveCommandHerhaal(CmdStruct *CmdBuf, input_vars inputStruct);
 extern Error RecieveCommandFiguur(CmdStruct *CmdBuf, input_vars inputStruct);
 extern Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct);
+extern Error RecieveCommandHelp(CmdStruct *CmdBuf, input_vars inputStruct);
 extern Error callCommand(CmdStruct *arg_struct);
 void CircBufInit(void);
 Error CircBufPush(CmdStruct *CmdBuf);

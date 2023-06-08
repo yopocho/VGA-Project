@@ -13,7 +13,7 @@
 #include "main.h"
 #include "usart.h"
 
-#define AMOUNT_OF_COMMANDS 9
+#define AMOUNT_OF_COMMANDS 10
 #define AMOUNT_OF_COLORS 16
 
 extern const char *possibleCommands[];

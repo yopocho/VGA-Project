@@ -17,6 +17,17 @@ CircularBuffer circBuf;
 CircularBuffer *pCircBuf;
 Error err;
 
+const char *helpMessage =
+	" - lijn, x, y, x', y', kleur, dikte\r\n - rechthoek, x_lup, y_lup, breedte, "
+	"hoogte, kleur, gevuld (1,0) [als 1: rand (1px) met kleur]\r\n - tekst, x, y, "
+	"kleur, tekst, fontnaam (arial, consolas), fontgrootte (1,2), fontstijl "
+	"(normaal, vet, cursief)\r\n - bitmap, nr, x-lup, y-lup  [tenminste: pijl (in 4 "
+	"richtingen), smiley (boos, blij)]\r\n - clearscherm, kleur\r\n - wacht, msecs\r\n - herhaal, "
+	"aantal (laatst uitgevoerde commandos), hoevaak (herhalen) \r\n - cirkel, x, "
+	"y, radius, kleur\r\n - figuur, x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, kleur\r\n Ask the "
+	"authors for the user manual if you want to use the application\r\n"
+		"X max = 320, Y max = 240 \r\n";
+
 // Error DrawBitmapFromSDCard(uint16_t xp, uint16_t yp, bitmapKey selector);
 
 /**
@@ -309,6 +320,18 @@ Error RecieveCommandCirkel(CmdStruct *CmdBuf, input_vars inputStruct) {
 }
 
 /**
+ * @fn Error RecieveCommandHelp(CmdStruct*, input_vars)
+ * @brief help function
+ *
+ * @param CmdBuf
+ * @param inputStruct
+ * @return returns no error
+ */
+Error RecieveCommandHelp(CmdStruct *CmdBuf, input_vars inputStruct) {
+	return ERR_NONE;
+}
+
+/**
  * @fn Error callCommand(CmdStruct*)
  * @brief
  *
@@ -360,6 +383,11 @@ Error callCommand(CmdStruct *arg_struct) {
 		case HERHAAL:
 			err = RepeatCommands(arg_struct->argBuf[1], arg_struct->argBuf[2]);
 			break;
+		case HELP:
+			printf("%s", helpMessage);
+			err = ERR_NONE;
+			break;
+
 		default:
 			return ERR_UNKNOWN_ERR;
 	}

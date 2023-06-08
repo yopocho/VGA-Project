@@ -52,6 +52,7 @@ var searchData=
   ['hal_5fuart_5fstate_5freset_49',['HAL_UART_STATE_RESET',['../group___u_a_r_t___exported___types.html#ggaf55d844a35379c204c90be5d1e8e50baa9c7d889fce61ccc717228d099a61d113',1,'stm32f4xx_hal_uart.h']]],
   ['hal_5fuart_5fstate_5ftimeout_50',['HAL_UART_STATE_TIMEOUT',['../group___u_a_r_t___exported___types.html#ggaf55d844a35379c204c90be5d1e8e50baa90891eeb767df19780e620a15bec807d',1,'stm32f4xx_hal_uart.h']]],
   ['hal_5funlocked_51',['HAL_UNLOCKED',['../stm32f4xx__hal__def_8h.html#ab367482e943333a1299294eadaad284ba9bd487430440139444e6e7ff226005c0',1,'stm32f4xx_hal_def.h']]],
-  ['herhaal_52',['HERHAAL',['../_commands_8h.html#a2afce0a47a93eee73a314d53e4890153adcb4291e83a06662c7b47ec92b2c977d',1,'Commands.h']]],
-  ['high_53',['HIGH',['../error_handling_8h.html#af499e45fe1f4c813befc79c1fbd1e87fa0c3a1dacf94061154b3ee354359c5893',1,'errorHandling.h']]]
+  ['help_52',['HELP',['../_commands_8h.html#a2afce0a47a93eee73a314d53e4890153a9f5cb747b2e1f0ea781d2b1f2a5b4824',1,'Commands.h']]],
+  ['herhaal_53',['HERHAAL',['../_commands_8h.html#a2afce0a47a93eee73a314d53e4890153adcb4291e83a06662c7b47ec92b2c977d',1,'Commands.h']]],
+  ['high_54',['HIGH',['../error_handling_8h.html#af499e45fe1f4c813befc79c1fbd1e87fa0c3a1dacf94061154b3ee354359c5893',1,'errorHandling.h']]]
 ];

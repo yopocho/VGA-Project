@@ -85,7 +85,6 @@ void SystemClock_Config(void);
  */
 int main(void) {
   /* USER CODE BEGIN 1 */
-
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -123,6 +122,7 @@ int main(void) {
   if(err != ERR_NONE) {
 	  TransmitError(err);
   }
+  printf("type help, to see all commands \r\n ");
 
   UB_VGA_FillScreen(VGA_COL_BLACK);
 
