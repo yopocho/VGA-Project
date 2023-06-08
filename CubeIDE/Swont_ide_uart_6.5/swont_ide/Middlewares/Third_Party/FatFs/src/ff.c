@@ -4376,6 +4376,7 @@ FRESULT f_stat (
 	}
 
 	LEAVE_FF(dj.obj.fs, res);
+	return res;
 }
 
 
