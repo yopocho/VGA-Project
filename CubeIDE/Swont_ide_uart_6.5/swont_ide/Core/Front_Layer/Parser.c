@@ -9,7 +9,7 @@
 
 const char *possibleCommands[] = {"lijn",	"clearscherm", "rechthoek",
 								  "wacht",	"tekst",	   "bitmap",
-								  "cirkel", "figuur",	   "herhaal"};
+								  "cirkel", "figuur",	   "herhaal, help"};
 
 const char *possibleColors[] = {
 	"zwart",	  "blauw", "lichtblauw", "groen",	"lichtgroen",	 "cyaan",
