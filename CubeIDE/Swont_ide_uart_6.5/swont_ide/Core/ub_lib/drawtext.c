@@ -56,8 +56,8 @@ Error DrawGlyph(int8_t index_glyph, int16_t x1, int16_t y1, uint8_t color,
   uint8_t width_px = fontDesc[index_glyph].width_px;
   short byte_index = fontDesc[index_glyph].offset;
 
-  // draw STANDARD_FONT_SIZE * width pixels (font_size: 0 = 16px height)
-  // or (STANDARD_FONT_SIZE*2) * (width*2) pixels (font_size: 1 = 32px height)
+  // draw STANDARD_FONT_SIZE * width pixels (font_size: 1 = 16px height)
+  // or (STANDARD_FONT_SIZE*2) * (width*2) pixels (font_size: 2 = 32px height)
   for (int16_t ypos = 0; ypos < (STANDARD_FONT_SIZE * fontSize); ypos++) {
     for (int16_t xpos = 0; xpos < (width_px * fontSize); xpos++) {
       if (xpos & (7 + 8 * (fontSize - 1))) {

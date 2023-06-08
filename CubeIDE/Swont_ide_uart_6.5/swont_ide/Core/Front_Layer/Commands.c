@@ -48,8 +48,9 @@ Error CircBufPush(CmdStruct *CmdBuf) {
 	pCircBuf->pHead->commandNummer = CmdBuf->commandNummer;
 	memcpy(pCircBuf->pHead->argBuf, CmdBuf->argBuf,
 		   sizeof(CmdBuf->argBuf[0]) * MAX_CMD_ARGS);
-	memcpy(pCircBuf->pHead->textSentence, CmdBuf->textSentence,
-		   sizeof(CmdBuf->textSentence[0]) * MAX_CMD_CHARS);
+	strcpy(pCircBuf->pHead->textSentence, CmdBuf->textSentence);
+	strcpy(pCircBuf->pHead->textFont, CmdBuf->textFont);
+	strcpy(pCircBuf->pHead->textStyle, CmdBuf->textStyle);
 #ifdef DEBUG
 	printf("Pushed %d\n\r", CmdBuf->commandNummer);
 	printf("Pushed %d\n\r", pCircBuf->pHead->commandNummer);

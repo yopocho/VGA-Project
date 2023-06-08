@@ -256,6 +256,7 @@ void USART2_IRQHandler(void)
 	//Ignore the '\n' character
 	if(uart_char != LINE_FEED)
 	{
+		++input.msglen;
 		//Check for CR or a dot
 		// There was a small bug in the terminal program.
 		// By terminating your message with a dot you can ignore the CR (Enter) character
@@ -275,7 +276,6 @@ void USART2_IRQHandler(void)
 			input.char_counter++;
 		}
 	}
-
   /* USER CODE END USART2_IRQn 0 */
   HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */
