@@ -9,7 +9,7 @@
 
 const char *possibleCommands[] = {"lijn",	"clearscherm", "rechthoek",
 								  "wacht",	"tekst",	   "bitmap",
-								  "cirkel", "figuur",	   "herhaal, help"};
+								  "cirkel", "figuur",	   "herhaal", "help"};
 
 const char *possibleColors[] = {
 	"zwart",	  "blauw", "lichtblauw", "groen",	"lichtgroen",	 "cyaan",
@@ -254,6 +254,9 @@ Error DoOnCommand(CmdStruct *CmdBuf, input_vars inputStruct) {
 		case 8:
 			// herhaal
 			err = RecieveCommandHerhaal(CmdBuf, inputStruct);
+			break;
+		case 9:
+			err = RecieveCommandHelp(CmdBuf, inputStruct);
 			break;
 		default:
 			return ERR_INVALID_CMD;
